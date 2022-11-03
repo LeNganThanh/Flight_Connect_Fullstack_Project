@@ -1,7 +1,7 @@
 import React from "react";
 
 
-const Deals = () => {
+const Home = () => {
     return(
         <div>
             <p>Hi</p>
@@ -9,4 +9,4 @@ const Deals = () => {
     )
 }
 
-export default Deals;
+export default Home;
