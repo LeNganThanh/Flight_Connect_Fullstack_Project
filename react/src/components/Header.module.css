@@ -7,12 +7,16 @@
   text-align: center;
   vertical-align: center;
   margin: auto;
-  /* width: 50%; */
+   width: 100%; 
   background-color: #ece5c7;
 }
 .headerText {
   width: 50%;
   
+}
+.container{
+  display: flex;
+  flex-direction: column;
 }
 
 .logo {

@@ -3,7 +3,8 @@ import logo from '../img/logo-5.png';
 import Nav from './NavHeader'
 const Header = () => {
   return (
-    <div className={classes.main}>
+    <div className={classes.container}>
+      <div className={classes.main}>
       <div className={classes.headerText}>
         <span>
           <img className={classes['logo-img']} src={logo} alt="logo" />
@@ -13,6 +14,7 @@ const Header = () => {
       <div className={classes.headerText}>
         <button>Register</button> {/* Need functions */}
         <button>Login</button>
+      </div>
       </div>
        <Nav/> 
     </div>
