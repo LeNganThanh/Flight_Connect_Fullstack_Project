@@ -1,0 +1,20 @@
+.form{
+  display: flex;
+  font-size: 1rem;
+  font-family: inherit;
+  cursor: pointer;
+  
+}
+
+.form div{
+    display: flex;
+    flex-direction: column;
+    padding:1rem;
+    
+}
+
+.form div input{
+    font-size: 1.3rem;
+    padding: 0.5rem;
+    border-radius: 5px;
+}
