@@ -10,7 +10,7 @@ const FlightsForm = () => {
       <div className={classes.main}>
         <div className={classes.radio}>
           <div>
-            <input type="radio" value="roundtrip" name="roundtrip" /> roundtrip 
+            <input type="radio" value="roundtrip" name="roundtrip" /> Roundtrip 
           </div>
           <div>
            <input type="radio" value="one way" name="one way" /> One way
