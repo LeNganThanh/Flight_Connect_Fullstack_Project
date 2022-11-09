@@ -3,12 +3,13 @@ import {  NavLink, Outlet } from 'react-router-dom';
  import classes from './Nav.module.css'; 
 
 const Nav = () => {
+
   return (
     <div className={classes.nav}>
       <nav>
-        <NavLink to='flights'>Flights</NavLink>
-        <NavLink to='about'>About</NavLink>
-        <NavLink to='deals'>Deals</NavLink>
+       
+        <NavLink className={({ isActive }) => (isActive ? `${classes.active}` : `${classes.anchor}` )}   to='/'>Deals</NavLink>
+        <NavLink className={({ isActive }) => (isActive ? `${classes.active}` : `${classes.anchor}` )} to='about'>About</NavLink>
       </nav>
     
       <Outlet/>

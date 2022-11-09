@@ -2,7 +2,8 @@ import React from 'react';
 import Header from './components/Header';
 import Flights from './routes/flights/Flights.js';
 import About from './routes/about/about.js';
-import Deals from './routes/deals/deals.js';
+import Deals from './routes/deals/Deals.js';
+import Nav from './components/NavHeader';
 import { Route, Routes } from 'react-router-dom';
 
 function App() {
@@ -10,10 +11,11 @@ function App() {
     <div className="App">
       <div>
         <Header />
+        <Flights />
+        <Nav />
         <Routes>
-          <Route path="flights" element={<Flights />} />
+          <Route path="/" element={<Deals />} />
           <Route path="about" element={<About />} />
-          <Route path="deals" element={<Deals />} />
         </Routes>
       </div>
     </div>

@@ -2,8 +2,28 @@
 
 nav{
     display: flex;
-    justify-content: center;
+    justify-content: left;
+    margin-left: 2rem;
+    
    
     
 }
 
+ .anchor, .active{
+    text-decoration: none;
+    padding: 0.7rem;
+    margin: 0rem 0.2rem;
+    background-color: #354259;
+    color: white;
+    border-radius: 0px 0px 5px 5px;
+}
+
+.anchor:hover, .anchor:active{
+    background-color: #ece5c7;
+    color: #354259;
+}
+ 
+.active{
+    background-color: #ece5c7;
+    color:#354259;
+}

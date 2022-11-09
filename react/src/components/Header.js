@@ -1,6 +1,6 @@
 import classes from './Header.module.css';
 import logo from '../media/logo-5.png';
-import Nav from './NavHeader'
+
 const Header = () => {
   return (
     <div className={classes.container}>
@@ -16,7 +16,7 @@ const Header = () => {
         <button>Login</button>
       </div>
       </div>
-       <Nav/> 
+      
     </div>
   );
 };

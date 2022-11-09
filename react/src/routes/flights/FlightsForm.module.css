@@ -1,56 +1,52 @@
-.main{
+.main {
   background-color: #35425963;
   border-radius: 5px;
 
   margin-top: 2rem;
 }
 
-.form{
+.form {
   display: flex;
   font-size: 1rem;
   font-family: inherit;
   cursor: pointer;
-  
- 
 }
-.radio, .checkBox {
+.radio,
+.checkBox {
   display: flex;
   flex-direction: row;
   font-size: 1rem;
- 
 }
 
-
-.checkBox div{
+.checkBox div {
   padding: 0 0 2rem 1rem;
 }
-.radio div{
+.radio div {
   padding: 2rem 0 0 1rem;
 }
 
-.form div{
-    display: flex;
-    flex-direction: column;
-    padding:1rem;
-    
+.form div {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
 }
 
-.form div input{
-    font-size: 1.3rem;
-    padding: 0.5rem;
-    border-radius: 5px;
-    background-color:rgba(255, 255, 255, 0.224);
-    color: white;
-    border:none
+.form div input {
+  font-size: 1.3rem;
+  padding: 0.5rem;
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.224);
+  color: white;
+  border: none;
 }
 
-form input::placeholder{
-  color: white
+form input::placeholder {
+  color: white;
 }
 
-.submitButton{
-  margin-top:2rem;
+.submitButton {
+  margin-top: 2rem;
   font-size: 2rem;
-  padding:1rem 1.5rem ;
-  background-color:#35425963;
+  padding: 1rem 1.5rem;
+  background-color: #35425963;
 }
