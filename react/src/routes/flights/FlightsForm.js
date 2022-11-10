@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import classes from './FlightsForm.module.css';
 
 const FlightsForm = () => {
+  
   const submitHandler = () => {
     console.log('hi');
   };
@@ -10,10 +11,10 @@ const FlightsForm = () => {
       <div className={classes.main}>
         <div className={classes.radio}>
           <div>
-            <input type="radio" value="roundtrip" name="roundtrip" /> Roundtrip 
+            <input type="radio" value="roundtrip" name="trip" /> Roundtrip
           </div>
           <div>
-           <input type="radio" value="one way" name="one way" /> One way
+            <input type="radio" value="one way" name="trip" /> One way
           </div>
         </div>
         <form className={classes.form} onSubmit={submitHandler}>
@@ -42,12 +43,12 @@ const FlightsForm = () => {
         </form>
         <div className={classes.checkBox}>
           <div>
-            
-            <input type="checkbox" value="add" name="add" /> Add near by Airports
+            <input type="checkbox" value="add" name="add" /> Add near by
+            Airports
           </div>
           <div>
-         
-            <input type="checkbox" value="add" name="add" /> Non- stop flights only
+            <input type="checkbox" value="add" name="add" /> Non- stop flights
+            only
           </div>
         </div>
       </div>
