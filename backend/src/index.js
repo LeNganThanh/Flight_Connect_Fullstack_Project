@@ -8,11 +8,11 @@ import * as url from 'url';
 const __filename = url.fileURLToPath(import.meta.url);
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
-console.log(__dirname)
 
 // ===> Setting the server 
 const app = express()
 const PORT = 1338
+
 app.use(morgan('dev'));
 
 app.use(cors({
