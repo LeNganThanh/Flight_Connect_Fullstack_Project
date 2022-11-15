@@ -1,40 +1,52 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { Fragment, useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
+import {debounce} from 'lodash'
+ import { getAmadeusData } from '../../api/amadeus.api'; 
 import classes from './FlightsForm.module.css';
+import { isRouteErrorResponse } from 'react-router';
 
-const FlightsForm = () => {
-  const [departure, setDeparture] = useState('');
-  const [destination, setDestination] = useState('');
-  const key = process.env.REACT_APP_KEY;
-  const password =
-    process.env.REACT_APP_PASSWORD /
-    useEffect(() => {
-      async function makeRequest() {
-        const config = {
-          method: 'GET',
-          url: 'https://test.api.amadeus.com/v1/shopping/flight-destinations?origin=PAR&maxPrice=200',
+const FlightsForm = (props) => {
+ /*  const [departure, setDeparture] = useState('');
+  const [destination, setDestination] = useState(''); */
+  const [search, setSearch] = useState('');
+  const [options, setOptions] = useState([]);
+  const [open, setOpen] = false;
+  const [keyword, setKeyword] = useState('')
+  const [loading, setLoading] = useState(false);
+  
+const names = options.map(i =>({type: i.sebType, name: i.name}));
 
-          headers: {
-            type: 'amadeusOAuth2Token',
-            username: 'kattanb65@gmail.com',
-            application_name: 'Flight connect',
-            client_id: '042NS4mjYJwXt2TINasYiZ9XXmnFUYgy',
-            token_type: 'Bearer',
-            access_token: 'W6bj3GTTfei46OFIxXVkPDOGg3ZZ',
-            expires_in: 1799,
-            state: 'approved',
-            scope: '',
-          },
-        };
+const debounceLocalData = useCallback(debounce(setKeyword, 1000),[]);
 
-        let res = await axios(config);
+useEffect(() =>{
+  debounceLocalData(search);
+  console.log(options);
+}, [search]);
 
-        console.log(res.status);
+   useEffect(() =>{
+    setLoading(true)
+    const {out, source} = getAmadeusData({...props.search, page:0, keyword })
+
+    out.then(res =>{
+      if(!res.data.code){
+        setOptions(res.data.data)
       }
-
-      makeRequest();
+      setLoading(false);
+    }).catch(err =>{
+      axios.Cancel(err);
+      setOptions([]);
+      setLoading(false);
     });
+    return ()=>{
+      source.cancel()
+    }
+   }, [keyword]);
 
+   const [city, airport] = props.search;
+
+   const lable = city && airport ? "City and Airports" : city ? "City" : airport ? "Airports" : ""
+
+ 
   const submitHandler = () => {
     console.log('hi');
   };
@@ -55,7 +67,7 @@ const FlightsForm = () => {
             <input type="text" placeholder="City" />
           </div>
           <div>
-            {' '}
+            
             <label>To: </label>
             <input type="text" placeholder="City" />
           </div>
@@ -68,7 +80,7 @@ const FlightsForm = () => {
             <input type="date" placeholder="Return" />
           </div>
           <div>
-            {' '}
+      
             <label>Passengers: </label>
             <input type="number" placeholder="Passengers" />
           </div>
