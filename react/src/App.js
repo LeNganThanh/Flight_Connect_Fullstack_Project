@@ -1,8 +1,8 @@
 import React from 'react';
 import Header from './components/Header';
-import Flights from './routes/flights/Flights.js';
 import About from './routes/about/about.js';
 import Deals from './routes/deals/Deals.js';
+import SearchRoot from './routes/flights/searchRoot';
 import Nav from './components/NavHeader';
 import { Route, Routes } from 'react-router-dom';
 
@@ -11,7 +11,8 @@ function App() {
     <div className="App">
       <div>
         <Header />
-        <Flights />
+        <SearchRoot/>
+       
         <Nav />
         <Routes>
           <Route path="/" element={<Deals />} />

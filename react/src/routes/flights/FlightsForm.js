@@ -3,18 +3,18 @@ import axios from 'axios';
 import {debounce} from 'lodash'
  import { getAmadeusData } from '../../api/amadeus.api'; 
 import classes from './FlightsForm.module.css';
-import { isRouteErrorResponse } from 'react-router';
+
 
 const FlightsForm = (props) => {
  /*  const [departure, setDeparture] = useState('');
   const [destination, setDestination] = useState(''); */
   const [search, setSearch] = useState('');
   const [options, setOptions] = useState([]);
-  const [open, setOpen] = false;
+  //const [open, setOpen] = false;
   const [keyword, setKeyword] = useState('')
   const [loading, setLoading] = useState(false);
   
-const names = options.map(i =>({type: i.sebType, name: i.name}));
+const names = options.map(i =>({type: i.subType, name: i.name}));
 
 const debounceLocalData = useCallback(debounce(setKeyword, 1000),[]);
 
@@ -42,9 +42,9 @@ useEffect(() =>{
     }
    }, [keyword]);
 
-   const [city, airport] = props.search;
+   const {city, airport} = props.search;
 
-   const lable = city && airport ? "City and Airports" : city ? "City" : airport ? "Airports" : ""
+   const label = city && airport ? "City and Airports" : city ? "City" : airport ? "Airports" : ""
 
  
   const submitHandler = () => {
