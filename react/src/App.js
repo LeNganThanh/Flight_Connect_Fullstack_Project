@@ -1,6 +1,6 @@
 import React from 'react';
 import Header from './components/Header';
-import About from './routes/about/about.js';
+import About from './routes/about/About.js';
 import Deals from './routes/deals/Deals.js';
 import SearchRoot from './routes/flights/searchRoot';
 import Nav from './components/NavHeader';
