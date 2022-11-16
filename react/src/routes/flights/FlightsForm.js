@@ -2,7 +2,9 @@ import React, { Fragment, useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import {debounce} from 'lodash'
 import { getAmadeusData } from '../../api/amadeus.api'; 
+import DropDown from './DropDown.js'
 import classes from './FlightsForm.module.css';
+
 
 
 const FlightsForm = (props) => {
@@ -10,7 +12,8 @@ const FlightsForm = (props) => {
   const [destination, setDestination] = useState(''); */
   const [search, setSearch] = useState('');
   const [options, setOptions] = useState([]);
-  //const [open, setOpen] = false;
+  const [open1, setOpen1] = useState(false);
+  const [open2, setOpen2] = useState(false);
   const [keyword, setKeyword] = useState('')
   const [loading, setLoading] = useState(false);
   
@@ -53,8 +56,19 @@ useEffect(() =>{
 
   const inputHandler = (e, value) => {
     e.preventDefault();
-    setSearch(e.target.value);
-    //props.setSearch((p) => ({...p, keyword: 'F', page: 0}))
+    console.log(e)
+    if (e.target.id === 'from' && e.target.value.length !== 0) {
+      setSearch(e.target.value);
+      props.setSearch((p) => ({...p, keyword: `${e.target.value}`, page: 0}))
+      setOpen1(true)
+    } else if (e.target.id === 'to' && e.target.value.length !== 0){
+      setSearch(e.target.value);
+      props.setSearch((p) => ({...p, keyword: `${e.target.value}`, page: 0}))
+      setOpen2(true)
+    } else {
+      setOpen1(false)
+      setOpen2(false)
+    }
   }
 
  
@@ -75,12 +89,13 @@ useEffect(() =>{
         <form className={classes.form} onSubmit={submitHandler}>
           <div>
             <label>From: </label>
-            <input onChange={inputHandler} type="text" placeholder="City" />
+            <input id='from' onChange={inputHandler} type="text" placeholder="City" />
+            { open1 ? <DropDown dataSource={props.dataSource} /> : null}
           </div>
           <div>
-            
             <label>To: </label>
-            <input onChange={inputHandler} type="text" placeholder="City" />
+            <input id='to' onChange={inputHandler} type="text" placeholder="City" />
+            { open2 ? <DropDown dataSource={props.dataSource} /> : null}
           </div>
           <div>
             <label>Departure: </label>

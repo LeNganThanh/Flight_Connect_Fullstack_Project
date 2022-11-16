@@ -8,7 +8,7 @@ const Flights = (props) => {
       <div className={classes.main}>
         <header className={classes['header-txt']}>
           <h1>The best flight deals to everywhere, from anywhere</h1>
-          <FlightsForm search={props.search} setSearch={props.setSearch}  />
+          <FlightsForm search={props.search} setSearch={props.setSearch} dataSource={props.dataSource}  />
         </header>
         
         <div className={classes['main-display']}>
