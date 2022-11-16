@@ -29,6 +29,8 @@ useEffect(() =>{
 
     out.then(res =>{
       if(!res.data.code){
+        console.log("hi")
+        console.log(res.data)
         console.log(res.data.data)
         setOptions(res.data.data)
       }
@@ -46,14 +48,15 @@ useEffect(() =>{
 
 // testing the api
 
-    useEffect(() => {
-      props.setSearch((p) => ({...p, keyword: 'F', page: 0}))
-      setSearch('F')
-    }, [])
-
    const {city, airport} = props.search;
 
    const label = city && airport ? "City and Airports" : city ? "City" : airport ? "Airports" : ""
+
+  const inputHandler = (e, value) => {
+    e.preventDefault();
+    setSearch(e.target.value);
+    //props.setSearch((p) => ({...p, keyword: 'F', page: 0}))
+  }
 
  
   const submitHandler = () => {
@@ -74,12 +77,12 @@ useEffect(() =>{
         <form className={classes.form} onSubmit={submitHandler}>
           <div>
             <label>From: </label>
-            <input type="text" placeholder="City" />
+            <input onChange={inputHandler} type="text" placeholder="City" />
           </div>
           <div>
             
             <label>To: </label>
-            <input type="text" placeholder="City" />
+            <input onChange={inputHandler} type="text" placeholder="City" />
           </div>
           <div>
             <label>Departure: </label>
