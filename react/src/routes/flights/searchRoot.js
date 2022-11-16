@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-
+import axios from 'axios';
 import Flights from './Flights';
 import { getAmadeusData } from '../../api/amadeus.api';
-import axios from 'axios';
 
 const SearchRoot = () => {
   const [search, setSearch] = useState({

@@ -1,7 +1,7 @@
 import React, { Fragment, useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import {debounce} from 'lodash'
- import { getAmadeusData } from '../../api/amadeus.api'; 
+import { getAmadeusData } from '../../api/amadeus.api'; 
 import classes from './FlightsForm.module.css';
 
 
@@ -20,7 +20,6 @@ const debounceLocalData = useCallback(debounce(setKeyword, 1000),[]);
 
 useEffect(() =>{
   debounceLocalData(search);
-  console.log(options);
 }, [search]);
 
    useEffect(() =>{
@@ -29,6 +28,7 @@ useEffect(() =>{
 
     out.then(res =>{
       if(!res.data.code){
+        console.log(res.data.data)
         setOptions(res.data.data)
       }
       setLoading(false);
@@ -41,6 +41,14 @@ useEffect(() =>{
       source.cancel()
     }
    }, [keyword]);
+
+
+// testing the api
+
+    useEffect(() => {
+      props.setSearch((p) => ({...p, keyword: 'F', page: 0}))
+      setSearch('F')
+    }, [])
 
    const {city, airport} = props.search;
 
