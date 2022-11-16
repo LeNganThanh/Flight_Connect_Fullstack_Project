@@ -24,6 +24,7 @@ const SearchRoot = () => {
     out
       .then(res => {
         if (!res.data.code) {
+          console.log("datasource", res.data)
           setDataSource(res.data);
         }
         setLoading(false);
@@ -38,7 +39,7 @@ const SearchRoot = () => {
     };
   }, [search]);
   return <div>
-     <Flights search={search} setSearch={setSearch} />
+     <Flights search={search} setSearch={setSearch} dataSource={dataSource} />
   </div>;
 };
 
