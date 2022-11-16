@@ -52,7 +52,7 @@ useEffect(() =>{
 
    const label = city && airport ? "City and Airports" : city ? "City" : airport ? "Airports" : ""
 
-  const inputHandler = (e, value) => {
+  const inputHandler = (e) => {
     e.preventDefault();
     setSearch(e.target.value);
     //props.setSearch((p) => ({...p, keyword: 'F', page: 0}))
