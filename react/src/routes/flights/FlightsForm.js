@@ -8,7 +8,8 @@ import classes from './FlightsForm.module.css';
 const FlightsForm = (props) => {
  /*  const [departure, setDeparture] = useState('');
   const [destination, setDestination] = useState(''); */
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState(''); 
+  
   const [options, setOptions] = useState([]);
   //const [open, setOpen] = false;
   const [keyword, setKeyword] = useState('')
@@ -56,6 +57,7 @@ useEffect(() =>{
 
  
   const submitHandler = () => {
+    
     console.log('hi');
   };
   return (
