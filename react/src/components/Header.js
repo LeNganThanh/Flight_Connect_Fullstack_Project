@@ -12,8 +12,8 @@ const Header = () => {
       </div>
 
       <div className={classes.headerText}>
-        <button>Register</button> {/* Need functions */}
-        <button>Login</button>
+        <button className={classes.user}>Register</button> {/* Need functions */}
+        <button className={classes.user}>Login</button>
       </div>
       </div>
       
