@@ -1,18 +1,30 @@
 import React from 'react';
-
-const DropDown = (props) => {
-
+import classes from './DropDown.module.css';
+const DropDown = props => {
+  const passInfo = e => {
+    e.preventDefault();
+    props.fillInput(e);
+  };
   return (
     <div>
-      <div>{props.dataSource ? props.dataSource.data.map(
-        city => {
-          return (
-            <p key={city.id}>{city.name}</p>
-          )
-        }
-      ) : 'hi'}</div>
+      <div>
+        {props.dataSource
+          ? props.dataSource.data.map(city => {
+            
+              return (
+                <button value={city}
+                  onClick={passInfo}
+                  className={classes.list}
+                  key={city.id}
+                >
+                  {city.name}
+                </button>
+              );
+            })
+          : 'hi'}
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default DropDown
+export default DropDown;

@@ -1,0 +1,14 @@
+.list{
+    padding: 0.5rem ;
+    font-size: 1rem;
+    margin:-1rem 0 1.5rem 0;
+    background-color:  #ece5c7;
+    color: #354259;
+    border: 1px solid  #ece5c7;
+    border-radius: 10px;
+   
+}
+.list:hover{
+    background-color: #ece5c7;
+    border: 1px solid #354259;
+}

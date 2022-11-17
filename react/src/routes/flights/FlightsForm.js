@@ -57,21 +57,39 @@ useEffect(() =>{
 
   const inputHandler = (e) => {
     e.preventDefault();
+
     console.log(e)
     if (e.target.id === 'from' && e.target.value.length !== 0) {
       setSearch(e.target.value);
       props.setSearch((p) => ({...p, keyword: `${e.target.value}`, page: 0}))
+      setOpen2(false)
       setOpen1(true)
     } else if (e.target.id === 'to' && e.target.value.length !== 0){
       setSearch(e.target.value);
       props.setSearch((p) => ({...p, keyword: `${e.target.value}`, page: 0}))
+      setOpen1(false)
       setOpen2(true)
     } else {
       setOpen1(false)
       setOpen2(false)
     }
   }
+  const fillInput = (e) =>{
+   
+   const inputFrom = document.getElementById('from')
+   const inputTo = document.getElementById('to')
+   if(open1){
+    inputFrom.value = e.target.innerText
+    setOpen1(false)
+   }else if(open2){
+    inputTo.value = e.target.innerText
+    setOpen2(false)
+   }
 
+   
+    console.log(e);
+  }
+ 
  
   const submitHandler = () => {
     
@@ -82,7 +100,7 @@ useEffect(() =>{
       <div className={classes.main}>
         <div className={classes.radio}>
           <div>
-            <input type="radio" value="roundtrip" name="trip" /> Roundtrip
+            <input type="radio" value="roundtrip" defaultChecked name="trip" /> Roundtrip
           </div>
           <div>
             <input type="radio" value="one way" name="trip" /> One way
@@ -91,38 +109,29 @@ useEffect(() =>{
         <form className={classes.form} onSubmit={submitHandler}>
           <div>
             <label>From: </label>
-            <input id='from' onChange={inputHandler} type="text" placeholder="City" />
-            { open1 ? <DropDown dataSource={props.dataSource} /> : null}
+            <input id='from' onChange={inputHandler}  type="text" placeholder="City / Airport" />
+            { open1 ? <DropDown fillInput={fillInput} dataSource={props.dataSource} /> : null}
           </div>
           <div>
             <label>To: </label>
-            <input id='to' onChange={inputHandler} type="text" placeholder="City" />
-            { open2 ? <DropDown dataSource={props.dataSource} /> : null}
+            <input  id='to'  onChange={inputHandler}  type="text" placeholder="City / Airport" />
+            { open2 ? <DropDown fillInput={fillInput}  dataSource={props.dataSource} /> : null}
           </div>
           <div>
             <label>Departure: </label>
-            <input type="date" placeholder="Departure date" />
+            <input className={classes.info}  type="date" placeholder="Departure date" />
           </div>
           <div>
             <label>Return: </label>
-            <input type="date" placeholder="Return" />
+            <input className={classes.info}  type="date" placeholder="Return" />
           </div>
           <div>
       
             <label>Passengers: </label>
-            <input type="number" placeholder="Passengers" />
+            <input className={classes.info} type="number" placeholder="Passengers" />
           </div>
         </form>
-        <div className={classes.checkBox}>
-          <div>
-            <input type="checkbox" value="add" name="add" /> Add near by
-            Airports
-          </div>
-          <div>
-            <input type="checkbox" value="add" name="add" /> Non- stop flights
-            only
-          </div>
-        </div>
+        
       </div>
       <button className={classes.submitButton}>Search Flights</button>
     </Fragment>
