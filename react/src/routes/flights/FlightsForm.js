@@ -66,7 +66,6 @@ const FlightsForm = props => {
   const inputHandler = e => {
     e.preventDefault();
 
-    console.log(e);
     if (e.target.id === 'from' && e.target.value.length !== 0) {
       setSearch(e.target.value);
       props.setSearch(p => ({ ...p, keyword: `${e.target.value}`, page: 0 }));
