@@ -4,18 +4,22 @@ const DropDown = props => {
   const passInfo = e => {
     e.preventDefault();
     props.fillInput(e);
+    
   };
   return (
     <div>
       <div>
         {props.dataSource
           ? props.dataSource.data.map(city => {
+            console.log(city);
             
               return (
                 <button value={city}
+                
                   onClick={passInfo}
                   className={classes.list}
-                  key={city.id}
+                  name={city.id}
+                  key= {city.name}
                 >
                   {city.name}
                 </button>
