@@ -18,14 +18,14 @@ router.get(`/${API}/offers`, async(req, res) =>{
     
     // ===> Cheapest flights
     try{
-        const response = await  amadeus.shopping.flightOffersSearch.get({
+        const response = await amadeus.shopping.flightOffersSearch.get({
             originLocationCode: originCode,
             destinationLocationCode: destinationCode,
             departureDate: dateOfDeparture,
             adults: '1',
             max: '7'
         })
-        await res.json(JSON.parse(response))
+        await res.json(JSON.parse(response.body))
     }catch(err){
         await res.json(err)
     }

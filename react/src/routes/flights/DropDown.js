@@ -11,14 +11,12 @@ const DropDown = props => {
       <div>
         {props.dataSource
           ? props.dataSource.data.map(city => {
-            console.log(city);
-            
               return (
                 <button value={city}
                 
                   onClick={passInfo}
                   className={classes.list}
-                  name={city.id}
+                  name={city.iataCode}
                   key= {city.name}
                 >
                   {city.name}

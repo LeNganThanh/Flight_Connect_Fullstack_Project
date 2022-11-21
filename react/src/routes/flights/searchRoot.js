@@ -24,7 +24,6 @@ const SearchRoot = () => {
     out
       .then(res => {
         if (!res.data.code) {
-          console.log("datasource", res.data)
           setDataSource(res.data);
         }
         setLoading(false);

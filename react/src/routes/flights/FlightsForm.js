@@ -36,9 +36,6 @@ const FlightsForm = props => {
     out
       .then(res => {
         if (!res.data.code) {
-          console.log('hi');
-          console.log(res.data);
-          console.log(res.data.data);
           setOptions(res.data.data);
         }
         setLoading(false);
@@ -97,8 +94,6 @@ const FlightsForm = props => {
       inputTo.name = e.target.name;
       setOpen2(false);
     }
-
-    console.log(e);
   };
 
   const submitHandler = () => {
