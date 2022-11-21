@@ -3,7 +3,7 @@ import express from 'express';
 
 import { CLIENT_ID, CLIENT_SECRET } from './config.js';
 
-const searchRouter = express.Router();
+const router = express.Router();
 
 const API = `api`;
 
@@ -13,7 +13,7 @@ const amadeus = new Amadeus({
 });
 
 router.get(`/${API}/offers`, async(req, res) =>{
-    console.log('hi');
+    console.log('This is the query', req.query);
     const {originCode, destinationCode, dateOfDeparture} = req.query
     
     // ===> Cheapest flights
@@ -33,4 +33,4 @@ router.get(`/${API}/offers`, async(req, res) =>{
    
 })
 
-export default searchRouter
+export default router

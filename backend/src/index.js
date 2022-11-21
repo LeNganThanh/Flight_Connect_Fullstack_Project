@@ -1,5 +1,6 @@
 import express from 'express'
 import autocompRoute from './router.js'
+import searchRoute from './SearchRoute.js'
 import morgan from 'morgan'
 import cors from 'cors';
 import * as path from 'path'
@@ -22,6 +23,7 @@ app.use(cors({
 //===> Applying handler for API
 
 app.use('/', autocompRoute)
+app.use('/', searchRoute)
 
 //===> Static files
 
