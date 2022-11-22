@@ -3,6 +3,7 @@ import axios from 'axios';
 import Flights from './Flights';
 import { getAmadeusData } from '../../api/amadeus.api';
 
+
 const SearchRoot = () => {
   const [search, setSearch] = useState({
     keyword: 'a',

@@ -1,14 +1,17 @@
-import React, { Fragment, useState, useEffect, useCallback } from 'react';
+import React, { Fragment, useState, useEffect, useCallback, useContext } from 'react';
 import axios from 'axios';
 import { debounce } from 'lodash';
 import { getAmadeusData } from '../../api/amadeus.api';
 import DropDown from './DropDown.js';
 import classes from './FlightsForm.module.css';
 import { getSearchData } from '../../api/search.api';
+import { FlightsContext } from '../../context/FlightsContext';
+
 
 const FlightsForm = props => {
   /*  const [departure, setDeparture] = useState('');
   const [destination, setDestination] = useState(''); */
+  const [offers, setOffers] = useContext(FlightsContext)
   const [search, setSearch] = useState('');
 
   const [options, setOptions] = useState([]);
@@ -101,7 +104,7 @@ const FlightsForm = props => {
     const dateOfDeparture = document.getElementById('departureDate');
 
     const out = getSearchData({'originCode': inputFrom.name, 'destinationCode': inputTo.name, 'dateOfDeparture': dateOfDeparture.value})
-    out.then(result => {console.log(result);})
+    out.then(result => {setOffers(result)})
 
   };
   return (

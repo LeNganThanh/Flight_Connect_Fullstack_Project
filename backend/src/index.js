@@ -27,7 +27,7 @@ app.use('/', searchRoute)
 
 //===> Static files
 
-app.use(express.static(path.join(__dirname, '../react/build'))) //===> IMPORTANT: This is the connection with the front end
+app.use(express.static(path.join(__dirname, '../react/build')))
 
 
 app.listen(PORT,() =>{
