@@ -5,7 +5,7 @@ import { FlightsContext } from "./FlightsContext";
 const FlightsProvider = (props)=>{
  const  [offers, setOffers]= useState(false)
 return (
-    <FlightsContext.Provider value={{offers, setOffers}}>
+    <FlightsContext.Provider value={[offers, setOffers]}>
         {props.children}
     </FlightsContext.Provider>
 )
