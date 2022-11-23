@@ -105,8 +105,10 @@ const FlightsForm = props => {
     const inputFrom = document.getElementById('from');
     const inputTo = document.getElementById('to');
     const dateOfDeparture = document.getElementById('departureDate');
+    const dateOfReturn = document.getElementById('returnDate');
+    console.log(dateOfReturn.value);
 
-    const out = getSearchData({'originCode': inputFrom.name, 'destinationCode': inputTo.name, 'dateOfDeparture': dateOfDeparture.value})
+    const out = getSearchData({'originCode': inputFrom.name, 'destinationCode': inputTo.name, 'dateOfDeparture': dateOfDeparture.value, 'dateOfReturn': dateOfReturn.value})
     out.then(result => {setOffers(result)})
     navigate('/flights')
 
@@ -129,6 +131,8 @@ const FlightsForm = props => {
             <input
               id="from"
               onChange={inputHandler}
+              defaultValue="LONDON"
+              name="LON"
               type="text"
               placeholder="City / Airport"
             />
@@ -141,6 +145,8 @@ const FlightsForm = props => {
             <input
               id="to"
               onChange={inputHandler}
+              defaultValue="MELBOURNE"
+              name="MEL"
               type="text"
               placeholder="City / Airport"
             />
@@ -152,6 +158,7 @@ const FlightsForm = props => {
             <label>Departure: </label>
             <input
               id="departureDate"
+              defaultValue="2022-11-30"
               className={classes.info}
               type="date"
               placeholder="Departure date"
@@ -161,6 +168,7 @@ const FlightsForm = props => {
             <label>Return: </label>
             <input
               id="returnDate"
+              defaultValue="2022-12-09"
               className={classes.info}
               type="date"
               placeholder="Return"
