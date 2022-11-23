@@ -105,8 +105,10 @@ const FlightsForm = props => {
     const inputFrom = document.getElementById('from');
     const inputTo = document.getElementById('to');
     const dateOfDeparture = document.getElementById('departureDate');
+    const dateOfReturn = document.getElementById('returnDate');
+    console.log(dateOfReturn.value);
 
-    const out = getSearchData({'originCode': inputFrom.name, 'destinationCode': inputTo.name, 'dateOfDeparture': dateOfDeparture.value})
+    const out = getSearchData({'originCode': inputFrom.name, 'destinationCode': inputTo.name, 'dateOfDeparture': dateOfDeparture.value, 'dateOfReturn': dateOfReturn.value})
     out.then(result => {setOffers(result)})
     navigate('/flights')
 

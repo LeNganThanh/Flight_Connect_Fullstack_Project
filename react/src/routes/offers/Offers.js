@@ -16,13 +16,10 @@ const Offers = () => {
     return (
       <div className={classes.offers}>
         <div className={classes.offersHeader}>
-          <h2>{inputFrom.value}</h2>
-          <hr></hr>
-          <h2>{inputTo.value}</h2>
+          <h2>{inputFrom.value} | {inputTo.value}</h2>
         </div>
         {offers.data.data.map(offer => {
-          const airlineCode = offer.validatingAirlineCodes;
-         
+
           return (
             <div className={classes.singleOffer} >
               {offer.itineraries.map((iti, index) => {
@@ -30,17 +27,21 @@ const Offers = () => {
                   <div key={index} className={classes.itineraries}>
                     <div>
                       <img
-                        src={`https://www.skyscanner.net/images/airlines/${airlineCode[index]}.png`}
+                        src={`https://www.skyscanner.net/images/airlines/${iti.segments[0].carrierCode}.png`}
                         alt="airline logo"
                       />
                     </div>
+
                     <div>
                       <p>{iti.segments[0].departure.at.slice(11, 16)}</p>
                       <p>{iti.segments[0].departure.iataCode}</p>
                     </div>
+
                     <div>
                       <p>{iti.duration.slice(2)}</p>
+                      <p>{iti.segments.length === 1 ? "Non-stop" : iti.segments.length === 2 ? "1 stop" : `${iti.segments.length -1} stops`}</p>
                     </div>
+
                     <div>
                       <p>{iti.segments[iti.segments.length -1].arrival.at.slice(11, 16)}</p>
                       <p>{iti.segments[iti.segments.length -1].arrival.iataCode}</p>

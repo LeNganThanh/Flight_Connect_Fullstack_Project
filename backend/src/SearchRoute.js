@@ -14,20 +14,37 @@ const amadeus = new Amadeus({
 
 router.get(`/${API}/offers`, async(req, res) =>{
     console.log('This is the query', req.query);
-    const {originCode, destinationCode, dateOfDeparture} = req.query
+    const {originCode, destinationCode, dateOfDeparture, dateOfReturn} = req.query
     
     // ===> Cheapest flights
-    try{
-        const response = await amadeus.shopping.flightOffersSearch.get({
-            originLocationCode: originCode,
-            destinationLocationCode: destinationCode,
-            departureDate: dateOfDeparture,
-            adults: '1',
-           max: 7
-        })
-        await res.json(JSON.parse(response.body))
-    }catch(err){
-        await res.json(err)
+    if (dateOfReturn === '') {
+      try{
+          const response = await amadeus.shopping.flightOffersSearch.get({
+              originLocationCode: originCode,
+              destinationLocationCode: destinationCode,
+              departureDate: dateOfDeparture,
+              adults: '1',
+             max: 7
+          })
+          await res.json(JSON.parse(response.body))
+      }catch(err){
+          await res.json(err)
+      }
+    } else {
+      try{
+          const response = await amadeus.shopping.flightOffersSearch.get({
+              originLocationCode: originCode,
+              destinationLocationCode: destinationCode,
+              departureDate: dateOfDeparture,
+              returnDate: dateOfReturn,
+              adults: '1',
+              //max: 20
+          })
+          await res.json(JSON.parse(response.body))
+      }catch(err){
+          await res.json(err)
+      }
+
     }
   
    

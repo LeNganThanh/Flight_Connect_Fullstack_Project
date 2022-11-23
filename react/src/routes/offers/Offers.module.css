@@ -11,12 +11,10 @@
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  background-color: red; /* ===> flights info  */
 }
 
 .offersHeader h2 {
   margin: 2rem;
-  background-color: red;
 }
 
 .singleOffer {
