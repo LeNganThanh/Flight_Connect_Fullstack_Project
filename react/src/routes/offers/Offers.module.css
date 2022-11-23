@@ -1,0 +1,26 @@
+
+.offers {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.offersHeader {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.offersHeader h2 {
+  margin: 2rem;
+}
+
+.singleOffer {
+  margin: 1rem;
+}
+
+.singleOffer img {
+  width: 5rem;
+  height: 2.5rem;
+}

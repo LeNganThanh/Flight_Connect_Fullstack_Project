@@ -1,4 +1,5 @@
 import React, { Fragment, useState, useEffect, useCallback, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { debounce } from 'lodash';
 import { getAmadeusData } from '../../api/amadeus.api';
@@ -19,6 +20,8 @@ const FlightsForm = props => {
   const [open2, setOpen2] = useState(false);
   const [keyword, setKeyword] = useState('');
   const [loading, setLoading] = useState(false);
+
+  const navigate = useNavigate();
 
   const names = options.map(i => ({ type: i.subType, name: i.name }));
 
@@ -105,6 +108,7 @@ const FlightsForm = props => {
 
     const out = getSearchData({'originCode': inputFrom.name, 'destinationCode': inputTo.name, 'dateOfDeparture': dateOfDeparture.value})
     out.then(result => {setOffers(result)})
+    navigate('/flights')
 
   };
   return (

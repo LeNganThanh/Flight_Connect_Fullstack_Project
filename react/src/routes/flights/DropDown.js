@@ -17,7 +17,7 @@ const DropDown = props => {
                   onClick={passInfo}
                   className={classes.list}
                   name={city.iataCode}
-                  key= {city.name}
+                  key= {city.id}
                 >
                   {city.name}
                 </button>
