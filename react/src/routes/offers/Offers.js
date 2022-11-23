@@ -73,13 +73,13 @@ const Offers = () => {
                             <div className={classes.singleSegment}>
                               <div>Flight {i + 1}</div>
                               <div>
-                                <p>{segment.departure.iataCode}</p>
                                 <p>{segment.departure.at.slice(11, 16)}</p>
+                                <p>{segment.departure.iataCode}</p>
                               </div>
                               | 
                               <div>
-                                <p>{segment.arrival.iataCode}</p>
                                 <p>{segment.arrival.at.slice(11, 16)}</p>
+                                <p>{segment.arrival.iataCode}</p>
                               </div>
                             </div>
                           )
