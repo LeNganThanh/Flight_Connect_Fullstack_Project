@@ -23,28 +23,34 @@ const Offers = () => {
           return (
             <div className={classes.singleOffer} >
               {offer.itineraries.map((iti, index) => {
+                const segments = iti.segments;
+                const duration = iti.duration.slice(0, -1)
                 return (
                   <div key={index} className={classes.itineraries}>
                     <div>
                       <img
-                        src={`https://www.skyscanner.net/images/airlines/${iti.segments[0].carrierCode}.png`}
+                        src={`https://www.skyscanner.net/images/airlines/${segments[0].carrierCode}.png`}
                         alt="airline logo"
                       />
                     </div>
 
                     <div>
-                      <p>{iti.segments[0].departure.at.slice(11, 16)}</p>
-                      <p>{iti.segments[0].departure.iataCode}</p>
+                      <p>{segments[0].departure.at.slice(11, 16)}</p>
+                      <p>{segments[0].departure.iataCode}</p>
                     </div>
 
                     <div>
-                      <p>{iti.duration.slice(2)}</p>
-                      <p>{iti.segments.length === 1 ? "Non-stop" : iti.segments.length === 2 ? "1 stop" : `${iti.segments.length -1} stops`}</p>
+                      <p>{duration.slice(2, 4)}h  {duration.slice(5, 7)}m</p>
+                      {
+                        segments.length === 1 ? <p style={{color: "green"}}>Non-stop</p> 
+                        : segments.length === 2 ?<p style={{color: "blue"}}>1 stop</p> 
+                        : <p style={{color: "red"}}>{segments.length -1} stops</p>
+                      }
                     </div>
 
                     <div>
-                      <p>{iti.segments[iti.segments.length -1].arrival.at.slice(11, 16)}</p>
-                      <p>{iti.segments[iti.segments.length -1].arrival.iataCode}</p>
+                      <p>{segments[segments.length -1].arrival.at.slice(11, 16)}</p>
+                      <p>{segments[segments.length -1].arrival.iataCode}</p>
                     </div>
                   </div>
                 );
