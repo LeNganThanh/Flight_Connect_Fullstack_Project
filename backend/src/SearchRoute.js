@@ -23,7 +23,7 @@ router.get(`/${API}/offers`, async(req, res) =>{
             destinationLocationCode: destinationCode,
             departureDate: dateOfDeparture,
             adults: '1',
-           
+           max: 7
         })
         await res.json(JSON.parse(response.body))
     }catch(err){
