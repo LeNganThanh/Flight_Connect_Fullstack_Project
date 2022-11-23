@@ -34,8 +34,8 @@
   padding: 0.5rem;
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
-  width: 30rem;
+  justify-content: space-between;
+  width: 35rem;
 }
 
 .itineraries img {
