@@ -129,11 +129,11 @@ const FlightsForm = props => {
           <div>
             <label>From: </label>
             <input
-              id="from"
               autoComplete='off'
+              id="from"
               onChange={inputHandler}
-              defaultValue="KUNMING"
-              name="KMG"
+              defaultValue="LONDON"
+              name="LON"
               type="text"
               placeholder="City / Airport"
             />
@@ -144,11 +144,11 @@ const FlightsForm = props => {
           <div>
             <label>To: </label>
             <input
-              id="to"
               autoComplete='off'
+              id="to"
               onChange={inputHandler}
-              defaultValue="LIVERPOOL"
-              name="LPL"
+              defaultValue="MELBOURNE"
+              name="MEL"
               type="text"
               placeholder="City / Airport"
             />
