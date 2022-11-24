@@ -97,6 +97,7 @@
 
  .toggleButton{
   width: 3rem;
+  cursor: pointer;
   
   
 }
