@@ -18,6 +18,7 @@ const FlightsForm = props => {
   const [options, setOptions] = useState([]);
   const [open1, setOpen1] = useState(false);
   const [open2, setOpen2] = useState(false);
+  const [oneWay, setOneWay] = useState(false)
   const [keyword, setKeyword] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -113,23 +114,75 @@ const FlightsForm = props => {
     navigate('/flights')
 
   };
+
+  //setting default date
+  function departD() {
+    let d = new Date();
+    d.setDate(d.getDate() + 7);
+    let currDate = d.getDate();
+    let currMonth = d.getMonth() + 1;
+    let currYear = d.getFullYear();
+    return (
+      currYear +
+      "-" +
+      (currMonth < 10 ? "0" + currMonth : currMonth) +
+      "-" +
+      (currDate < 10 ? "0" + currDate : currDate)
+    );
+  }
+
+  function returnD() {
+    let d = new Date();
+    d.setDate(d.getDate() + 15);
+    let currDate = d.getDate();
+    let currMonth = d.getMonth() + 1;
+    let currYear = d.getFullYear();
+    return (
+      currYear +
+      "-" +
+      (currMonth < 10 ? "0" + currMonth : currMonth) +
+      "-" +
+      (currDate < 10 ? "0" + currDate : currDate)
+    );
+  }
+
+  const returnDate = document.getElementById("returnDate");
+
   return (
     <Fragment>
       <div className={classes.main}>
         <div className={classes.radio}>
           <div>
-            <input type="radio" value="roundtrip" defaultChecked name="trip" />{' '}
+            <input
+              type="radio"
+              value="roundtrip"
+              defaultChecked
+              name="trip"
+              onChange={() => {
+                setOneWay(false);
+                returnDate.value = returnD();
+              }}
+            />{" "}
             Roundtrip
           </div>
           <div>
-            <input type="radio" value="one way" name="trip"/> One way
+            <input
+              type="radio"
+              value="one way"
+              name="trip"
+              onChange={() => {
+                setOneWay(true);
+                returnDate.value = "";
+              }}
+            />{" "}
+            One way
           </div>
         </div>
         <form className={classes.form} onSubmit={submitHandler}>
           <div>
             <label>From: </label>
             <input
-              autoComplete='off'
+              autoComplete="off"
               id="from"
               onChange={inputHandler}
               defaultValue="LONDON"
@@ -144,7 +197,7 @@ const FlightsForm = props => {
           <div>
             <label>To: </label>
             <input
-              autoComplete='off'
+              autoComplete="off"
               id="to"
               onChange={inputHandler}
               defaultValue="MELBOURNE"
@@ -160,7 +213,7 @@ const FlightsForm = props => {
             <label>Departure: </label>
             <input
               id="departureDate"
-              defaultValue="2022-11-30"
+              defaultValue={departD()}
               className={classes.info}
               type="date"
               placeholder="Departure date"
@@ -170,10 +223,11 @@ const FlightsForm = props => {
             <label>Return: </label>
             <input
               id="returnDate"
-              defaultValue="2022-12-09"
+              defaultValue={returnD()}
               className={classes.info}
               type="date"
               placeholder="Return"
+              disabled={oneWay && "disabled"}
             />
           </div>
           <div>
