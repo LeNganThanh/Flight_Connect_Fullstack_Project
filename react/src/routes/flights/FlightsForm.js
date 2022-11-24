@@ -122,7 +122,7 @@ const FlightsForm = props => {
             Roundtrip
           </div>
           <div>
-            <input type="radio" value="one way" name="trip" /> One way
+            <input type="radio" value="one way" name="trip"/> One way
           </div>
         </div>
         <form className={classes.form} onSubmit={submitHandler}>
@@ -130,9 +130,10 @@ const FlightsForm = props => {
             <label>From: </label>
             <input
               id="from"
+              autoComplete='off'
               onChange={inputHandler}
-              defaultValue="LONDON"
-              name="LON"
+              defaultValue="KUNMING"
+              name="KMG"
               type="text"
               placeholder="City / Airport"
             />
@@ -144,9 +145,10 @@ const FlightsForm = props => {
             <label>To: </label>
             <input
               id="to"
+              autoComplete='off'
               onChange={inputHandler}
-              defaultValue="MELBOURNE"
-              name="MEL"
+              defaultValue="LIVERPOOL"
+              name="LPL"
               type="text"
               placeholder="City / Airport"
             />
