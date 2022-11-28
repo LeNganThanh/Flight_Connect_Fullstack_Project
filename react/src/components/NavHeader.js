@@ -16,7 +16,7 @@ const Nav = () => {
         {offers ? <NavLink  className={({ isActive }) => (isActive ? `${classes.active}` : `${classes.anchor}` )}  to='flights'>Flights</NavLink> : null}
       </nav>
     
-      <Outlet/>
+      <Outlet className={classes.outlet}/>
     </div>
   );
 };

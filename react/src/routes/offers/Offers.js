@@ -25,6 +25,7 @@ const Offers = () => {
         </div>
         {offers.data.data.map(offer => {
           return (
+            <div className={classes.mainBox}>
             <div className={classes.singleOffer}>
               {offer.itineraries.map((iti, index) => {
                 const segments = iti.segments;
@@ -139,15 +140,20 @@ const Offers = () => {
                           </div>
                         );
                       })}
+
                     </div>
+
+                    
                   </div>
                 );
               })}
 
-              {/* <div key={offer.id}>
-                <h2>Total Price: {offer.price.total}€</h2>
-              </div> */}
             </div>
+               <div className={classes.price} key={offer.id}>
+                <h2> {offer.price.total}€</h2>
+                <button>Select</button>
+              </div> 
+        </div>
           );
         })}
       </div>
