@@ -18,7 +18,7 @@ const Tours = () => {
   },[ip])
 
   useEffect(() =>{
-    /* console.log(geoData); */
+     console.log(geoData); 
     const out =  getTours({'latitude': geoData.geoplugin_latitude , 'longitude': geoData.geoplugin_longitude})
    out.then(result => console.log(result)) 
   }, [geoData])

@@ -16,7 +16,8 @@ const {latitude , longitude} = req.query
 try{
     const response = await amadeus.shopping.activities.get({
         latitude: latitude,
-        longitude: longitude
+        longitude: longitude,
+        radius: 20
     })
     await res.json(JSON.parse(response))
     console.log(response);
