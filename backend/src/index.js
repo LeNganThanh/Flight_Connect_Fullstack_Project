@@ -16,19 +16,23 @@ const PORT = 1338
 
 app.use(morgan('dev'));
 
-app.use(cors({
-  origin: 'http://localhost:3000'
-}));
+// app.use(cors({
+//   origin: '*'
+// }));
 
 //===> Applying handler for API
 
 app.use('/', autocompRoute)
 app.use('/', searchRoute)
 
+
 //===> Static files
 
-app.use(express.static(path.join(__dirname, '../react/build')))
+app.use(express.static('../react/build'))
 
+app.use('/', (req, res) => {
+  res.sendFile('../react/build/index.html', {root: '.'})
+})
 
 app.listen(PORT,() =>{
     console.log('Server is running on port:', PORT);
