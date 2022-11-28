@@ -15,6 +15,7 @@
 
 .offersHeader h2 {
   margin: 2rem;
+  color: #354259;
 }
 
 .singleOffer {
@@ -24,6 +25,7 @@
   border: 1px solid rgba(0, 0, 0, 0.205);
   border-radius: 5px;
   box-shadow: 5px 5px 5px rgba(0,0,0, 0.2);
+  color: #354259;
 }
 
 .singleOffer > :first-child {
@@ -42,7 +44,7 @@
 .itineraries img {
   width: 5rem;
   height: 2.5rem;
-  
+  border-radius: 7px; 
 }
 
 .itineraries > div {
@@ -63,16 +65,11 @@
   display: flex;
   justify-content: space-between;
   text-align: center;
-
-  
-  
 }
 
 .duration p span{
-  color:green;
-   padding:  0 0 0 0.3rem; 
-   
-
+  padding:  0 0 0 0.3rem; 
+  color: #354259;
 }
 
 .segments {
@@ -98,8 +95,6 @@
  .toggleButton{
   width: 3rem;
   cursor: pointer;
-  
-  
 }
 
 .timeBox{
@@ -114,10 +109,10 @@
   align-items: center;
   vertical-align:center;
   justify-content: center;
-  background-color: gray;
   height: 1px;
   width:6rem;
-  color: gray;
+  color: #354259;
+  background-color: #354259;
 }
 
 .redDot{
@@ -133,4 +128,5 @@
   width: 1rem;
   margin-top: 0.277rem;
   margin-left: 0.2rem;
+  color: #354259;
 }
