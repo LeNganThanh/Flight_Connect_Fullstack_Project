@@ -1,24 +1,31 @@
-import React, { Fragment, useState, useEffect, useCallback, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import { debounce } from 'lodash';
-import { getAmadeusData } from '../../api/amadeus.api';
-import DropDown from './DropDown.js';
-import classes from './FlightsForm.module.css';
-import { getSearchData } from '../../api/search.api';
-import { FlightsContext } from '../../context/FlightsContext';
-
+import React, {
+  Fragment,
+  useState,
+  useEffect,
+  useCallback,
+  useContext,
+} from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { debounce } from "lodash";
+import { getAmadeusData } from "../../api/amadeus.api";
+import DropDown from "./DropDown.js";
+import classes from "./FlightsForm.module.css";
+import { getSearchData } from "../../api/search.api";
+import { FlightsContext } from "../../context/FlightsContext";
 
 const FlightsForm = props => {
+  const [oneWay, setOneWay] = useState(false);
+
   /*  const [departure, setDeparture] = useState('');
   const [destination, setDestination] = useState(''); */
-  const [offers, setOffers] = useContext(FlightsContext)
-  const [search, setSearch] = useState('');
+  const [offers, setOffers] = useContext(FlightsContext);
+  const [search, setSearch] = useState("");
 
   const [options, setOptions] = useState([]);
   const [open1, setOpen1] = useState(false);
   const [open2, setOpen2] = useState(false);
-  const [keyword, setKeyword] = useState('');
+  const [keyword, setKeyword] = useState("");
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
@@ -62,22 +69,22 @@ const FlightsForm = props => {
 
   const label =
     city && airport
-      ? 'City and Airports'
+      ? "City and Airports"
       : city
-      ? 'City'
+      ? "City"
       : airport
-      ? 'Airports'
-      : '';
+      ? "Airports"
+      : "";
 
   const inputHandler = e => {
     e.preventDefault();
 
-    if (e.target.id === 'from' && e.target.value.length !== 0) {
+    if (e.target.id === "from" && e.target.value.length !== 0) {
       setSearch(e.target.value);
       props.setSearch(p => ({ ...p, keyword: `${e.target.value}`, page: 0 }));
       setOpen2(false);
       setOpen1(true);
-    } else if (e.target.id === 'to' && e.target.value.length !== 0) {
+    } else if (e.target.id === "to" && e.target.value.length !== 0) {
       setSearch(e.target.value);
       props.setSearch(p => ({ ...p, keyword: `${e.target.value}`, page: 0 }));
       setOpen1(false);
@@ -88,8 +95,8 @@ const FlightsForm = props => {
     }
   };
   const fillInput = e => {
-    const inputFrom = document.getElementById('from');
-    const inputTo = document.getElementById('to');
+    const inputFrom = document.getElementById("from");
+    const inputTo = document.getElementById("to");
     if (open1) {
       inputFrom.value = e.target.innerText;
       inputFrom.name = e.target.name;
@@ -102,34 +109,91 @@ const FlightsForm = props => {
   };
 
   const submitHandler = () => {
-    const inputFrom = document.getElementById('from');
-    const inputTo = document.getElementById('to');
-    const dateOfDeparture = document.getElementById('departureDate');
-    const dateOfReturn = document.getElementById('returnDate');
+    const inputFrom = document.getElementById("from");
+    const inputTo = document.getElementById("to");
+    const dateOfDeparture = document.getElementById("departureDate");
+    const dateOfReturn = document.getElementById("returnDate");
     console.log(dateOfReturn.value);
 
-    const out = getSearchData({'originCode': inputFrom.name, 'destinationCode': inputTo.name, 'dateOfDeparture': dateOfDeparture.value, 'dateOfReturn': dateOfReturn.value})
-    out.then(result => {setOffers(result)})
-    navigate('/flights')
-
+    const out = getSearchData({
+      originCode: inputFrom.name,
+      destinationCode: inputTo.name,
+      dateOfDeparture: dateOfDeparture.value,
+      dateOfReturn: dateOfReturn.value,
+    });
+    out.then(result => {
+      setOffers(result);
+    });
+    navigate("/flights");
   };
+
+  //setting default date
+  function departD() {
+    let d = new Date();
+    d.setDate(d.getDate() + 7);
+    let currDate = d.getDate();
+    let currMonth = d.getMonth() + 1;
+    let currYear = d.getFullYear();
+    return (
+      currYear +
+      "-" +
+      (currMonth < 10 ? "0" + currMonth : currMonth) +
+      "-" +
+      (currDate < 10 ? "0" + currDate : currDate)
+    );
+  }
+  function returnD() {
+    let d = new Date();
+    d.setDate(d.getDate() + 15);
+    let currDate = d.getDate();
+    let currMonth = d.getMonth() + 1;
+    let currYear = d.getFullYear();
+    return (
+      currYear +
+      "-" +
+      (currMonth < 10 ? "0" + currMonth : currMonth) +
+      "-" +
+      (currDate < 10 ? "0" + currDate : currDate)
+    );
+  }
+
+  const returnDate = document.getElementById("returnDate");
+
   return (
     <Fragment>
       <div className={classes.main}>
         <div className={classes.radio}>
           <div>
-            <input type="radio" value="roundtrip" defaultChecked name="trip" />{' '}
+            <input
+              type="radio"
+              value="roundtrip"
+              defaultChecked
+              name="trip"
+              onChange={() => {
+                setOneWay(false);
+                returnDate.value = returnD();
+              }}
+            />{" "}
             Roundtrip
           </div>
           <div>
-            <input type="radio" value="one way" name="trip"/> One way
+            <input
+              type="radio"
+              value="one way"
+              name="trip"
+              onChange={() => {
+                setOneWay(true);
+                returnDate.value = "";
+              }}
+            />{" "}
+            One way
           </div>
         </div>
         <form className={classes.form} onSubmit={submitHandler}>
           <div>
             <label>From: </label>
             <input
-              autoComplete='off'
+              autoComplete="off"
               id="from"
               onChange={inputHandler}
               defaultValue="LONDON"
@@ -144,7 +208,7 @@ const FlightsForm = props => {
           <div>
             <label>To: </label>
             <input
-              autoComplete='off'
+              autoComplete="off"
               id="to"
               onChange={inputHandler}
               defaultValue="MELBOURNE"
@@ -160,7 +224,7 @@ const FlightsForm = props => {
             <label>Departure: </label>
             <input
               id="departureDate"
-              defaultValue="2022-11-30"
+              defaultValue={departD()}
               className={classes.info}
               type="date"
               placeholder="Departure date"
@@ -170,10 +234,11 @@ const FlightsForm = props => {
             <label>Return: </label>
             <input
               id="returnDate"
-              defaultValue="2022-12-09"
+              defaultValue={returnD()}
               className={classes.info}
               type="date"
               placeholder="Return"
+              disabled={oneWay && "disabled"}
             />
           </div>
           <div>
