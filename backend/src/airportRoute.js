@@ -5,15 +5,13 @@ const router = express.Router();
 
 const API = `api`;
 
-router.get(`/${API}/activities`, async(req, res) => {
+router.get(`/${API}/local-airport`, async(req, res) => {
   const {latitude, longitude} = req.query
-  console.log(longitude)
 
   try{
-      const response = await amadeus.shopping.activities.get({
+      const response = await amadeus.client.get('/v1/reference-data/locations/airports', {
           latitude: latitude,
-          longitude: longitude,
-          radius: 20 
+          longitude: longitude
       })
       res.json(JSON.parse(response.body))
   }catch(err){
