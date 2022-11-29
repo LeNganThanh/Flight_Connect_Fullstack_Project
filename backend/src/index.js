@@ -1,8 +1,9 @@
 import express from 'express';
 import autocompRoute from './router.js';
 import searchRoute from './SearchRoute.js';
-import activityRoute from './activityRoute.js';
+import airportRoute from './airportRoute.js';
 import dealsRoute from './dealsRoute.js'
+import activityRoute from './activityRoute.js'
 import morgan from 'morgan';
 import cors from 'cors';
 // import * as path from 'path';
@@ -23,8 +24,9 @@ app.use(cors({ origin: '*' }));
 
 app.use('/', autocompRoute);
 app.use('/', searchRoute);
-app.use('/', activityRoute);
+app.use('/', airportRoute);
 app.use('/', dealsRoute);
+app.use('/', activityRoute);
 
 //===> Static files
 
