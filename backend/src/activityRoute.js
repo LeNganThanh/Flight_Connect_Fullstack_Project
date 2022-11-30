@@ -2,7 +2,7 @@ import amadeus from './amadeus.js';
 import express from 'express';
 
 
-import {CLIENT_ID, CLIENT_SECRET} from './config.js';
+
 
 const router = express.Router();
 
@@ -20,7 +20,7 @@ try{
         radius: 20
     })
     await res.json(JSON.parse(response))
-    console.log(response);
+    //console.log(response);
 }catch(err){
     await res.json(err)
 }
