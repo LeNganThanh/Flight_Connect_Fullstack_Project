@@ -1,10 +1,8 @@
-
 .offers {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  
 }
 
 .offersHeader {
@@ -15,6 +13,13 @@
 
 .offersHeader h2 {
   margin: 2rem;
+  color: #354259;
+}
+
+.mainBox {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 .singleOffer {
@@ -23,14 +28,29 @@
   margin: 1rem;
   border: 1px solid rgba(0, 0, 0, 0.205);
   border-radius: 5px;
-  box-shadow: 5px 5px 5px rgba(0,0,0, 0.2);
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
+  color: #354259;
+}
+.price {
+  font-size: 1rem;
+  display: flex;
+  flex-direction: column;
+  margin: 1rem;
+  width: 10rem;
+  height: 6rem;
+  justify-content: space-evenly;
+  align-items: center;
+
+  border-radius: 5px;
+
+  color: #354259;
 }
 
 .singleOffer > :first-child {
   border-bottom: 1px solid rgba(0, 0, 0, 0.205);
 }
 
-.itineraries{
+.itineraries {
   padding: 0.5rem;
   display: flex;
   flex-direction: row;
@@ -42,37 +62,31 @@
 .itineraries img {
   width: 5rem;
   height: 2.5rem;
-  
+  border-radius: 7px;
 }
 
 .itineraries > div {
   width: 19%;
   text-align: center;
-  
 }
 
-.duration{
+.duration {
   display: flex;
   flex-direction: column;
-  justify-content:center ;
+  justify-content: center;
   align-items: center;
   vertical-align: center;
 }
-.duration p{
+.duration p {
   font-size: 0.7rem;
   display: flex;
   justify-content: space-between;
   text-align: center;
-
-  
-  
 }
 
-.duration p span{
-  color:green;
-   padding:  0 0 0 0.3rem; 
-   
-
+.duration p span {
+  padding: 0 0 0 0.3rem;
+  color: #354259;
 }
 
 .segments {
@@ -82,7 +96,7 @@
 }
 
 .hidden {
-  display: none
+  display: none;
 }
 
 .singleSegment {
@@ -95,32 +109,29 @@
   border: 1px solid rgba(0, 0, 0, 0.205);
 }
 
- .toggleButton{
+.toggleButton {
   width: 3rem;
   cursor: pointer;
-  
-  
 }
 
-.timeBox{
+.timeBox {
   display: flex;
   flex-direction: row;
-  align-items: center; 
-  
-}
- 
-.timeLine{
-  display: flex;
   align-items: center;
-  vertical-align:center;
-  justify-content: center;
-  background-color: gray;
-  height: 1px;
-  width:6rem;
-  color: gray;
 }
 
-.redDot{
+.timeLine {
+  display: flex;
+  align-items: center;
+  vertical-align: center;
+  justify-content: center;
+  height: 1px;
+  width: 6rem;
+  color: #354259;
+  background-color: #354259;
+}
+
+.redDot {
   border-radius: 180%;
   background-color: red;
   min-height: 9px;
@@ -128,9 +139,10 @@
   border: 2px solid white;
   margin: 4px;
 }
-.plane img{
+.plane img {
   height: 1rem;
   width: 1rem;
   margin-top: 0.277rem;
   margin-left: 0.2rem;
+  color: #354259;
 }

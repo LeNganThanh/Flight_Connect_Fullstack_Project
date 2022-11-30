@@ -1,29 +1,31 @@
-
-
-nav{
-    display: flex;
-    justify-content: left;
-    margin-left: 2rem;
-    
-   
-    
+nav {
+  display: flex;
+  justify-content: left;
+  padding-left: 2rem;
+  background-color: #ece5c77b;
 }
 
- .anchor, .active{
-    text-decoration: none;
-    padding: 0.7rem;
-    margin: 0rem 0.2rem;
-    background-color: #354259;
-    color: white;
-    border-radius: 0px 0px 5px 5px;
+.nav{
+    background-color: #ece5c77b;
 }
 
-.anchor:hover, .anchor:active{
-    background-color: #ece5c7;
-    color: #354259;
+.anchor,
+.active {
+  text-decoration: none;
+  padding: 0.7rem;
+  margin: 0rem 0.2rem;
+  background-color: #354259;
+  color: white;
+  border-radius: 0px 0px 5px 5px;
 }
- 
-.active{
-    background-color: #ece5c7;
-    color:#354259;
+
+.anchor:hover,
+.anchor:active {
+  background-color: #ece5c7;
+  color: #354259;
+}
+
+.active {
+  background-color: #ece5c7;
+  color: #354259;
 }

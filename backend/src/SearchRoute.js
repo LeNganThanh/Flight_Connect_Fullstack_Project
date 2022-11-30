@@ -1,16 +1,12 @@
-import Amadeus from 'amadeus';
+import amadeus from './amadeus.js';
 import express from 'express';
 
-import { CLIENT_ID, CLIENT_SECRET } from './config.js';
+
 
 const router = express.Router();
 
 const API = `api`;
 
-const amadeus = new Amadeus({
-    clientId : CLIENT_ID,
-    clientSecret : CLIENT_SECRET,
-});
 
 router.get(`/${API}/offers`, async(req, res) =>{
     console.log('This is the query', req.query);

@@ -15,8 +15,6 @@ import { getSearchData } from "../../api/search.api";
 import { FlightsContext } from "../../context/FlightsContext";
 
 const FlightsForm = props => {
-  const [oneWay, setOneWay] = useState(false);
-
   /*  const [departure, setDeparture] = useState('');
   const [destination, setDestination] = useState(''); */
   const [offers, setOffers] = useContext(FlightsContext);
@@ -25,6 +23,7 @@ const FlightsForm = props => {
   const [options, setOptions] = useState([]);
   const [open1, setOpen1] = useState(false);
   const [open2, setOpen2] = useState(false);
+  const [oneWay, setOneWay] = useState(false);
   const [keyword, setKeyword] = useState("");
   const [loading, setLoading] = useState(false);
 

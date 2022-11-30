@@ -1,6 +1,6 @@
 import React from 'react';
 import classes from './Deals.module.css';
-
+import Tours from '../tours/Tours.js'
 const Deals = () => {
   return (
     
@@ -18,6 +18,8 @@ const Deals = () => {
         <div>Find the cheapest month – or even day – to fly, and set up Price Alerts to book when the price is right
 </div>
       </div>
+
+      <Tours/>
     </div>
   );
 };
