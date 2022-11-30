@@ -22,4 +22,4 @@ router.get(`/${API}/activities`, async(req, res) => {
   }
 })
 
-export default router;
+export default router
