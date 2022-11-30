@@ -1,14 +1,16 @@
 import express from 'express';
 import autocompRoute from './router.js';
 import searchRoute from './SearchRoute.js';
-import activityRoute from './activityRoute.js';
+import airportRoute from './airportRoute.js';
+import dealsRoute from './dealsRoute.js'
+import activityRoute from './activityRoute.js'
 import morgan from 'morgan';
 import cors from 'cors';
-import * as path from 'path';
-import * as url from 'url';
+// import * as path from 'path';
+// import * as url from 'url';
 
-const __filename = url.fileURLToPath(import.meta.url);
-const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
+// const __filename = url.fileURLToPath(import.meta.url);
+// const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
 // ===> Setting the server
 const app = express();
@@ -22,6 +24,8 @@ app.use(cors({ origin: '*' }));
 
 app.use('/', autocompRoute);
 app.use('/', searchRoute);
+app.use('/', airportRoute);
+app.use('/', dealsRoute);
 app.use('/', activityRoute);
 
 //===> Static files

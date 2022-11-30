@@ -1,7 +1,35 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import classes from './Deals.module.css';
-import Tours from '../tours/Tours.js';
+import DealDisplay from './dealDisplay.js'
+import ActivityDisplay from './activityDisplay.js'
+
 const Deals = () => {
+  const [geo, setGeo] = useState(false)
+
+  useEffect(() =>{
+
+    const getData = async() => {
+
+      const ip = await axios
+          .get(`https://geolocation-db.com/jsonp/`)
+          .then(res => res.data.split(',')[6].slice(8, -1));
+       
+      const geoData = await axios
+          .get(`http://www.geoplugin.net/json.gp?ip=${ip}`)
+          .then(res => ({
+            latitude: res.data.geoplugin_latitude, 
+            longitude: res.data.geoplugin_longitude
+          }))
+
+      console.log("geoData", geoData)
+      return geoData
+    }
+
+    setGeo(getData())
+
+  }, [])
+
   return (
     <div className={classes['info-box']}>
       <div className={classes.box}>
@@ -41,7 +69,8 @@ const Deals = () => {
         </div>
       </div>
 
-      <Tours />
+      {geo ? <ActivityDisplay geo={geo} /> : null}
+      {geo ? <DealDisplay geo={geo} /> : null}
     </div>
   );
 };
