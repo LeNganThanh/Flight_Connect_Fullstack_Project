@@ -8,7 +8,9 @@ import { Route, Routes } from 'react-router-dom';
 import FlightsProvider from './context/FlightsContextProvider';
 import Offers from './routes/offers/Offers.js';
 
+
 function App() {
+
   return (
     <div className="App">
       <div>
