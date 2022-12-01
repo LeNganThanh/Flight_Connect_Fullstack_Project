@@ -1,31 +1,41 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { getActivities } from '../../api/activities.api';
+
+
+import React, { useEffect, useState } from "react";
+//import axios from "axios";
+import { getActivities } from "../../api/activities.api";
+
+import Activities from "./Activities";
+
+
 const ActivityDisplay = props => {
-  const [activity, setActivity] = useState(false)
+  //state for activities
+  const [activ, setActiv] = useState([]);
 
-  useEffect(() =>{
-    
-    if (!localStorage.getItem('activities')) {
-      const getData = async() => {
-      
-        const geo = await props.geo
+  useEffect(() => {
+  if (!localStorage.getItem('activities')) {
+    const getData = async () => {
+      const geo = await props.geo;
 
-        const activities = await getActivities({latitude: geo.latitude, longitude: geo.longitude})
+      const activities = await getActivities({
+        latitude: geo.latitude,
+        longitude: geo.longitude,
+      });
 
-        console.log('act', activities)
+      const activArr = activities.data.data.splice(14, 8);
+      localStorage.setItem('activities', activArr)
+      setActiv(activArr);
 
-        localStorage.setItem('activities', activities.data.data)
-        setActivity(activities.data.data)
-        return activities
-      }
+      return activities;
+    };
+  }
 
-      getData()
-    }
+    getData();
+  }, [props.geo]);
 
-  }, [])
 
-  return <div>This is a test</div>;
+
+
+  return <div>{activ ? <Activities activ={activ} /> : null}</div>;
 };
 
 export default ActivityDisplay;
