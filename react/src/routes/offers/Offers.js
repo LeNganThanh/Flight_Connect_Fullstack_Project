@@ -23,11 +23,11 @@ const Offers = () => {
             {inputFrom.value} | {inputTo.value}
           </h2>
         </div>
-        {offers.data.data.map(offer => {
+        {offers.data.data.map((offer, iOffer) => {
           return (
-            <div className={classes.mainBox}>
+            <div key={iOffer} className={classes.mainBox}>
             <div className={classes.singleOffer}>
-              {offer.itineraries.map((iti, index) => {
+              {offer.itineraries.map((iti, itiIndex) => {
                 const segments = iti.segments;
                 const duration = iti.duration.slice(0, -1);
 
@@ -45,7 +45,7 @@ const Offers = () => {
                 };
 
                 return (
-                  <div key={index}>
+                  <div key={itiIndex}>
                     <div className={classes.itineraries}>
                       <div>
                         <img
@@ -71,7 +71,7 @@ const Offers = () => {
                           <div className={classes.timeLine}>
                            {segments.map((stop, index) =>{
                             return(
-                              <Fragment>
+                              <Fragment key={index}>
 
                                 {index > 0 ? <div className={classes.redDot}></div> : null}
                               </Fragment>
@@ -93,15 +93,15 @@ const Offers = () => {
                         ) : (
                           <p style={{ color: 'red' }}>
                             {segments.length - 1} stops
-                            {segments.map((stop, index) => {
-                              if ( index !== 0 ) {
+                            {segments.map((stop, stopIndex) => {
+                              if ( stopIndex !== 0 ) {
                                 return (
-                                  <div key={index}>
+                                  <span key={stopIndex}>
                                     <span>  {stop.departure.iataCode}  </span>
-                                  </div>
+                                  </span>
                                 );
                               } else {
-                                return <div></div>;
+                                return <span key={stopIndex}></span>;
                               }
                             })}
                           </p>
@@ -126,7 +126,7 @@ const Offers = () => {
                     <div className={classes.hidden}>
                       {segments.map((segment, i) => {
                         return (
-                          <div className={classes.singleSegment}>
+                          <div key={i} className={classes.singleSegment}>
                             <div>Flight {i + 1}</div>
                             <div>
                               <p>{segment.departure.at.slice(11, 16)}</p>
@@ -149,7 +149,7 @@ const Offers = () => {
               })}
 
             </div>
-               <div className={classes.price} key={offer.id}>
+               <div className={classes.price}  key={offer.id} >
                 <h2> {offer.price.total}€</h2>
                 <button>Select</button>
               </div> 

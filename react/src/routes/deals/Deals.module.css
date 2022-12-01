@@ -1,20 +1,17 @@
-
-
-.info-box{
-    align-items: center;
-    margin:1.5rem auto;
-    width: 50%;
-    display: flex;
-    justify-content: space-around;
+.info-box {
+  align-items: center;
+  margin: 1.5rem auto;
+  width: 50%;
+  display: flex;
+  justify-content: space-around;
 }
 
-.box{
-    margin: 1rem;
-    display: flex;
-    flex-direction: row;
-    
+.box {
+  margin: 1rem;
+  display: flex;
+  flex-direction: row;
 }
 
-.box img{
-    width: 5rem;
+.box img {
+  width: 5rem;
 }

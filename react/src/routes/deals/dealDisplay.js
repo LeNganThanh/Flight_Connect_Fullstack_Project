@@ -1,3 +1,4 @@
+
 import React, { useEffect } from 'react';
 import { getAirport } from '../../api/airport.api.js';
 import { getDeals } from '../../api/deals.api.js';
@@ -8,9 +9,17 @@ const DealDisplay = props => {
 
   useEffect(() =>{
 
-    const getData = async() => {
 
-      const geo = await props.geo
+import React, { useEffect } from "react";
+//import axios from "axios";
+import { getAirport } from "../../api/airport.api.js";
+//import { getDeals } from "../../api/deals.api.js";
+
+const DealDisplay = props => {
+  useEffect(() => {
+    const getData = async () => {
+      const geo = await props.geo;
+
 
       const airport = await getAirport({latitude: localStorage.getItem('latitude'), longitude: localStorage.getItem('longitude')})
       console.log(airport)
@@ -23,9 +32,11 @@ const DealDisplay = props => {
       return deals
     }
 
-    getData()
 
-  }, [])
+
+    getData();
+  }, [props.geo]);
+
 
   return <div>This is a test</div>;
 };

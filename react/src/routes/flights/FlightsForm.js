@@ -1,25 +1,30 @@
-import React, { Fragment, useState, useEffect, useCallback, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import { debounce } from 'lodash';
-import { getAmadeusData } from '../../api/amadeus.api';
-import DropDown from './DropDown.js';
-import classes from './FlightsForm.module.css';
-import { getSearchData } from '../../api/search.api';
-import { FlightsContext } from '../../context/FlightsContext';
-
+import React, {
+  Fragment,
+  useState,
+  useEffect,
+  useCallback,
+  useContext,
+} from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { debounce } from "lodash";
+import { getAmadeusData } from "../../api/amadeus.api";
+import DropDown from "./DropDown.js";
+import classes from "./FlightsForm.module.css";
+import { getSearchData } from "../../api/search.api";
+import { FlightsContext } from "../../context/FlightsContext";
 
 const FlightsForm = props => {
   /*  const [departure, setDeparture] = useState('');
   const [destination, setDestination] = useState(''); */
-  const [offers, setOffers] = useContext(FlightsContext)
-  const [search, setSearch] = useState('');
+  const [offers, setOffers] = useContext(FlightsContext);
+  const [search, setSearch] = useState("");
 
   const [options, setOptions] = useState([]);
   const [open1, setOpen1] = useState(false);
   const [open2, setOpen2] = useState(false);
-  const [oneWay, setOneWay] = useState(false)
-  const [keyword, setKeyword] = useState('');
+  const [oneWay, setOneWay] = useState(false);
+  const [keyword, setKeyword] = useState("");
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
@@ -63,22 +68,22 @@ const FlightsForm = props => {
 
   const label =
     city && airport
-      ? 'City and Airports'
+      ? "City and Airports"
       : city
-      ? 'City'
+      ? "City"
       : airport
-      ? 'Airports'
-      : '';
+      ? "Airports"
+      : "";
 
   const inputHandler = e => {
     e.preventDefault();
 
-    if (e.target.id === 'from' && e.target.value.length !== 0) {
+    if (e.target.id === "from" && e.target.value.length !== 0) {
       setSearch(e.target.value);
       props.setSearch(p => ({ ...p, keyword: `${e.target.value}`, page: 0 }));
       setOpen2(false);
       setOpen1(true);
-    } else if (e.target.id === 'to' && e.target.value.length !== 0) {
+    } else if (e.target.id === "to" && e.target.value.length !== 0) {
       setSearch(e.target.value);
       props.setSearch(p => ({ ...p, keyword: `${e.target.value}`, page: 0 }));
       setOpen1(false);
@@ -89,8 +94,8 @@ const FlightsForm = props => {
     }
   };
   const fillInput = e => {
-    const inputFrom = document.getElementById('from');
-    const inputTo = document.getElementById('to');
+    const inputFrom = document.getElementById("from");
+    const inputTo = document.getElementById("to");
     if (open1) {
       inputFrom.value = e.target.innerText;
       inputFrom.name = e.target.name;
@@ -103,16 +108,22 @@ const FlightsForm = props => {
   };
 
   const submitHandler = () => {
-    const inputFrom = document.getElementById('from');
-    const inputTo = document.getElementById('to');
-    const dateOfDeparture = document.getElementById('departureDate');
-    const dateOfReturn = document.getElementById('returnDate');
+    const inputFrom = document.getElementById("from");
+    const inputTo = document.getElementById("to");
+    const dateOfDeparture = document.getElementById("departureDate");
+    const dateOfReturn = document.getElementById("returnDate");
     console.log(dateOfReturn.value);
 
-    const out = getSearchData({'originCode': inputFrom.name, 'destinationCode': inputTo.name, 'dateOfDeparture': dateOfDeparture.value, 'dateOfReturn': dateOfReturn.value})
-    out.then(result => {setOffers(result)})
-    navigate('/flights')
-
+    const out = getSearchData({
+      originCode: inputFrom.name,
+      destinationCode: inputTo.name,
+      dateOfDeparture: dateOfDeparture.value,
+      dateOfReturn: dateOfReturn.value,
+    });
+    out.then(result => {
+      setOffers(result);
+    });
+    navigate("/flights");
   };
 
   //setting default date
@@ -130,7 +141,6 @@ const FlightsForm = props => {
       (currDate < 10 ? "0" + currDate : currDate)
     );
   }
-
   function returnD() {
     let d = new Date();
     d.setDate(d.getDate() + 15);
