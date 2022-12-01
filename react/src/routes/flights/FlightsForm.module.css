@@ -2,7 +2,6 @@
   background-color: #35425963;
   border-radius: 5px;
   height: 10rem;
-  
   margin-top: 2rem;
 }
 
@@ -39,16 +38,15 @@
   background-color: rgba(255, 255, 255, 0.224);
   color: white;
   border: none;
-  width: 15vw
+  width: 15vw;
 }
 
-.form div .info{
+.form div .info {
   width: 10vw;
 }
 
 form input::placeholder {
   color: white;
-  
 }
 
 .submitButton {
