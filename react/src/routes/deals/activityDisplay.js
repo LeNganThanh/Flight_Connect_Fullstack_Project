@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import axios from 'axios';
 import { getActivities } from '../../api/activities.api';
 const ActivityDisplay = props => {
 
@@ -18,7 +17,7 @@ const ActivityDisplay = props => {
 
     getData()
 
-  }, [])
+  }, [props.geo])
 
   return <div>This is a test</div>;
 };
