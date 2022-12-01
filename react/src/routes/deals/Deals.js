@@ -10,6 +10,7 @@ const Deals = () => {
   useEffect(() => {
     if (!localStorage.getItem('iataCode')) {
       const getData = async () => {
+
         const ip = await axios
           .get(`https://geolocation-db.com/jsonp/`)
           .then(res => res.data.split(',')[6].slice(8, -1));
