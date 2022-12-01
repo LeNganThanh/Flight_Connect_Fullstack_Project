@@ -6,27 +6,30 @@ import ActivityDisplay from './activityDisplay.js'
 
 const Deals = () => {
   const [geo, setGeo] = useState(false)
-
   useEffect(() =>{
+    
+    if (!localStorage.getItem('geoData')) {
+      const getData = async() => {
 
-    const getData = async() => {
+        const ip = await axios
+            .get(`https://geolocation-db.com/jsonp/`)
+            .then(res => res.data.split(',')[6].slice(8, -1));
+         
+        localStorage.setItem('ip', ip)
 
-      const ip = await axios
-          .get(`https://geolocation-db.com/jsonp/`)
-          .then(res => res.data.split(',')[6].slice(8, -1));
-       
-      const geoData = await axios
-          .get(`http://www.geoplugin.net/json.gp?ip=${ip}`)
-          .then(res => ({
-            latitude: res.data.geoplugin_latitude, 
-            longitude: res.data.geoplugin_longitude
-          }))
+        const geoData = await axios
+            .get(`http://www.geoplugin.net/json.gp?ip=${ip}`)
+            .then(res => {
+              const lat = (Number(res.data.geoplugin_latitude) + 0.000069).toFixed(6)
+              const long = (Number(res.data.geoplugin_longitude) + 0.000069).toFixed(6)
+              localStorage.setItem('latitude', lat) 
+              localStorage.setItem('longitude', long)
+              setGeo({latitude: lat, longitude: long})
+            })
+      }
+      getData()
 
-      console.log("geoData", geoData)
-      return geoData
     }
-
-    setGeo(getData())
 
   }, [])
 

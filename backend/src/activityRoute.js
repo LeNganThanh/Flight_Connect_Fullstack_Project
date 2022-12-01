@@ -7,7 +7,6 @@ const API = `api`;
 
 router.get(`/${API}/activities`, async(req, res) => {
   const {latitude, longitude} = req.query
-  console.log(longitude)
 
   try{
       const response = await amadeus.shopping.activities.get({

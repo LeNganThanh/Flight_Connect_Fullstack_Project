@@ -1,22 +1,27 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { getActivities } from '../../api/activities.api';
 const ActivityDisplay = props => {
+  const [activity, setActivity] = useState(false)
 
   useEffect(() =>{
-
-    const getData = async() => {
     
-      const geo = await props.geo
+    if (!localStorage.getItem('activities')) {
+      const getData = async() => {
+      
+        const geo = await props.geo
 
-      const activities = await getActivities({latitude: geo.latitude, longitude: geo.longitude})
+        const activities = await getActivities({latitude: geo.latitude, longitude: geo.longitude})
 
-      console.log('act', activities)
+        console.log('act', activities)
 
-      return activities
+        localStorage.setItem('activities', activities.data.data)
+        setActivity(activities.data.data)
+        return activities
+      }
+
+      getData()
     }
-
-    getData()
 
   }, [])
 
