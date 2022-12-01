@@ -113,7 +113,7 @@ const FlightsForm = props => {
     const inputTo = document.getElementById("to");
     const dateOfDeparture = document.getElementById("departureDate");
     const dateOfReturn = document.getElementById("returnDate");
-    console.log(dateOfReturn.value);
+  
 
     const out = getSearchData({
       originCode: inputFrom.name,

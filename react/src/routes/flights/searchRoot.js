@@ -24,6 +24,7 @@ const SearchRoot = () => {
 
     out
       .then(res => {
+        console.log(res.data/* .data[0].geoCode */);
         if (!res.data.code) {
           
           setDataSource(res.data);

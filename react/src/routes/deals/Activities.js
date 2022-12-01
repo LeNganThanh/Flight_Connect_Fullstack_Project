@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import classes from "./Activities.module.css";
 
 export default function Activities({ activ }) {
-  console.log(activ);
+  
 
   //setting for show/hidden articles
   const [show, setShow] = useState(false);

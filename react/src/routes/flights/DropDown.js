@@ -1,14 +1,13 @@
-import React, { useContext } from 'react';
-import FlightsProvider from '../../context/FlightsContextProvider';
+//import React, { useContext } from 'react';
+//import { FlightsContext } from '../../context/FlightsContext';
 import classes from './DropDown.module.css';
 
 const DropDown = props => {
-  const [setCity] = useContext(FlightsProvider)
+  //const [setCity ]= useContext(FlightsContext)
   const passInfo = e => {
     console.log(JSON.parse(e.target.value));
     e.preventDefault();
-    console.log(e.geoCode);
-
+  
     props.fillInput(e);
     
   };
@@ -17,8 +16,7 @@ const DropDown = props => {
       <div>
         {props.dataSource
           ? props.dataSource.data.map(city => {
-            setCity(city.geoCode)
-           
+            
            //console.log(city);
               return (
                 <button 

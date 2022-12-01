@@ -1,6 +1,7 @@
 
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
+import { FlightsContext } from "../../context/FlightsContext";
 //import axios from "axios";
 import { getActivities } from "../../api/activities.api";
 
@@ -8,6 +9,8 @@ import Activities from "./Activities";
 
 
 const ActivityDisplay = props => {
+  const [city] = useContext(FlightsContext)
+  console.log(city);
   //state for activities
   const [activ, setActiv] = useState([]);
 
