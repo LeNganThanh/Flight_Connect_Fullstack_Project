@@ -7,6 +7,7 @@ import ActivityDisplay from "./activityDisplay.js";
 const Deals = () => {
 
   const [geo, setGeo] = useState(false)
+
   useEffect(() =>{
     
     if (!localStorage.getItem('geoData')) {
@@ -18,7 +19,7 @@ const Deals = () => {
          
         localStorage.setItem('ip', ip)
 
-        const geoData = await axios
+        await axios
             .get(`http://www.geoplugin.net/json.gp?ip=${ip}`)
             .then(res => {
               const lat = (Number(res.data.geoplugin_latitude) + 0.000069).toFixed(6)
@@ -28,8 +29,8 @@ const Deals = () => {
               setGeo({latitude: lat, longitude: long})
             })
       }
-      getData()
 
+      getData()
     }
 
   }, [])
