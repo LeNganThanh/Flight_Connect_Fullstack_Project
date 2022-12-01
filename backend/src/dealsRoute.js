@@ -36,7 +36,7 @@ router.get(`/${API}/deals`, async(req, res) => {
         Authorization: `Bearer ${access}`,
       }
     })
-
+    console.log(response.data);
     res.send(response.data)
   }catch(err){
     console.log(err)

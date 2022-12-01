@@ -1,6 +1,7 @@
 main {
   width: 100%;
   text-align: center;
+  justify-content: center;
 }
 
 .header-txt {
@@ -8,13 +9,17 @@ main {
   z-index: 100;
   top: 10rem;
   padding: 1.5rem;
-
   color: white;
-  font-size: 3rem;
+  font-size: 2rem;
   display: flex;
   justify-content: center;
   flex-direction: column;
   align-items: center;
+  margin-left: 5rem;
+}
+
+.header-txt-header {
+  max-width: 85%;
 }
 
 .header-txt h1 {

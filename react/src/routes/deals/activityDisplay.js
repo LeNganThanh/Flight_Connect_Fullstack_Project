@@ -14,11 +14,11 @@ const ActivityDisplay = props => {
   useEffect(() => {
   if (!localStorage.getItem('activities')) {
     const getData = async () => {
-      const geo = await props.geo;
+      
 
       const activities = await getActivities({
-        latitude: geo.latitude,
-        longitude: geo.longitude,
+        latitude:  localStorage.getItem('latitude'),
+        longitude: localStorage.getItem('longitude'),
       });
 
       const activArr = activities.data.data.splice(14, 8);
@@ -27,9 +27,9 @@ const ActivityDisplay = props => {
 
       return activities;
     };
+    getData();
   }
 
-    getData();
   }, [props.geo]);
 
 
