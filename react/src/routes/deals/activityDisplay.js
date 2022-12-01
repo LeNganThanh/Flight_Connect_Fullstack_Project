@@ -27,9 +27,9 @@ const ActivityDisplay = props => {
 
       return activities;
     };
+    getData();
   }
 
-    getData();
   }, [props.geo]);
 
 
