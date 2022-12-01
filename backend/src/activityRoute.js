@@ -12,7 +12,10 @@ router.get(`/${API}/activities`, async(req, res) => {
       const response = await amadeus.shopping.activities.get({
           latitude: latitude,
           longitude: longitude,
-          radius: 20 
+          radius: 20,
+          params: {
+            per_page: 10
+          }
       })
       res.json(JSON.parse(response.body))
   }catch(err){
