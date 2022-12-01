@@ -21,9 +21,7 @@
     "mongoose": "^6.7.0",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.20",
-    "path": "^0.12.7",
-    "sabre-dev-studio": "^1.2.0",
-    "simple-oauth2": "^5.0.0"
+    "path": "^0.12.7"
   },
   "devDependencies": {
     "@types/node": "^18.11.9"
