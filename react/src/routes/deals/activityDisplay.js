@@ -1,4 +1,5 @@
 
+
 import React, { useEffect, useState } from "react";
 //import axios from "axios";
 import { getActivities } from "../../api/activities.api";
@@ -11,6 +12,7 @@ const ActivityDisplay = props => {
   const [activ, setActiv] = useState([]);
 
   useEffect(() => {
+  if (!localStorage.getItem('activities')) {
     const getData = async () => {
       const geo = await props.geo;
 
@@ -20,15 +22,16 @@ const ActivityDisplay = props => {
       });
 
       const activArr = activities.data.data.splice(14, 8);
-
+      localStorage.setItem('activities', activArr)
       setActiv(activArr);
 
       return activities;
     };
-
+  }
 
     getData();
   }, [props.geo]);
+
 
 
 

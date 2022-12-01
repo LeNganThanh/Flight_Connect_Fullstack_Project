@@ -5,27 +5,35 @@ import classes from "./Deals.module.css";
 import ActivityDisplay from "./activityDisplay.js";
 
 const Deals = () => {
-  const [geo, setGeo] = useState(false);
 
-  useEffect(() => {
-    const getData = async () => {
-      const ip = await axios
-        .get(`https://geolocation-db.com/jsonp/`)
-        .then(res => res.data.split(",")[6].slice(8, -1));
+  const [geo, setGeo] = useState(false)
+  useEffect(() =>{
+    
+    if (!localStorage.getItem('geoData')) {
+      const getData = async() => {
 
-      const geoData = await axios
-        .get(`http://www.geoplugin.net/json.gp?ip=${ip}`)
-        .then(res => ({
-          latitude: res.data.geoplugin_latitude,
-          longitude: res.data.geoplugin_longitude,
-        }));
+        const ip = await axios
+            .get(`https://geolocation-db.com/jsonp/`)
+            .then(res => res.data.split(',')[6].slice(8, -1));
+         
+        localStorage.setItem('ip', ip)
 
-      /*       console.log("geoData", geoData);
-       */ return geoData;
-    };
+        const geoData = await axios
+            .get(`http://www.geoplugin.net/json.gp?ip=${ip}`)
+            .then(res => {
+              const lat = (Number(res.data.geoplugin_latitude) + 0.000069).toFixed(6)
+              const long = (Number(res.data.geoplugin_longitude) + 0.000069).toFixed(6)
+              localStorage.setItem('latitude', lat) 
+              localStorage.setItem('longitude', long)
+              setGeo({latitude: lat, longitude: long})
+            })
+      }
+      getData()
 
-    setGeo(getData());
-  }, []);
+    }
+
+  }, [])
+
 
   return (
     <React.Fragment>

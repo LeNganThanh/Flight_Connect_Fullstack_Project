@@ -5,8 +5,10 @@ const router = express.Router();
 
 const API = `api`;
 
-router.get(`/${API}/activities`, async (req, res) => {
-  const { latitude, longitude } = req.query;
+
+router.get(`/${API}/activities`, async(req, res) => {
+  const {latitude, longitude} = req.query
+
 
   try {
     const response = await amadeus.shopping.activities.get({
