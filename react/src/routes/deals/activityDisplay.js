@@ -27,11 +27,7 @@ const ActivityDisplay = props => {
     getData();
   }, [props.geo]);
 
-  return (
-    <div>
-      <Activities activ={activ} />
-    </div>
-  );
+  return <div>{activ ? <Activities activ={activ} /> : null}</div>;
 };
 
 export default ActivityDisplay;
