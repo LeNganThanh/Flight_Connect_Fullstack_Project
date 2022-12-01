@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import classes from "./Activities.module.css";
 
-export default function Activities({ activ }) {
-  console.log(activ);
+const Activities = props => {
+  console.log(props)
 
   //setting for show/hidden articles
   const [show, setShow] = useState(false);
-  const firstFourAct = activ.slice(0, 4);
-  const secondFourAct = activ.slice(4);
+  const firstFourAct = props.activ.slice(0, 4);
+  const secondFourAct = props.activ.slice(4);
 
   //function use to clear all html tags includes in description from api
   function extractContent(html) {
@@ -56,3 +56,5 @@ export default function Activities({ activ }) {
     </div>
   );
 }
+
+export default Activities;

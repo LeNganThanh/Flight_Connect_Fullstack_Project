@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import classes from "./Deals.module.css";
-//import DealDisplay from "./dealDisplay.js";
+import DealDisplay from "./dealDisplay.js";
 import ActivityDisplay from "./activityDisplay.js";
+import { getAirport } from '../../api/airport.api.js';
 
 const Deals = () => {
 
-  const [geo, setGeo] = useState(false)
-
+  const [geoInfo, setGeoInfo] = useState(false)
   useEffect(() =>{
     
-    if (!localStorage.getItem('geoData')) {
+    if (!geoInfo) {
       const getData = async() => {
 
         const ip = await axios
@@ -18,7 +18,8 @@ const Deals = () => {
             .then(res => res.data.split(',')[6].slice(8, -1));
          
         localStorage.setItem('ip', ip)
-
+        console.log('ip', ip)
+        
         await axios
             .get(`http://www.geoplugin.net/json.gp?ip=${ip}`)
             .then(res => {
@@ -26,8 +27,29 @@ const Deals = () => {
               const long = (Number(res.data.geoplugin_longitude) + 0.000069).toFixed(6)
               localStorage.setItem('latitude', lat) 
               localStorage.setItem('longitude', long)
-              setGeo({latitude: lat, longitude: long})
             })
+
+        const airport = await getAirport({
+        latitude: localStorage.getItem('latitude'),
+        longitude: localStorage.getItem('longitude'),
+        radius: 100,
+        sort: 'distance'
+        });
+
+        const airports = airport.data.data.slice(0, 5);
+        console.log('airports', airports)
+        let airportCodes = [];
+
+        airports.map(port => {
+        airportCodes.push({
+        iataCode: port.iataCode,
+        cityName: port.address.cityName,
+        countryCode: port.address.countryCode,
+        countryName: port.address.countryName,
+        geoCode: port.geoCode
+        })
+        })
+        setGeoInfo(airportCodes)
       }
 
       getData()
@@ -77,8 +99,8 @@ const Deals = () => {
         </div>
       </div>
       <div className={classes["info-box"]}>
-        {geo ? <ActivityDisplay geo={geo} /> : null}
-        {/*    {geo ? <DealDisplay geo={geo} /> : null} */}
+        {geoInfo ? <ActivityDisplay geoInfo={geoInfo} /> : null}
+        {geoInfo ? <DealDisplay geoInfo={geoInfo} /> : null}
       </div>
     </React.Fragment>
   );

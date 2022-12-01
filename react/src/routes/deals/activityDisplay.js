@@ -1,36 +1,35 @@
-
-
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 //import axios from "axios";
 import { getActivities } from "../../api/activities.api";
-
 import Activities from "./Activities";
+import {FlightsContext} from '../../context/FlightsContext.js'
 
 
 const ActivityDisplay = props => {
   //state for activities
-  const [activ, setActiv] = useState([]);
+  const [activ, setActiv] = useState(false);
+  const [state] = useContext(FlightsContext)
 
   useEffect(() => {
-  if (!localStorage.getItem('activities')) {
+
     const getData = async () => {
-      const geo = await props.geo;
+      if (state.longitude !== '') {
+        const activities = await getActivities({
+          latitude: state.latitude,
+          longitude: state.longitude,
+        });
 
-      const activities = await getActivities({
-        latitude: geo.latitude,
-        longitude: geo.longitude,
-      });
+        const activArr = activities.data.data.splice(14, 8);
+        console.log('activities', activArr)
 
-      const activArr = activities.data.data.splice(14, 8);
-      localStorage.setItem('activities', activArr)
-      setActiv(activArr);
+        setActiv(activArr);
 
-      return activities;
+        return activities;
+      }
     };
     getData();
-  }
 
-  }, [props.geo]);
+  }, [state]);
 
 
 

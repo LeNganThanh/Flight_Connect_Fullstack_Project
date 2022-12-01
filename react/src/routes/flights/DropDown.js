@@ -1,11 +1,38 @@
-import React from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import classes from './DropDown.module.css';
+import { FlightsContext } from "../../context/FlightsContext";
+
 const DropDown = props => {
-  const passInfo = e => {
+  const [state, dispatch] = useContext(FlightsContext)
+  const passInfo = async(e) => {
     e.preventDefault();
-    props.fillInput(e);
-    
+
+    const geo = JSON.parse(e.target.value)
+    const lat = geo.latitude.toFixed(6)
+    const long = geo.longitude.toFixed(6)
+    console.log(lat , long)
+
+    await props.fillInput(e);
+
+    setGeo({
+      latitude: lat,
+      longitude: long
+    })
   };
+
+  const setGeo = async(value) => {
+    await dispatch({
+      type: 'setLocation',
+      latitude: value.latitude,
+      longitude: value.longitude
+
+    })
+  }
+
+  useEffect(() => {
+    console.log('geoState', state)
+  }, [state])
+  
   return (
     <div>
       <div>
@@ -13,7 +40,7 @@ const DropDown = props => {
           ? props.dataSource.data.map(city => {
               return (
                 <button 
-                  value={city}
+                  value={JSON.stringify(city.geoCode)}
                   onClick={passInfo}
                   className={classes.list}
                   name={city.iataCode}

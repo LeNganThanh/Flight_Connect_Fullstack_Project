@@ -14,6 +14,9 @@ router.get(`/${API}/deals`, async(req, res) => {
   let userPass = Buffer.from(USER_PASS, 'utf-8').toString('base64')
   let concat = `${userId}:${userPass}`
   const encodedConcat = Buffer.from(concat).toString('base64')
+
+  const geoInfo = JSON.parse(req.query.geoInfo)
+  console.log(geoInfo)
   
 
   try{
@@ -28,27 +31,40 @@ router.get(`/${API}/deals`, async(req, res) => {
     
     const access = token.data.access_token
     
-    let query = `origincountry=${'DE'}&lookbackweeks=12`
+
+    const countryCode = geoInfo[0].countryCode
+    let query = `origincountry=${countryCode}&lookbackweeks=12`
     
-    const response = await axios.get(`https://api-crt.cert.havail.sabre.com/v1/lists/top/destinations?${query}`, {
+    const topDestinations = await axios.get(`https://api-crt.cert.havail.sabre.com/v1/lists/top/destinations?${query}`, {
       headers: {
         Authorization: `Bearer ${access}`,
       }
     })
 
-    query = `origin=${req.query.iataCode}&departuredate=${req.query.dateOfDeparture}&returndate=${req.query.dateOfReturn}&pointofsalecountry=${'DE'}` 
+    const getInspiration = async() => {
+      let gotFlightInspiration = undefined
+      let count = 0
+      while(gotFlightInspiration === undefined  && count < 5) {
+        console.log(geoInfo[count])
 
-    const response2 = await axios.get(`https://api-crt.cert.havail.sabre.com/v2/shop/flights/fares?${query}`, {
-      headers: {
-        Authorization: `Bearer ${access}`
+      query = `origin=${geoInfo[count].iataCode}&departuredate=${req.query.dateOfDeparture}&returndate=${req.query.dateOfReturn}&pointofsalecountry=${geoInfo[count].countryCode}` 
+
+      const result = await axios.get(`https://api-crt.cert.havail.sabre.com/v2/shop/flights/fares?${query}`, {
+        headers: {
+          Authorization: `Bearer ${access}`
+        }
+      })
+
+      gotFlightInspiration = result
+      
+      count++
       }
-    })
+      console.log('-------HI', gotFlightInspiration)
+      return gotFlightInspiration
+    }
+    const flightInspiration = await getInspiration()
 
-    console.log(response2)
-
-    const result = [response.data, response2.data]
-
-    res.send(result)
+    res.send([topDestinations.data, flightInspiration.data])
   }catch(err){
     console.log(err)
     res.json(err)

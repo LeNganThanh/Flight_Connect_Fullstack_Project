@@ -22,9 +22,9 @@ router.get(`/${API}/offers`, async(req, res) =>{
               adults: '1',
               max: 20
           })
-          await res.json(JSON.parse(response.body))
+          res.json(JSON.parse(response.body))
       }catch(err){
-          await res.json(err)
+          res.json(err)
       }
     } else {
       try{
@@ -36,9 +36,9 @@ router.get(`/${API}/offers`, async(req, res) =>{
               adults: '1',
               max: 20
           })
-          await res.json(JSON.parse(response.body))
+          res.json(JSON.parse(response.body))
       }catch(err){
-          await res.json(err)
+          res.json(err)
       }
 
     }

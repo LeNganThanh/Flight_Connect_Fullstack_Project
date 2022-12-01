@@ -1,4 +1,4 @@
-import React, { Fragment, useContext, useEffect } from 'react';
+import React, { Fragment, useContext } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
 import { FlightsContext } from '../../context/FlightsContext';
@@ -6,16 +6,14 @@ import airPlane from '../../media/Airplane-logo.png';
 import classes from './Offers.module.css';
 
 const Offers = () => {
-  const [offers] = useContext(FlightsContext);
+  const [state] = useContext(FlightsContext);
+  const { offers } = state;
 
   const inputFrom = document.getElementById('from');
   const inputTo = document.getElementById('to');
 
-  useEffect(() => {
-    console.log(offers);
-  }, [offers]);
-
-  if (offers && offers.data.data.length > 0) {
+  if (offers.length > 0) {
+    console.log('offersplease', offers)
     return (
       <div className={classes.offers}>
         <div className={classes.offersHeader}>
@@ -23,7 +21,7 @@ const Offers = () => {
             {inputFrom.value} | {inputTo.value}
           </h2>
         </div>
-        {offers.data.data.map((offer, iOffer) => {
+        {offers.map((offer, iOffer) => {
           return (
             <div key={iOffer} className={classes.mainBox}>
             <div className={classes.singleOffer}>
@@ -158,7 +156,7 @@ const Offers = () => {
         })}
       </div>
     );
-  } else if (offers && offers.data.data.length === 0) {
+  } else if (offers.length === 0) {
     return (
       <div>
         <h2>No results for this route</h2>

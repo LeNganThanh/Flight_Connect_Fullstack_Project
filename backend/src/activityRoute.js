@@ -12,8 +12,8 @@ router.get(`/${API}/activities`, async(req, res) => {
 
   try {
     const response = await amadeus.shopping.activities.get({
-      latitude: 41.397158,
-      longitude: 2.160873,
+      latitude: latitude,
+      longitude: longitude,
       radius: 20,
     });
 
