@@ -1,7 +1,9 @@
+
 import React, { useEffect } from "react";
 //import axios from "axios";
 import { getAirport } from "../../api/airport.api.js";
 //import { getDeals } from "../../api/deals.api.js";
+
 const DealDisplay = props => {
   useEffect(() => {
     const getData = async () => {
@@ -22,8 +24,10 @@ const DealDisplay = props => {
       // return result
     };
 
+
     getData();
   }, [props.geo]);
+
 
   return <div>This is a test</div>;
 };

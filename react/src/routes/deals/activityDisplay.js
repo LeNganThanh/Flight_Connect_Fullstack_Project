@@ -1,8 +1,10 @@
+
 import React, { useEffect, useState } from "react";
 //import axios from "axios";
 import { getActivities } from "../../api/activities.api";
 
 import Activities from "./Activities";
+
 
 const ActivityDisplay = props => {
   //state for activities
@@ -24,8 +26,11 @@ const ActivityDisplay = props => {
       return activities;
     };
 
+
     getData();
   }, [props.geo]);
+
+
 
   return <div>{activ ? <Activities activ={activ} /> : null}</div>;
 };
