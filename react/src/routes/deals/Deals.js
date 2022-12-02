@@ -1,44 +1,58 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import classes from './Deals.module.css';
-import { getAirport } from '../../api/airport.api';
-//import DealDisplay from "./dealDisplay.js";
-import ActivityDisplay from './activityDisplay.js';
+
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import classes from "./Deals.module.css";
+import DealDisplay from "./dealDisplay.js";
+import ActivityDisplay from "./activityDisplay.js";
+import { getAirport } from '../../api/airport.api.js';
 
 const Deals = () => {
-  const [geo, setGeo] = useState(false);
-  useEffect(() => {
-    if (!localStorage.getItem('iataCode')) {
-      const getData = async () => {
+
+  const [geoInfo, setGeoInfo] = useState(false)
+  useEffect(() =>{
+    
+    if (!geoInfo) {
+      const getData = async() => {
 
         const ip = await axios
-          .get(`https://geolocation-db.com/jsonp/`)
-          .then(res => res.data.split(',')[6].slice(8, -1));
-
-        localStorage.setItem('ip', ip);
-
+            .get(`https://geolocation-db.com/jsonp/`)
+            .then(res => res.data.split(',')[6].slice(8, -1));
+         
+        localStorage.setItem('ip', ip)
+        console.log('ip', ip)
+        
         await axios
-          .get(`http://www.geoplugin.net/json.gp?ip=${ip}`)
-          .then(async res => {
-            const lat = (
-              Number(res.data.geoplugin_latitude) + 0.000069
-            ).toFixed(6);
-            const long = (
-              Number(res.data.geoplugin_longitude) + 0.000069
-            ).toFixed(6);
-            const airport = await getAirport({
-              latitude: lat,
-              longitude: long,
-              radius: 100,
-              sort: 'distance'
-            });
-            
-            console.log(airport);
-            const iataCode = airport.data.data[0].iataCode;
-            const geoCode = airport.data.data[0].geoCode;
-            localStorage.setItem('iataCode', iataCode);
-            localStorage.setItem('latitude', geoCode.latitude);
-            localStorage.setItem('longitude', geoCode.longitude);
+            .get(`http://www.geoplugin.net/json.gp?ip=${ip}`)
+            .then(res => {
+              const lat = (Number(res.data.geoplugin_latitude) + 0.000069).toFixed(6)
+              const long = (Number(res.data.geoplugin_longitude) + 0.000069).toFixed(6)
+              localStorage.setItem('latitude', lat) 
+              localStorage.setItem('longitude', long)
+            })
+
+        const airport = await getAirport({
+        latitude: localStorage.getItem('latitude'),
+        longitude: localStorage.getItem('longitude'),
+        radius: 100,
+        sort: 'distance'
+        });
+
+        const airports = airport.data.data.slice(0, 5);
+        console.log('airports', airports)
+        let airportCodes = [];
+
+        airports.map(port => {
+        airportCodes.push({
+        iataCode: port.iataCode,
+        cityName: port.address.cityName,
+        countryCode: port.address.countryCode,
+        countryName: port.address.countryName,
+        geoCode: port.geoCode
+        })
+        })
+        setGeoInfo(airportCodes)
+      }
+
 
            
             setGeo(true);
@@ -88,9 +102,11 @@ const Deals = () => {
           </div>
         </div>
       </div>
-      <div className={classes['info-box']}>
-        {geo ? <ActivityDisplay geo={geo} /> : null}
-        {/*    {geo ? <DealDisplay geo={geo} /> : null} */}
+
+      <div className={classes["info-box"]}>
+        {geoInfo ? <ActivityDisplay geoInfo={geoInfo} /> : null}
+        {geoInfo ? <DealDisplay geoInfo={geoInfo} /> : null}
+
       </div>
     </React.Fragment>
   );

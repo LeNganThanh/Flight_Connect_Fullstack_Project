@@ -18,9 +18,8 @@ import { FlightsContext } from "../../context/FlightsContext";
 const FlightsForm = props => {
   /*  const [departure, setDeparture] = useState('');
   const [destination, setDestination] = useState(''); */
-  const [offers, setOffers] = useContext(FlightsContext);
+  const [state, dispatch] = useContext(FlightsContext);
   const [search, setSearch] = useState("");
-
   const [options, setOptions] = useState([]);
   const [open1, setOpen1] = useState(false);
   const [open2, setOpen2] = useState(false);
@@ -113,7 +112,7 @@ const FlightsForm = props => {
     const inputTo = document.getElementById("to");
     const dateOfDeparture = document.getElementById("departureDate");
     const dateOfReturn = document.getElementById("returnDate");
-  
+
 
     const out = getSearchData({
       originCode: inputFrom.name,
@@ -122,10 +121,18 @@ const FlightsForm = props => {
       dateOfReturn: dateOfReturn.value,
     });
     out.then(result => {
-      setOffers(result);
+      console.log(result)
+      setOffers(result)
     });
     navigate("/flights");
   };
+
+  const setOffers = async(value) => {
+    await dispatch({
+      type: 'setOffers',
+      offers: value.data.data
+    });
+  }
 
   //setting default date
   function departD() {
