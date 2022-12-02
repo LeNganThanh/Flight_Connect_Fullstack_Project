@@ -11,9 +11,9 @@ const Offers = () => {
   const inputFrom = document.getElementById('from');
   const inputTo = document.getElementById('to');
 
-/*   useEffect(() => { . ===> to review  
+  useEffect(() => {   
     console.log(offers);
-  }, [offers]); */
+  }, [offers]); 
 
   if (offers && offers.data.data.length > 0) {
     return (
