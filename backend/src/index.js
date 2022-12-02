@@ -1,24 +1,50 @@
+//===> Packages
 import express from 'express';
+import morgan from 'morgan';
+import cors from 'cors';
+import multer from 'multer'
+import mongoose from 'mongoose';
+//===> API routes
 import autocompRoute from './router.js';
 import searchRoute from './SearchRoute.js';
 import airportRoute from './airportRoute.js';
 import dealsRoute from './dealsRoute.js'
 import activityRoute from './activityRoute.js'
-import morgan from 'morgan';
-import cors from 'cors';
-// import * as path from 'path';
-// import * as url from 'url';
 
-// const __filename = url.fileURLToPath(import.meta.url);
-// const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
+// ===> Backend local routes
+import userRoute from '../routes/userRoute'
+
+
 
 // ===> Setting the server
 const app = express();
 const PORT = 1338;
-
+  
+//===> Using the packages
 app.use(morgan('dev'));
-
 app.use(cors({ origin: '*' }));
+
+//===> Multer
+
+const storage = multer.diskStorage({
+  destination: function(req, file, cb){
+    let fullPath = './upload/';
+    cb(null, fullPath)
+  },
+  fileName: function(req, file, cb){
+    let fileName = Date.now() + ' ' + file.originalName
+    cb(null, fileName)
+  }
+})
+
+const upload = multer({storage: storage})
+
+//===> Mongoose connection 
+
+mongoose.connect()
+
+//===> Routes
+app.use('/users',upload.single('image'), userRoute)
 
 //===> Applying handler for API
 

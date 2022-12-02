@@ -10,37 +10,30 @@ const Deals = () => {
 
   const [geoInfo, setGeoInfo] = useState(false)
   useEffect(() =>{
-    
     if (!geoInfo) {
       const getData = async() => {
-
         const ip = await axios
             .get(`https://geolocation-db.com/jsonp/`)
             .then(res => res.data.split(',')[6].slice(8, -1));
-         
         localStorage.setItem('ip', ip)
         console.log('ip', ip)
-        
         await axios
             .get(`http://www.geoplugin.net/json.gp?ip=${ip}`)
             .then(res => {
               const lat = (Number(res.data.geoplugin_latitude) + 0.000069).toFixed(6)
               const long = (Number(res.data.geoplugin_longitude) + 0.000069).toFixed(6)
-              localStorage.setItem('latitude', lat) 
+              localStorage.setItem('latitude', lat)
               localStorage.setItem('longitude', long)
             })
-
         const airport = await getAirport({
         latitude: localStorage.getItem('latitude'),
         longitude: localStorage.getItem('longitude'),
         radius: 100,
         sort: 'distance'
         });
-
         const airports = airport.data.data.slice(0, 5);
         console.log('airports', airports)
         let airportCodes = [];
-
         airports.map(port => {
         airportCodes.push({
         iataCode: port.iataCode,
@@ -52,15 +45,9 @@ const Deals = () => {
         })
         setGeoInfo(airportCodes)
       }
-
-
-           
-            setGeo(true);
-          });
-      };
-      getData();
+      getData()
     }
-  }, []);
+  }, [geoInfo])
 
   return (
     <React.Fragment>
