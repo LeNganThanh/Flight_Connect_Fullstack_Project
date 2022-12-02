@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
-import UserCollection from '../models/usersschema';
-import TOKEN_SECRET_KEY from '../src/config.js';
+import UserCollection from '../models/usersschema.js';
+import { TOKEN_SECRET_KEY } from '../src/config.js';
 
 async function verifyToken(req, res, next) {
   try {

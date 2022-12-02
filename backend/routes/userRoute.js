@@ -1,8 +1,8 @@
 import express, { Router } from 'express';
-import { checkUserToken, getAllUsers, getUser, loginUser, createUser, updateUser, deleteUser } from '../controllers/userController';
-import { isAdmin } from '../middlewares/isAdminMiddleware';
-import verifyToken from '../middlewares/verifyToken';
-import { userValidation } from '../middlewares/validateMiddleware';
+import { checkUserToken, getAllUsers, getUser, loginUser, createUser, updateUser, deleteUser } from '../controllers/userController.js';
+import { isAdmin } from '../middlewares/isAdminMiddleware.js';
+import verifyToken from '../middlewares/verifyToken.js';
+import { userValidation } from '../middlewares/validateMiddleware.js';
 const route = express.Router()
 
 

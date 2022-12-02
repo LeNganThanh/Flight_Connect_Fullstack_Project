@@ -1,6 +1,6 @@
-import UserCollection from "../models/usersschema";
+import UserCollection from "../models/usersschema.js";
 import bcrypt from 'bcrypt';
-import jwt from jsonwebtoken;
+import jwt from 'jsonwebtoken';
 
 export const getAllUsers = async(req, res, next) => {
     try{

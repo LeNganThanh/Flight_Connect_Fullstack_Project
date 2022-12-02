@@ -12,8 +12,11 @@ import dealsRoute from './dealsRoute.js'
 import activityRoute from './activityRoute.js'
 
 // ===> Backend local routes
-import userRoute from '../routes/userRoute'
+import userRoute from '../routes/userRoute.js'
 
+
+// ===> Mongoose Url
+import {MONGOOSE_URL} from './config.js'
 
 
 // ===> Setting the server
@@ -41,7 +44,7 @@ const upload = multer({storage: storage})
 
 //===> Mongoose connection 
 
-mongoose.connect()
+mongoose.connect(MONGOOSE_URL)
 
 //===> Routes
 app.use('/users',upload.single('image'), userRoute)

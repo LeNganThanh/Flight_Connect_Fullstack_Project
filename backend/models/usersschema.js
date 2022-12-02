@@ -1,7 +1,8 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
 
- const Schema = mongoose.Schema
+const Schema = mongoose.Schema
+
 
  const userSchema = new Schema({
     firstName: {type: String, required: true},
@@ -14,14 +15,26 @@ import bcrypt from 'bcrypt';
     profileImage: {type: String, default: function(){
         return `https://joeschmoe.io/api/v1/${this.firstName}`
     }}, 
-    toJSON: {
-        virtuals: true
-    },
-    toObject: {
-        virtuals: true
-    }
+    // toObject: {
+    //     virtuals: true
+    // },
+    // toJSON: {
+    //     virtuals: true
+    // }
 
  });
+
+  userSchema.virtual('id').get(function(){
+      return this._id.toHexString();
+  });
+
+  userSchema.set('toJSON', {
+      virtuals: true
+  });
+
+  userSchema.set('toObject', {
+      virtuals: true
+  });
 
  userSchema.virtual('fullName').get(function(){
     return this.firstName + ' ' + this.lastName
