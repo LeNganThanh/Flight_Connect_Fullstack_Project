@@ -1,4 +1,8 @@
+
 import React, { useEffect, useState, useContext } from "react";
+
+
+
 //import axios from "axios";
 import { getActivities } from "../../api/activities.api";
 import Activities from "./Activities";
@@ -6,6 +10,8 @@ import {FlightsContext} from '../../context/FlightsContext.js'
 
 
 const ActivityDisplay = props => {
+  const [city] = useContext(FlightsContext)
+  console.log(city);
   //state for activities
   const [activ, setActiv] = useState(false);
   const [state] = useContext(FlightsContext)
@@ -13,6 +19,7 @@ const ActivityDisplay = props => {
   useEffect(() => {
 
     const getData = async () => {
+
       if (state.longitude !== '') {
         const activities = await getActivities({
           latitude: state.latitude,
@@ -21,6 +28,8 @@ const ActivityDisplay = props => {
 
         const activArr = activities.data.data.splice(14, 8);
         console.log('activities', activArr)
+
+
 
         setActiv(activArr);
 

@@ -12,8 +12,10 @@ const Offers = () => {
   const inputFrom = document.getElementById('from');
   const inputTo = document.getElementById('to');
 
+
   if (offers.length > 0) {
     console.log('offersplease', offers)
+
     return (
       <div className={classes.offers}>
         <div className={classes.offersHeader}>

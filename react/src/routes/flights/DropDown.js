@@ -1,3 +1,4 @@
+
 import React, {useContext, useEffect, useState} from 'react';
 import classes from './DropDown.module.css';
 import { FlightsContext } from "../../context/FlightsContext";
@@ -18,6 +19,7 @@ const DropDown = props => {
       latitude: lat,
       longitude: long
     })
+
   };
 
   const setGeo = async(value) => {
@@ -38,10 +40,14 @@ const DropDown = props => {
       <div>
         {props.dataSource
           ? props.dataSource.data.map(city => {
+            
+           //console.log(city);
               return (
                 <button 
                   value={JSON.stringify(city.geoCode)}
-                  onClick={passInfo}
+
+                  onClick= { passInfo }
+
                   className={classes.list}
                   name={city.iataCode}
                   key= {city.id}

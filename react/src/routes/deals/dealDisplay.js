@@ -1,10 +1,13 @@
 import React, { useEffect } from 'react';
 import { getDeals } from '../../api/deals.api.js';
+import { getAirport } from '../../api/airport.api.js'
 
 const DealDisplay = props => {
+
   
   const dateOfDeparture = document.getElementById("departureDate");
   const dateOfReturn = document.getElementById("returnDate");
+
 
   useEffect(() => {
         const getData = async () => {

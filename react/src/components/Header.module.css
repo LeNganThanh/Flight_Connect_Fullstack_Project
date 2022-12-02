@@ -8,8 +8,8 @@
   vertical-align: center;
   margin: auto;
    width: 100%; 
-   background-color: #ece5c77b;
-}
+/*    background-color: #ece5c77b;
+ */}
 .headerText {
  margin-right: 2rem;
   
@@ -37,7 +37,6 @@ button {
   cursor: pointer;
   font: inherit;
   border: none;
-
   background-color: #354259;
   color: white;
   border-radius: 12px;
@@ -46,11 +45,6 @@ button {
   
 }
 
-button:hover,
-button:active {
-    color: #354259;
-    background-color:#CDC2AE;
-}
 
 .user{
   width: 5vw

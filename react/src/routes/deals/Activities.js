@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import classes from "./Activities.module.css";
 
+
 const Activities = props => {
   console.log(props)
+
 
   //setting for show/hidden articles
   const [show, setShow] = useState(false);

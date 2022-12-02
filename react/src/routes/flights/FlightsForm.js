@@ -13,6 +13,7 @@ import DropDown from "./DropDown.js";
 import classes from "./FlightsForm.module.css";
 import { getSearchData } from "../../api/search.api";
 import { FlightsContext } from "../../context/FlightsContext";
+//import Button from "../../components/Button";
 
 const FlightsForm = props => {
   /*  const [departure, setDeparture] = useState('');
@@ -111,6 +112,7 @@ const FlightsForm = props => {
     const inputTo = document.getElementById("to");
     const dateOfDeparture = document.getElementById("departureDate");
     const dateOfReturn = document.getElementById("returnDate");
+
 
     const out = getSearchData({
       originCode: inputFrom.name,

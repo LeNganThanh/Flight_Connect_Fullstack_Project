@@ -6,6 +6,9 @@
   gap: 0 2rem;
   margin: auto;
 }
+.activBox:hover{
+  transform: translateY(-1.5rem) scale(1.03);
+}
 .activBox img {
   width: 25rem;
   height: 15rem;

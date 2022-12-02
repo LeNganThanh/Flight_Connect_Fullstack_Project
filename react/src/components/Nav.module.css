@@ -2,12 +2,12 @@ nav {
   display: flex;
   justify-content: left;
   padding-left: 2rem;
-  background-color: #ece5c77b;
+ /*   background-color: #ece5c77b; */ 
 }
 
-.nav{
+ /* .nav{
     background-color: #ece5c77b;
-}
+}  */
 
 .anchor,
 .active {
@@ -21,7 +21,7 @@ nav {
 
 .anchor:hover,
 .anchor:active {
-  background-color: #ece5c7;
+   background-color: #ece5c7; 
   color: #354259;
 }
 

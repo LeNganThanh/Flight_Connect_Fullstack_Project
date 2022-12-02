@@ -47,9 +47,12 @@ const setOffers = (offer) => {
   })
 }
 
+
 return (
     <FlightsContext.Provider value={[state, dispatch]}>
         {children}
+
+
     </FlightsContext.Provider>
 )
 

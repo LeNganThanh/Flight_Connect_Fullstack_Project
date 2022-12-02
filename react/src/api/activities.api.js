@@ -1,5 +1,6 @@
 import axios from 'axios'
 
+
 export const getActivities = params => {
  const {latitude, longitude} = params;
  

@@ -7,7 +7,7 @@ const Flights = (props) => {
     <Fragment>
       <div className={classes.main}>
         <header className={classes['header-txt']}>
-          <h1>The best flight deals to everywhere, from anywhere</h1>
+          <h1 className={classes['header-txt-header']}>The best flight deals to everywhere, from anywhere</h1>
           <FlightsForm search={props.search} setSearch={props.setSearch} dataSource={props.dataSource}  />
         </header>
         

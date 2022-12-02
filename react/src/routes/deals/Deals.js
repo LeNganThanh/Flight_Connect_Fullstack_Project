@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import classes from "./Deals.module.css";
@@ -52,15 +53,18 @@ const Deals = () => {
         setGeoInfo(airportCodes)
       }
 
-      getData()
+
+           
+            setGeo(true);
+          });
+      };
+      getData();
     }
-
-  }, [])
-
+  }, []);
 
   return (
     <React.Fragment>
-      <div className={classes["info-box"]}>
+      <div className={classes['info-box']}>
         <div className={classes.box}>
           <div>
             <img
@@ -98,9 +102,11 @@ const Deals = () => {
           </div>
         </div>
       </div>
+
       <div className={classes["info-box"]}>
         {geoInfo ? <ActivityDisplay geoInfo={geoInfo} /> : null}
         {geoInfo ? <DealDisplay geoInfo={geoInfo} /> : null}
+
       </div>
     </React.Fragment>
   );
