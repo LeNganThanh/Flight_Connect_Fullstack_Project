@@ -53,6 +53,7 @@ const FlightsForm = props => {
         setLoading(false);
       })
       .catch(err => {
+        console.log(err)
         axios.Cancel(err);
         setOptions([]);
         setLoading(false);
