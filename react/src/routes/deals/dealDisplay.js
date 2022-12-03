@@ -46,7 +46,9 @@ const DealDisplay = props => {
     )
   }
 
-  return <div></div>;
+  return <div>
+           <TopDestinations />
+         </div>;
 };
 
 export default DealDisplay;
