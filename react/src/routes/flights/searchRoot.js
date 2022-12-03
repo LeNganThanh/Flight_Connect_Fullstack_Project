@@ -1,12 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import Flights from './Flights';
-import { getAmadeusData } from '../../api/amadeus.api';
-
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import Flights from "./Flights";
+import { getAmadeusData } from "../../api/amadeus.api";
 
 const SearchRoot = () => {
   const [search, setSearch] = useState({
-    keyword: 'a',
+    keyword: "a",
     city: true,
     airport: true,
     page: 0,
@@ -16,33 +15,33 @@ const SearchRoot = () => {
     data: [],
   });
 
-  const [loading, setLoading] = useState(false);
-
+  /*   const [loading, setLoading] = useState(false);
+   */
   useEffect(() => {
-    setLoading(true);
+    //setLoading(true);
     const { out, source } = getAmadeusData(search);
 
     out
       .then(res => {
-        console.log(res.data);
         if (!res.data.code) {
-          
           setDataSource(res.data);
         }
-        setLoading(false);
+        // setLoading(false);
       })
       .catch(err => {
         axios.isCancel(err);
-        setLoading(false);
+        // setLoading(false);
       });
 
     return () => {
       source.cancel();
     };
   }, [search]);
-  return <div>
-          <Flights search={search} setSearch={setSearch} dataSource={dataSource} />
-         </div>;
+  return (
+    <div>
+      <Flights search={search} setSearch={setSearch} dataSource={dataSource} />
+    </div>
+  );
 };
 
 export default SearchRoot;

@@ -1,8 +1,5 @@
-import React from 'react'
-import classes from './Button.module.css'
+import React from "react";
 
 export default function Button(props) {
-  return (
-    <button>{props.children}</button>
-  )
+  return <button>{props.children}</button>;
 }

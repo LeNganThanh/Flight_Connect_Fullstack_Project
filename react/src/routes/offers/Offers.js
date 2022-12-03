@@ -1,24 +1,24 @@
-import React, { Fragment, useContext, useEffect } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
-import { FlightsContext } from '../../context/FlightsContext';
-import airPlane from '../../media/Airplane-logo.png';
-import classes from './Offers.module.css';
-import ActivityDisplay from './activityDisplay.js';
-import { useNavigate } from 'react-router';
+import React, { Fragment, useContext, useEffect } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
+import { FlightsContext } from "../../context/FlightsContext";
+import airPlane from "../../media/Airplane-logo.png";
+import classes from "./Offers.module.css";
+import ActivityDisplay from "./activityDisplay.js";
+import { useNavigate } from "react-router";
 
 const Offers = () => {
   const [state] = useContext(FlightsContext);
   const { offers } = state;
   const navigate = useNavigate();
-  const inputFrom = document.getElementById('from');
-  const inputTo = document.getElementById('to');
+  const inputFrom = document.getElementById("from");
+  const inputTo = document.getElementById("to");
 
-useEffect(() => {
-  if(!offers){
-    navigate('/')
-  }
-},[])
+  useEffect(() => {
+    if (!offers) {
+      navigate("/");
+    }
+  }, []);
 
   if (offers.length > 0) {
     return (
@@ -68,10 +68,10 @@ useEffect(() => {
 
                         <div className={classes.duration}>
                           <p>
-                            {duration.slice(2, 4)}h{' '}
+                            {duration.slice(2, 4)}h{" "}
                             {duration.slice(5, 7)
                               ? `${duration.slice(5, 7)}m`
-                              : ''}
+                              : ""}
                           </p>
 
                           <div className={classes.timeBox}>
@@ -93,13 +93,13 @@ useEffect(() => {
                           </div>
 
                           {segments.length === 1 ? (
-                            <p style={{ color: 'green' }}>Non-stop</p>
+                            <p style={{ color: "green" }}>Non-stop</p>
                           ) : segments.length === 2 ? (
-                            <p style={{ color: 'blue' }}>
+                            <p style={{ color: "blue" }}>
                               1 stop <span>{segments[0].arrival.iataCode}</span>
                             </p>
                           ) : (
-                            <p style={{ color: 'red' }}>
+                            <p style={{ color: "red" }}>
                               {segments.length - 1} stops
                               {segments.map((stop, stopIndex) => {
                                 if (stopIndex !== 0) {

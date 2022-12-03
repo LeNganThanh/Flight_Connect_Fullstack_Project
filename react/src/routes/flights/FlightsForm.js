@@ -4,7 +4,6 @@ import React, {
   useEffect,
   useCallback,
   useContext,
-  useLayoutEffect,
 } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -13,7 +12,7 @@ import { getAmadeusData } from "../../api/amadeus.api";
 import DropDown from "./DropDown.js";
 import classes from "./FlightsForm.module.css";
 import { getSearchData } from "../../api/search.api";
-import { getActivities } from '../../api/activities.api'
+import { getActivities } from "../../api/activities.api";
 import { FlightsContext } from "../../context/FlightsContext";
 //import Button from "../../components/Button";
 
@@ -27,12 +26,12 @@ const FlightsForm = props => {
   const [open2, setOpen2] = useState(false);
   const [oneWay, setOneWay] = useState(false);
   const [keyword, setKeyword] = useState("");
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
-  const names = options.map(i => ({ type: i.subType, name: i.name }));
-
+  /*   const names = options.map(i => ({ type: i.subType, name: i.name }));
+   */
   const debounceLocalData = useCallback(debounce(setKeyword, 1000), []);
 
   useEffect(() => {
@@ -40,7 +39,7 @@ const FlightsForm = props => {
   }, [search]);
 
   useEffect(() => {
-    setLoading(true);
+    // setLoading(true);
     const { out, source } = getAmadeusData({
       ...props.search,
       page: 0,
@@ -52,13 +51,13 @@ const FlightsForm = props => {
         if (!res.data.code) {
           setOptions(res.data.data);
         }
-        setLoading(false);
+        //setLoading(false);
       })
       .catch(err => {
-        console.log(err)
+        console.log(err);
         axios.Cancel(err);
         setOptions([]);
-        setLoading(false);
+        //   setLoading(false);
       });
     return () => {
       source.cancel();
@@ -66,10 +65,10 @@ const FlightsForm = props => {
   }, [keyword]);
 
   // testing the api
-
+  /*  
   const { city, airport } = props.search;
 
-  const label =
+ const label =
     city && airport
       ? "City and Airports"
       : city
@@ -77,7 +76,7 @@ const FlightsForm = props => {
       : airport
       ? "Airports"
       : "";
-
+ */
   const inputHandler = e => {
     e.preventDefault();
 
@@ -110,7 +109,7 @@ const FlightsForm = props => {
     }
   };
 
-  const submitHandler = async() => {
+  const submitHandler = async () => {
     const inputFrom = document.getElementById("from");
     const inputTo = document.getElementById("to");
     const dateOfDeparture = document.getElementById("departureDate");
@@ -121,46 +120,40 @@ const FlightsForm = props => {
       destinationCode: inputTo.name,
       dateOfDeparture: dateOfDeparture.value,
       dateOfReturn: dateOfReturn.value,
-    })
-    .then(result => {
-      console.log('offers', result.data.data)
-      setOffers(result.data.data)
+    }).then(result => {
+      setOffers(result.data.data);
     });
 
     await getActivities({
       latitude: state.latitude,
       longitude: state.longitude,
-    })
-    .then(result => {
-      console.log('activities', result.data.data)
-      setActivities(result.data.data)
-    })
-
+    }).then(result => {
+      setActivities(result.data.data);
+    });
   };
 
-   const [check, setCheck] = useState(false)
-  useEffect(() =>{
-    if(check) {
+  const [check, setCheck] = useState(false);
+  useEffect(() => {
+    if (check) {
       navigate("/flights");
     } else {
-      setCheck(true)
+      setCheck(true);
     }
-  }, [state.activities])
- 
-  const setOffers = async(value) => {
-    await dispatch({
-      type: 'setOffers',
-      offers: value
-    });
-  }
+  }, [state.activities]);
 
-  const setActivities = async(value) => {
+  const setOffers = async value => {
     await dispatch({
-      type: 'setActivities',
-      activities: value
+      type: "setOffers",
+      offers: value,
     });
-  }
+  };
 
+  const setActivities = async value => {
+    await dispatch({
+      type: "setActivities",
+      activities: value,
+    });
+  };
 
   //setting default date
   function departD() {
