@@ -9,7 +9,7 @@ const Flights = (props) => {
       <div className={classes['main-display']}>
         <Header />
         <header className={classes['header-txt']}>
-          <h1 className={classes['header-txt-header']}>The best flight deals to everywhere, from anywhere</h1>
+          <h1 className={classes['header-txt-header']}>The best flight deals to <span>everywhere</span>, from <span>anywhere</span></h1>
           <FlightsForm search={props.search} setSearch={props.setSearch} dataSource={props.dataSource}  />
         </header>
         <video  autoPlay muted>

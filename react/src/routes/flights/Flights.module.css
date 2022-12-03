@@ -8,7 +8,7 @@
   align-items: center;
   background-color: transparent;
   position: fixed;
-  top: 3.5rem;
+  top: 2.7rem;
   margin: auto;
   width: 100%;
   margin-bottom: 1rem;
@@ -16,9 +16,15 @@
 }
 
 .header-txt-header {
-  font-size: 2.5rem;
+  font-size: 3rem;
   max-width: 85%;
   margin-bottom: 2rem;
+  color: white;
+  text-shadow: 3px 3px 3px #354259;
+}
+.header-txt-header span {
+  color: #354259;
+  text-shadow: 2px 2px 2px white;
 }
 
 .main-display {
