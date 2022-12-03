@@ -8,7 +8,6 @@ import { getAirport } from '../../api/airport.api.js';
 const Deals = () => {
 
   const [geoInfo, setGeoInfo] = useState(false)
-  const [check, setCheck] = useState(false)
 
   useEffect(() =>{
     if (!localStorage.getItem('airportCodes') && !geoInfo) {

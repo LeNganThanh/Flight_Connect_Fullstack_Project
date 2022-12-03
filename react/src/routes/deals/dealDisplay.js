@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { getDeals } from '../../api/deals.api.js';
 import Deals from './Deals.js';
 
@@ -15,39 +15,42 @@ const DealDisplay = props => {
         const deals = await getDeals({geoInfo: props.geoInfo, dateOfDeparture: dateOfDeparture.value, dateOfReturn: dateOfReturn.value})
 
         console.log('res', deals)
-        localStorage.setItem('deals', JSON.stringify(deals))
         setDeals(deals)
+        localStorage.setItem('deals', JSON.stringify(deals))
       }
       getData();
     } else if (localStorage.getItem('deals') && !deals) {
+      console.log('localDeals')
       setDeals(JSON.parse(localStorage.getItem('deals')))
+    } else if (deals.data) {
+      console.log('last', deals)
     }
-  }, []);
+
+  });
 
   const TopDestinations = () => {
 
     return (
-      <div>
-        {
-          deals[0].slice(0, 15).map((dest, i) => {
-            // AirportName: "Lisboa"
-            // CityName: "Lisbon"
-            // CountryCode: "PT"
-            // CountryName: "Portugal"
-            // DestinationLocation: "LIS"
-            // RegionName: "Europe"
-            // Type: "Airport"
-            <div key={dest.DestinationLocation}>
-              <p>{dest.CityName} - {dest.CountryName}</p>
-            </div>
-          })
-        }
+      <div>{
+              deals.data[0].Destinations.slice(0, 15).map((dest, i) => {
+                // AirportName: "Lisboa"
+                // CityName: "Lisbon"
+                // CountryCode: "PT"
+                // CountryName: "Portugal"
+                // DestinationLocation: "LIS"
+                // RegionName: "Europe"
+                // Type: "Airport"
+                <div key={dest.Destination.DestinationLocation}>
+                  <p>{dest.Destination.CityName} - {dest.Destination.CountryName}</p>
+                </div>
+              })
+            }
       </div>
     )
   }
 
   return <div>
-           <TopDestinations />
+            { deals ? <TopDestinations deals={deals} /> : null }
          </div>;
 };
 
