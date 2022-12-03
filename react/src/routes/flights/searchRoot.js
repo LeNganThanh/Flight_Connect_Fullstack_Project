@@ -41,8 +41,8 @@ const SearchRoot = () => {
     };
   }, [search]);
   return <div>
-     <Flights search={search} setSearch={setSearch} dataSource={dataSource} />
-  </div>;
+          <Flights search={search} setSearch={setSearch} dataSource={dataSource} />
+         </div>;
 };
 
 export default SearchRoot;

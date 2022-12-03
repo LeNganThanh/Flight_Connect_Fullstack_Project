@@ -3,14 +3,15 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import classes from "./Deals.module.css";
 import DealDisplay from "./dealDisplay.js";
-import ActivityDisplay from "./activityDisplay.js";
 import { getAirport } from '../../api/airport.api.js';
 
 const Deals = () => {
 
   const [geoInfo, setGeoInfo] = useState(false)
+  const [check, setCheck] = useState(false)
+
   useEffect(() =>{
-    if (!geoInfo) {
+    if (!localStorage.getItem('airportCodes') && !geoInfo) {
       const getData = async() => {
         const ip = await axios
             .get(`https://geolocation-db.com/jsonp/`)
@@ -31,8 +32,8 @@ const Deals = () => {
         radius: 100,
         sort: 'distance'
         });
+        console.log('airports', airport)
         const airports = airport.data.data.slice(0, 5);
-        console.log('airports', airports)
         let airportCodes = [];
         airports.map(port => {
         airportCodes.push({
@@ -43,11 +44,14 @@ const Deals = () => {
         geoCode: port.geoCode
         })
         })
+        localStorage.setItem('airportCodes', JSON.stringify(airportCodes))
         setGeoInfo(airportCodes)
       }
       getData()
+    } else if (localStorage.getItem('airportCodes') && !geoInfo){
+      setGeoInfo(JSON.parse(localStorage.getItem('airportCodes')))
     }
-  }, [geoInfo])
+  }, [])
 
   return (
     <React.Fragment>
@@ -91,7 +95,6 @@ const Deals = () => {
       </div>
 
       <div className={classes["info-box"]}>
-        {geoInfo ? <ActivityDisplay geoInfo={geoInfo} /> : null}
         {geoInfo ? <DealDisplay geoInfo={geoInfo} /> : null}
 
       </div>

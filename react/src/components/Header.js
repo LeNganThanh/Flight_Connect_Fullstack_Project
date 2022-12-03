@@ -5,16 +5,16 @@ const Header = () => {
   return (
     <div className={classes.container}>
       <div className={classes.main}>
-      <div className={classes.headerText}>
-        <span>
-          <img className={classes['logo-img']} src={logo} alt="logo" />
-        </span>
-      </div>
+        <div className={classes.headerText}>
+          <span>
+            <img className={classes['logo-img']} src={logo} alt="logo" />
+          </span>
+        </div>
 
-      <div className={classes.headerText}>
-        <Button className={classes.user}>Register</Button> {/* Need functions */}
-        <Button className={classes.user}>Login</Button>
-      </div>
+        <div className={classes.headerText}>
+          <Button className={classes.user}>Register</Button> {/* Need functions */}
+          <Button className={classes.user}>Login</Button>
+        </div>
       </div>
       
     </div>

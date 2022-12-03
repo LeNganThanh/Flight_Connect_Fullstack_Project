@@ -11,7 +11,6 @@ const DropDown = props => {
     const geo = JSON.parse(e.target.value)
     const lat = geo.latitude.toFixed(6)
     const long = geo.longitude.toFixed(6)
-    console.log(lat , long)
 
     await props.fillInput(e);
 

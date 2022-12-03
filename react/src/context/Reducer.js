@@ -2,7 +2,8 @@
 export const initialGeoState = {
   latitude: '',
   longitude: '',
-  offers: {}
+  offers: {},
+  activities: {}
 }
 
 export const geoReducer = function(state, action) {
@@ -18,6 +19,12 @@ export const geoReducer = function(state, action) {
       return {
         ...state,
         offers: action.offers
+      }
+    }
+    case 'setActivities': {
+      return {
+        ...state,
+        activities: action.activities
       }
     }
   }

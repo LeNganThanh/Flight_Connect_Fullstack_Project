@@ -4,6 +4,7 @@ import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
 import { FlightsContext } from '../../context/FlightsContext';
 import airPlane from '../../media/Airplane-logo.png';
 import classes from './Offers.module.css';
+import ActivityDisplay from './activityDisplay.js'
 
 const Offers = () => {
   const [state] = useContext(FlightsContext);
@@ -14,10 +15,12 @@ const Offers = () => {
 
 
   if (offers.length > 0) {
-    console.log('offersplease', offers)
 
     return (
       <div className={classes.offers}>
+
+        <ActivityDisplay />
+
         <div className={classes.offersHeader}>
           <h2>
             {inputFrom.value} | {inputTo.value}

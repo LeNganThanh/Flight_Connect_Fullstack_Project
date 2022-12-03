@@ -8,4 +8,7 @@
 
 html {
   font-family: "Public Sans", sans-serif;
+  padding-top: 30rem;
+  scroll-behavior: smooth;
+  background-color: #f8f8f8;
 }
