@@ -1,10 +1,11 @@
-import React, { useEffect, useLayoutEffect, useState } from 'react';
+import React, { useContext, useEffect, useLayoutEffect, useState } from 'react';
 import { getDeals } from '../../api/deals.api.js';
-import Deals from './Deals.js';
+import {FlightsContext} from '../../context/FlightsContext'
 
 const DealDisplay = props => {
+  const [state, dispatch] = useContext(FlightsContext)
+  const {deals} = state
 
-  const [deals, setDeals] = useState(false)
   const dateOfDeparture = document.getElementById("departureDate");
   const dateOfReturn = document.getElementById("returnDate");
 
@@ -19,38 +20,69 @@ const DealDisplay = props => {
         localStorage.setItem('deals', JSON.stringify(deals))
       }
       getData();
+
     } else if (localStorage.getItem('deals') && !deals) {
-      console.log('localDeals')
+      console.log('localDeals', deals)
       setDeals(JSON.parse(localStorage.getItem('deals')))
     } else if (deals.data) {
-      console.log('last', deals)
+      console.log('last', deals.data)
     }
 
   });
 
-  const TopDestinations = () => {
+  const setDeals = async(value) => {
+    await dispatch({
+      type: 'setDeals',
+      deals: value
+    });
+  }
 
-    return (
-      <div>{
-              deals.data[0].Destinations.slice(0, 15).map((dest, i) => {
-                // AirportName: "Lisboa"
-                // CityName: "Lisbon"
-                // CountryCode: "PT"
-                // CountryName: "Portugal"
-                // DestinationLocation: "LIS"
-                // RegionName: "Europe"
-                // Type: "Airport"
+  const TopDestinations = () => {
+    console.log('destinations', deals.data[0].Destinations.slice(0, 15))
+      return (
+        <div>
+          <p>Top 15 Destinations from {props.geoInfo[0].countryName}</p>
+          {
+            deals.data[0].Destinations.slice(0, 15).map((dest, i) => {
+              // AirportName: "Lisboa"
+              // CityName: "Lisbon"
+              // CountryCode: "PT"
+              // CountryName: "Portugal"
+              // DestinationLocation: "LIS"
+              // RegionName: "Europe"
+              // Type: "Airport"
+              return (
                 <div key={dest.Destination.DestinationLocation}>
-                  <p>{dest.Destination.CityName} - {dest.Destination.CountryName}</p>
+                  <p>Rank {dest.Rank}:  {dest.Destination.CityName || dest.Destination.MetropolitanAreaName}  |  {dest.Destination.CountryName}</p>
                 </div>
-              })
-            }
+              )
+            })
+          }
+        </div>
+      )
+  }
+
+  const TopDeals = () => {
+    console.log('deals')
+    return (
+      <div>
+        <p>Top Deals from {props.geoInfo[0].cityName}</p>
+        {
+          deals.data[1].FareInfo.slice(0, 20).map((deal, i) => {
+            return (
+              <div>
+                <p>Price: {deal.LowestFare.Fare} {deal.CurrencyCode}</p>
+              </div>
+            )
+          })
+        }
       </div>
     )
   }
 
-  return <div>
-            { deals ? <TopDestinations deals={deals} /> : null }
+  return <div style={{display: 'flex', justifyContent:'space-between', width:'100%'}}>
+            { deals ? <TopDestinations /> : null }
+            { deals ? <TopDeals /> : null }
          </div>;
 };
 
