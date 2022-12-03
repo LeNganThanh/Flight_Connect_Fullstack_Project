@@ -2,14 +2,21 @@
   background-color: #35425963;
   border-radius: 5px;
   height: 10rem;
+  width: 80%;
   margin-top: 2rem;
+  overflow: visible;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 
 .form {
   display: flex;
+  justify-content: space-around;
   font-size: 1rem;
   font-family: inherit;
   cursor: pointer;
+  overflow: visible;
 }
 .radio,
 .checkBox {
@@ -22,7 +29,7 @@
   padding: 0 0 2rem 1rem;
 }
 .radio div {
-  padding: 2rem 0 0 1rem;
+  padding: 1rem 0 0 1rem;
 }
 
 .form div {
@@ -39,10 +46,11 @@
   color: white;
   border: none;
   width: 15vw;
+  height: 45px;
 }
 
 .form div .info {
-  width: 10vw;
+  width: 13vw;
 }
 
 form input::placeholder {
@@ -50,8 +58,8 @@ form input::placeholder {
 }
 
 .submitButton {
-  margin-top: 2rem;
+  margin-top: 1.5rem;
   font-size: 2rem;
-  padding: 1rem 1.5rem;
+  padding: 0.5rem 1rem;
   background-color: #35425963;
 }

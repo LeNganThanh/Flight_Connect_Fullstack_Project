@@ -3,22 +3,23 @@
 .main {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   text-align: center;
   vertical-align: center;
   margin: auto;
-   width: 100%; 
-/*    background-color: #ece5c77b;
- */}
+  width: 100%; 
+  background-color: transparent;
+}
 .headerText {
- margin-right: 2rem;
-  
-  
+  background-color: transparent;
+  margin-right: 1rem;
 }
 .container{
   display: flex;
- 
   flex-direction: column;
+  background-color: transparent;
+  z-index: 100;
+  width: 100%;
 }
 
 .logo {
@@ -30,10 +31,12 @@
 
 .logo-img {
   width: 15rem;
-  margin-left: 2rem;
+  margin-left: 1rem;
+  color: white;
 }
 
 button {
+  margin-top: 1rem;
   cursor: pointer;
   font: inherit;
   border: none;
@@ -44,7 +47,6 @@ button {
   margin-left: 0.5rem;
   
 }
-
 
 .user{
   width: 5vw

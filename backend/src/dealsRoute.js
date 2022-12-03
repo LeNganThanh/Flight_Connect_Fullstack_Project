@@ -59,7 +59,7 @@ router.get(`/${API}/deals`, async(req, res) => {
       
       count++
       }
-      console.log('-------HI', gotFlightInspiration)
+      console.log('-------HI', topDestinations)
       return gotFlightInspiration
     }
     const flightInspiration = await getInspiration()

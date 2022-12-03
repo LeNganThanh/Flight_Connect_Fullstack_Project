@@ -4,6 +4,7 @@ import React, {
   useEffect,
   useCallback,
   useContext,
+  useLayoutEffect,
 } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -12,6 +13,7 @@ import { getAmadeusData } from "../../api/amadeus.api";
 import DropDown from "./DropDown.js";
 import classes from "./FlightsForm.module.css";
 import { getSearchData } from "../../api/search.api";
+import { getActivities } from '../../api/activities.api'
 import { FlightsContext } from "../../context/FlightsContext";
 //import Button from "../../components/Button";
 
@@ -108,32 +110,57 @@ const FlightsForm = props => {
     }
   };
 
-  const submitHandler = () => {
+  const submitHandler = async() => {
     const inputFrom = document.getElementById("from");
     const inputTo = document.getElementById("to");
     const dateOfDeparture = document.getElementById("departureDate");
     const dateOfReturn = document.getElementById("returnDate");
 
-
-    const out = getSearchData({
+    await getSearchData({
       originCode: inputFrom.name,
       destinationCode: inputTo.name,
       dateOfDeparture: dateOfDeparture.value,
       dateOfReturn: dateOfReturn.value,
+    })
+    .then(result => {
+      console.log('offers', result.data.data)
+      setOffers(result.data.data)
     });
-    out.then(result => {
-      console.log(result)
-      setOffers(result)
-    });
-    navigate("/flights");
+
+    await getActivities({
+      latitude: state.latitude,
+      longitude: state.longitude,
+    })
+    .then(result => {
+      console.log('activities', result.data.data)
+      setActivities(result.data.data)
+    })
+
   };
+
+  const [check, setCheck] = useState(false)
+  useEffect(() =>{
+    if(check) {
+      navigate("/flights");
+    } else {
+      setCheck(true)
+    }
+  }, [state.activities])
 
   const setOffers = async(value) => {
     await dispatch({
       type: 'setOffers',
-      offers: value.data.data
+      offers: value
     });
   }
+
+  const setActivities = async(value) => {
+    await dispatch({
+      type: 'setActivities',
+      activities: value
+    });
+  }
+
 
   //setting default date
   function departD() {
