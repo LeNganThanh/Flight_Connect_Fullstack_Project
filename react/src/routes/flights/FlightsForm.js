@@ -138,7 +138,7 @@ const FlightsForm = props => {
 
   };
 
-  const [check, setCheck] = useState(false)
+   const [check, setCheck] = useState(false)
   useEffect(() =>{
     if(check) {
       navigate("/flights");
@@ -146,7 +146,7 @@ const FlightsForm = props => {
       setCheck(true)
     }
   }, [state.activities])
-
+ 
   const setOffers = async(value) => {
     await dispatch({
       type: 'setOffers',

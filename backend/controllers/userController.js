@@ -37,10 +37,10 @@ export const getUser = async(req, res, next) => {
             user.profileImage = `/${req.file.filename}`
         }
         await user.save()
-
+       console.log(user);
         res.json({
             success: true, 
-            data: user,
+             user,
         })
     }catch(err){
         next(err)
@@ -65,7 +65,7 @@ export const getUser = async(req, res, next) => {
                 newBody[key] = req.body[key]
             }
         }
-        const updateUser = await UserCollection.findByIdAndUpdate(req.params.id, newBody, {new: true}).populate('flights');
+        const updateUser = await UserCollection.findByIdAndUpdate(req.params.id, newBody, {new: true})/* .populate('flights') */;
         res.json({
             success: true, 
             data: updateUser,
@@ -92,13 +92,16 @@ export const getUser = async(req, res, next) => {
 
  export const loginUser = async(req, res, next) => {
     try{
-        const user = await UserCollection.findOne({email: req.body.email})
+        console.log('This is body form the controller', req.body);
+        console.log(req.query);
+        const user = await UserCollection.findOne({email: req.query.email})
+        console.log(user);
         if(user){
-            const check = await bcrypt.compare(req.body.password, user.password)
+            const check = await bcrypt.compare(req.query.password, user.password)
             if(check){
                 let token  = jwt.sign({_id: user._id, firstName: user.firstName}, process.env.TOKEN_SECRET_KEY, {expiresIn:'1h', issuer: 'user', audience: 'travelers'})
 
-                const updateUser = await UserCollection.findByIdAndUpdate(user._id, {token: token}, {new: true}).populate('flights')
+                const updateUser = await UserCollection.findByIdAndUpdate(user._id, {token: token}, {new: true})/* .populate('flights') */
                 res.header('token', token)
                 res.json({
                     success: true,
@@ -120,7 +123,7 @@ export const getUser = async(req, res, next) => {
         const token  = req.headers.token;
         const payload = jwt.verify(token, process.env.TOKEN_SECRET_KEY)
     
-        const user = await UserCollection.findById(payload._id).populate('flights')
+        const user = await UserCollection.findById(payload._id)/* .populate('flights') */
         res.json({
             success: true,
             data: user,

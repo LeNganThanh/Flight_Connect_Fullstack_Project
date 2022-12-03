@@ -15,11 +15,11 @@ export let userValidation = [
         if(result.isEmpty()){
             next()
         }else{
-            const error = result.error.reduce((acc, curr) => {
+            const error = result.errors.reduce((acc, curr) => {
                 acc[ curr.param ] = curr.msg;
                 return acc
-            }, {})
-
+            }, {}) 
+           
             next({message: error})
         }
     }

@@ -1,16 +1,19 @@
 import React, { useState, useContext, useEffect } from "react";
 import classes from "./Activities.module.css";
-import FightContext, { FlightsContext } from '../../context/FlightsContext'
+import  { FlightsContext } from '../../context/FlightsContext'
 
 
 const Activities = props => {
   const [state] = useContext(FlightsContext)
+  console.log(state);
   const {activities} = state
+  
   const [show, setShow] = useState(false);
   const [firstFourAct, setFirstFourAct] = useState(false)
   const [secondFourAct, setSecondFourAct] = useState(false)
 
   useEffect(() => {
+    console.log(activities);
       setFirstFourAct(activities.slice(0, 4));
       setSecondFourAct(activities.slice(4));
   }, [activities])

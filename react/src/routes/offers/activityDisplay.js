@@ -7,10 +7,10 @@ import {FlightsContext} from '../../context/FlightsContext.js'
 
 const ActivityDisplay = props => {
   const [state] = useContext(FlightsContext)
-  const { activities } = state
+  const  {activities}  = state
   
 
-  return <div>{activities !== {} && activities !== undefined ? <Activities /> : null}</div>;
+  return <div>{activities !== {} && activities !== undefined ? <Activities activities= {activities}/> : null}</div>;
 };
 
 export default ActivityDisplay;

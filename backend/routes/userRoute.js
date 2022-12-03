@@ -11,7 +11,7 @@ const route = express.Router()
 route.get('/', verifyToken, isAdmin, getAllUsers)
 
 // ===> Login
-route.post('/', loginUser)
+route.post('/login', loginUser)
 //===> verifyToken get
  route.get('/checkusertoken', checkUserToken)
 

@@ -6,13 +6,14 @@ import {  NavLink, Outlet } from 'react-router-dom';
 
 const Nav = () => {
   const [state] = useContext(FlightsContext)
+  console.log(state);
 
   return (
     <div className={classes.nav}>
       <nav>
         <NavLink className={({ isActive }) => (isActive ? `${classes.active}` : `${classes.anchor}` )}   to='/'>Deals</NavLink>
         <NavLink className={({ isActive }) => (isActive ? `${classes.active}` : `${classes.anchor}` )} to='about'>About</NavLink>
-        {state.offers ? <NavLink  className={({ isActive }) => (isActive ? `${classes.active}` : `${classes.anchor}` )}  to='flights'>Flights</NavLink> : null}
+        {state.offers && state.offers !== undefined ? <NavLink  className={({ isActive }) => (isActive ? `${classes.active}` : `${classes.anchor}` )}  to='flights'>Flights</NavLink> : null}
       </nav>
     
       <Outlet className={classes.outlet}/>
