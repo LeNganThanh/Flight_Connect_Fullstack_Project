@@ -3,7 +3,9 @@ import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 
 const flightSchema = new Schema({
-  totalPrice: { type: Number, required: true },
+   flight: {type: String, required:true},
+   /* userId: { type:Schema.Types.ObjectId, ref:"users", required:true} */
+  
 });
 
 const FlightsCollection = mongoose.model("flights", flightSchema);

@@ -67,7 +67,7 @@ export const updateUser = async (req, res, next) => {
       req.params.id,
       newBody,
       { new: true }
-    ); /* .populate('flights') */
+    ).populate('flights')
     res.json({
       success: true,
       data: updateUser,
@@ -92,9 +92,7 @@ export const deleteUser = async (req, res, next) => {
 
 export const loginUser = async (req, res, next) => {
   try {
-    console.log("This is body form the controller", req.body);
     const user = await UserCollection.findOne({ email: req.body.email });
-    console.log(user);
     if (user) {
       const check = await bcrypt.compare(req.body.password, user.password);
       if (check) {
@@ -108,7 +106,7 @@ export const loginUser = async (req, res, next) => {
           user._id,
           { token: token },
           { new: true }
-        ); /* .populate('flights') */
+        ).populate('flights') 
         res.header("token", token);
         res.json({
           success: true,
@@ -132,7 +130,7 @@ export const checkUserToken = async (req, res, next) => {
 
     const user = await UserCollection.findById(
       payload._id
-    ); /* .populate('flights') */
+    ).populate('flights') 
     res.json({
       success: true,
       data: user,

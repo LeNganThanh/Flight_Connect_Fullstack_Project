@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { getDeals } from "../../api/deals.api.js";
 import { FlightsContext } from "../../context/FlightsContext";
+import classes from './Deals.module.css'
 
 const DealDisplay = props => {
   const [state, dispatch] = useContext(FlightsContext);
@@ -78,13 +79,7 @@ const DealDisplay = props => {
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "space-between",
-        width: "100%",
-      }}
-    >
+    <div className= {classes.dealsDisplay}>
       {deals ? <TopDestinations /> : null}
       {deals ? <TopDeals /> : null}
     </div>

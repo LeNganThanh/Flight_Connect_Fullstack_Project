@@ -10,7 +10,7 @@ const userSchema = new Schema({
   role: { type: String, enum: ['user', 'manager'], default: 'user' },
   token: { type: String },
   password: { type: String, required: true },
-  //flights: [{ type: Schema.Types.ObjectId, ref: 'flights'}],
+  flights: [{ type: Schema.Types.ObjectId, ref: 'flights'}],
   profileImage: {
     type: String,
     default: function () {

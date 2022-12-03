@@ -3,7 +3,7 @@ import classes from "./DropDown.module.css";
 import { FlightsContext } from "../../context/FlightsContext";
 
 const DropDown = props => {
-  const [dispatch] = useContext(FlightsContext);
+  const [state, dispatch] = useContext(FlightsContext);
   const passInfo = async e => {
     e.preventDefault();
 

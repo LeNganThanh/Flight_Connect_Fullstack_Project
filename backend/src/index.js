@@ -11,6 +11,9 @@ import airportRoute from "./airportRoute.js";
 import dealsRoute from "./dealsRoute.js";
 import activityRoute from "./activityRoute.js";
 
+//===> flights routes
+import flightRoute from '../routes/flightsRoute.js'
+
 // ===> Backend local routes
 import userRoute from "../routes/userRoute.js";
 
@@ -47,6 +50,10 @@ mongoose.connect(MONGOOSE_URL);
 
 //===> Routes
 app.use("/users", upload.single("image"), userRoute);
+
+//===> flights route
+
+app.use('/flights', flightRoute)
 
 //===> Applying handler for API
 

@@ -11,8 +11,8 @@ const Activities = props => {
   const [secondFourAct, setSecondFourAct] = useState(false);
 
   useEffect(() => {
-    setFirstFourAct(activities.slice(10, 14));
-    setSecondFourAct(activities.slice(14, 18));
+    setFirstFourAct(activities.slice(5, 9));
+    setSecondFourAct(activities.slice(13, 17));
   }, [activities]);
 
   //function use to clear all html tags includes in description from api
