@@ -9,10 +9,8 @@ const API = `api`;
 
 
 router.get(`/${API}/offers`, async(req, res) =>{
-    console.log('This is the query', req.query);
     const {originCode, destinationCode, dateOfDeparture, dateOfReturn} = req.query
     
-    // ===> Cheapest flights
     if (dateOfReturn === '') {
       try{
           const response = await amadeus.shopping.flightOffersSearch.get({
@@ -42,8 +40,6 @@ router.get(`/${API}/offers`, async(req, res) =>{
       }
 
     }
-  
-   
 })
 
 export default router
