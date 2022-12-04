@@ -42,7 +42,9 @@ export const createUser = async (req, res, next) => {
       user,
     });
   } catch (err) {
+    
     next(err);
+
   }
 };
 

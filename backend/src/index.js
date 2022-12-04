@@ -27,7 +27,7 @@ const PORT = 1338;
 //===> Using the packages
 app.use(morgan("dev"));
 app.use(express.json());
-app.use(cors({ origin: "*" }));
+app.use(cors({ origin: "*", exposedHeaders: ['token'] }));
 
 //===> Multer
 

@@ -4,7 +4,8 @@ export const initialGeoState = {
   longitude: '',
   offers: false,
   activities: {},
-  deals: false
+  deals: false,
+  user: null,
 }
 
 export const geoReducer = function(state, action) {
@@ -32,6 +33,12 @@ export const geoReducer = function(state, action) {
       return {
         ...state,
         deals: action.deals
+      }
+    }
+    case 'setUser':{
+      return{
+        ...state,
+        user: action.user
       }
     }
     default: {

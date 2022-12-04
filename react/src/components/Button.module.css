@@ -13,6 +13,7 @@ button {
   position: relative;
   color: #ece5c7;
   animation: moveInBottom .5s ease-out;
+  
 }
 
 button::after{
@@ -55,6 +56,50 @@ button:hover{
 
 } 
  
+.registerOff,
+.registerOn,
+.loginOn,
+.loginOff{
+  background-color: #f8f8f8;
+  box-shadow: 0 0 10px black;
+  height: 27rem;
+  width: 20vw;
+  position: absolute;
+  top: 0;
+  transition: 0.7s linear;
+}
+
+
+
+.loginOn,
+.settingsOn,
+.registerOn {
+  z-index: 100;
+  right: 0;
+}
+.loginOff,
+.settingsOff,
+.registerOff {
+  z-index: 110;
+  right: -20vw;
+}
+.settingsOn,
+.settingsOff{
+  background-color: #f8f8f8;
+  box-shadow: 0 0 10px black;
+  height: 100vh;
+  width: 20vw;
+  position: absolute;
+  top: 0;
+  transition: 0.7s linear;
+}
+
+
+
+
+.burger{
+  margin-right: 1rem;
+}
  
 @keyframes moveInBottom {
   0% {
