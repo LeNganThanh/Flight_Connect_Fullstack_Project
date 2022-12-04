@@ -35,19 +35,3 @@
   color: white;
 }
 
-button {
-  margin-top: 1rem;
-  cursor: pointer;
-  font: inherit;
-  border: none;
-  background-color: #354259;
-  color: white;
-  border-radius: 12px;
-  padding: 0.5rem 1rem;
-  margin-left: 0.5rem;
-  
-}
-
-.user{
-  width: 5vw
-}

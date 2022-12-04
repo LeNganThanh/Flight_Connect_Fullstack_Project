@@ -1,4 +1,5 @@
 import classes from './Header.module.css';
+import button from './Button.module.css'
 import logo from '../media/logo-5.png';
 import Button from './Button';
 const Header = () => {
@@ -12,8 +13,8 @@ const Header = () => {
         </div>
 
         <div className={classes.headerText}>
-          <Button className={classes.user}>Register</Button> {/* Need functions */}
-          <Button className={classes.user}>Login</Button>
+          <Button className={button.user}>Register</Button> {/* Need functions */}
+          <Button className={button.user}>Login</Button>
         </div>
       </div>
       

@@ -11,6 +11,7 @@ import { debounce } from "lodash";
 import { getAmadeusData } from "../../api/amadeus.api";
 import DropDown from "./DropDown.js";
 import classes from "./FlightsForm.module.css";
+import button from '../../components/Button.module.css'
 import { getSearchData } from "../../api/search.api";
 import { getActivities } from "../../api/activities.api";
 import { FlightsContext } from "../../context/FlightsContext";
@@ -280,7 +281,7 @@ const FlightsForm = props => {
           </div>
         </form>
       </div>
-      <button onClick={submitHandler} className={classes.submitButton}>
+      <button onClick={submitHandler} className={button.submitButton}>
         Search Flights
       </button>
     </Fragment>

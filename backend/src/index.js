@@ -54,7 +54,6 @@ app.use("/users", upload.single("image"), userRoute);
 //===> flights route
 
 app.use('/flights', flightRoute)
-
 //===> Applying handler for API
 
 app.use("/", autocompRoute);

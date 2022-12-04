@@ -1,37 +1,69 @@
- button:hover,
-button:active {
-    color: #354259;
-    background-color:#CDC2AE;
-    
-}
- 
- button:link,
-button:visited{
+button {
   text-transform: uppercase;
-        text-decoration: none;
-        padding: 1.5rem 4rem;
-        display: inline-block;
-        border-radius: 10rem;
-        transition: all .2s;
-        position: relative;
-        border: none;
-        cursor: pointer;
-} 
-
- button:hover{
-  transform: translateY(-3px);
-  box-shadow: 0 1rem 2rem rgba(black,.2);
+  margin-top: 1rem;
+  cursor: pointer;
+  font: inherit;
+  border: none;
+  background-color: #354259;
+  color: white;
+  border-radius: 12px;
+  padding: 0.5rem 1rem;
+  margin-left: 0.5rem;
+  transition: all .2s;
+  position: relative;
+  color: #ece5c7;
+  animation: moveInBottom .5s ease-out;
 }
 
 button::after{
-  transform: scaleX(1.4) scaleY(1.6);
-            opacity: 0;
+  content: "";
+  display: inline-block;
+  height: 100%;
+  width:100%;
+  border-radius: 12px;
+   position: absolute;
+  top: 0;
+  left: 0; 
+  z-index: -1;
+  transition: all .4s;
 }
 
-button:active,
-button:focus{
-  outline: none;
-  transform: translateY(-1px);
-  box-shadow: 0 .5rem 1rem rgba(black,.2);
+button:hover::after {
+  transform: scaleX(1.4) scaleY(1.6);
+  background-color:  #354259;
+  opacity: 0;
 }
+
+.user{
+  width: 5vw
+}
+.submitButton {
+  margin-top: 1.5rem;
+  font-size: 2rem;
+  padding: 0.5rem 1rem;
+  background-color: #35425963;
+}
+
+button:hover{ 
+  transform: translateY(-.2rem);
+  box-shadow: 0 1rem 2rem rgba(0,0,0,.2 ) ;
+}
+
+ button:active{
+  transform: translateY(.2rem);
+  box-shadow: 0 .5rem 1rem rgba(0,0,0,.2 ) ;
+
+} 
  
+ 
+@keyframes moveInBottom {
+  0% {
+      opacity: 0;
+      transform: translateY(3rem);
+  }
+
+  100% {
+      opacity: 1;
+      transform: translate(0);
+  }
+}
