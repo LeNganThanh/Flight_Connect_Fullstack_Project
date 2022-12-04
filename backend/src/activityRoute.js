@@ -9,7 +9,6 @@ const API = `api`;
 router.get(`/${API}/activities`, async(req, res) => {
   const {latitude, longitude} = req.query
 
-
   try {
     const response = await amadeus.shopping.activities.get({
       latitude: latitude,
@@ -19,7 +18,6 @@ router.get(`/${API}/activities`, async(req, res) => {
 
     res.json(JSON.parse(response.body));
   } catch (err) {
-    console.log("oops");
     res.json(err);
   }
 });
