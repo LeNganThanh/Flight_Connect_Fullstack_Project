@@ -16,8 +16,6 @@ router.get(`/${API}/deals`, async(req, res) => {
   const encodedConcat = Buffer.from(concat).toString('base64')
 
   const geoInfo = JSON.parse(req.query.geoInfo)
-  console.log(geoInfo)
-  
 
   try{
     const data = {
@@ -45,28 +43,23 @@ router.get(`/${API}/deals`, async(req, res) => {
       let gotFlightInspiration = undefined
       let count = 0
       while(gotFlightInspiration === undefined  && count < 5) {
-        console.log(geoInfo[count])
+        query = `origin=${geoInfo[count].iataCode}&departuredate=${req.query.dateOfDeparture}&returndate=${req.query.dateOfReturn}&pointofsalecountry=${geoInfo[count].countryCode}` 
 
-      query = `origin=${geoInfo[count].iataCode}&departuredate=${req.query.dateOfDeparture}&returndate=${req.query.dateOfReturn}&pointofsalecountry=${geoInfo[count].countryCode}` 
+        const result = await axios.get(`https://api-crt.cert.havail.sabre.com/v2/shop/flights/fares?${query}`, {
+          headers: {
+            Authorization: `Bearer ${access}`
+          }
+        })
 
-      const result = await axios.get(`https://api-crt.cert.havail.sabre.com/v2/shop/flights/fares?${query}`, {
-        headers: {
-          Authorization: `Bearer ${access}`
-        }
-      })
-
-      gotFlightInspiration = result
+        gotFlightInspiration = result
       
-      count++
+        count++
       }
-      console.log('-------HI', topDestinations)
       return gotFlightInspiration
     }
     const flightInspiration = await getInspiration()
-
     res.send([topDestinations.data, flightInspiration.data])
   }catch(err){
-    console.log(err)
     res.json(err)
   }
 })
