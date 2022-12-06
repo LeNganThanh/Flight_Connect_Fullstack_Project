@@ -10,7 +10,7 @@ export default function Login(props) {
     e.preventDefault();
 
    const data = JSON.stringify({email: e.target.email.value, password: e.target.password.value})
-
+    console.log(data);
     fetch('http://localhost:1338/users/login', { method: 'POST', headers: {'Content-Type': 'application/json'},body: data })
       .then(res => {
         const token = res.headers.get('token')

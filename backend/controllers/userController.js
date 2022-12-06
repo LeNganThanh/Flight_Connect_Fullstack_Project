@@ -115,7 +115,9 @@ export const loginUser = async (req, res, next) => {
           data: updateUser,
         });
       } else {
-        throw new Error("Password does not match");
+        const error = new Error("Password does not match")
+        console.log(error);
+        throw error
       }
     } else {
       throw new Error("Email does not match");

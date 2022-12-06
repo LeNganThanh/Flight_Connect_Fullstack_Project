@@ -1,0 +1,9 @@
+.signOut{
+    display: flex;
+    justify-content: flex-start;
+}
+
+.delete{
+    margin-top: 15rem
+}
+

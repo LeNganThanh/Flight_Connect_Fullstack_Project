@@ -61,7 +61,7 @@ const Header = () => {
         
         <Login className= {`${login ? button.loginOn : button.loginOff }  ${signUpStyles.signUpForm}`}  setLogin={setLogin} setRegister={setRegister} setLoggedIn={setLoggedIn}/>
           
-          <Settings className={`${settings ? button.settingsOn : button.settingsOff } ${signUpStyles.signUpForm}`} setSettings= {setSettings} />
+          <Settings className={`${settings ? button.settingsOn : button.settingsOff } ${signUpStyles.signUpForm}`} setSettings= {setSettings} setLoggedIn={setLoggedIn}/>
         
       </div>
     </div>

@@ -1,6 +1,7 @@
 import React from "react";
 import About from "./routes/about/About.js";
 import Deals from "./routes/deals/Deals.js";
+import Bookmarks from "./components/Bookmarks.js";
 import SearchRoot from "./routes/flights/searchRoot";
 import Nav from "./components/NavHeader";
 import { Route, Routes } from "react-router-dom";
@@ -17,6 +18,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Deals />} />
             <Route path="about" element={<About />} />
+            <Route path="bookmarks" element={<Bookmarks/>}/>
             <Route path="flights" element={<Offers />} />
           </Routes>
         </FlightsContextProvider>

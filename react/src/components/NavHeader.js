@@ -1,7 +1,7 @@
-import React, { useContext } from "react";
-import { NavLink, Outlet } from "react-router-dom";
-import classes from "./Nav.module.css";
-import { FlightsContext } from "../context/FlightsContext";
+import React, { useContext } from 'react';
+import { NavLink, Outlet } from 'react-router-dom';
+import classes from './Nav.module.css';
+import { FlightsContext } from '../context/FlightsContext';
 
 const Nav = () => {
   const [state] = useContext(FlightsContext);
@@ -25,6 +25,16 @@ const Nav = () => {
         >
           About
         </NavLink>
+        {state.user && state.user !== undefined ? (
+          <NavLink
+            className={({ isActive }) =>
+              isActive ? `${classes.active}` : `${classes.anchor}`
+            }
+            to="bookmarks"
+          >
+            Bookmarks
+          </NavLink>
+        ) : null}
         {state.offers && state.offers !== undefined ? (
           <NavLink
             className={({ isActive }) =>

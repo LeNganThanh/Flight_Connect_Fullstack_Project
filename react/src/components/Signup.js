@@ -30,15 +30,15 @@ export default function Signup(props) {
       <form onSubmit={registerUser}>
         <div>
           <label>First Name:</label>
-          <input type="text" id="firstName" name="firstName" required></input>
+          <input type="text" id="firstName" name="firstName" required/>
         </div>
         <div>
           <label>Last Name:</label>
-          <input type="text" id="lastName" name="lastName" required></input>
+          <input type="text" id="lastName" name="lastName" required/>
         </div>
         <div>
           <label>Email:</label>
-          <input type="email" id="email" name="email" required></input>
+          <input type="email" id="email" name="email" required/>
         </div>
         <div>
           <label>Password:</label>
@@ -48,7 +48,7 @@ export default function Signup(props) {
             name="password"
             required
             minLength="8"
-          ></input>
+          />
         </div>
 
         <div>
@@ -58,7 +58,7 @@ export default function Signup(props) {
             accept="image/*"
             name="image"
             id="profileImage"
-          ></input>
+          />
         </div>
         <Button>Submit</Button>
       </form>

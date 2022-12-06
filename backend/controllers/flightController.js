@@ -16,7 +16,9 @@ export const getAllFlights = async(req, res, next) => {
 }
 
 export const createFlight  = async(req, res, next) => {
+    console.log(req.body);
     try{
+
         const flight = new FlightsCollection(req.body);
         await flight.save()
         res.json({

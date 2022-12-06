@@ -2,10 +2,14 @@ import Button from './Button.js';
 import toast, { Toaster } from 'react-hot-toast';
 import { FlightsContext } from '../context/FlightsContext.js';
 import React, { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+import classes from './Settings.module.css';
 
 export default function Settings(props) {
   const [state, dispatch] = useContext(FlightsContext);
   const { user } = state;
+  const navigate = useNavigate();
   const updateUser = e => {
     e.preventDefault();
 
@@ -33,9 +37,26 @@ export default function Settings(props) {
         }
       });
   };
+
+  const logout = () => {
+    localStorage.removeItem('token');
+    dispatch({
+      type: 'setUser',
+      user: null,
+    });
+    navigate('/');
+    props.setSettings(false);
+
+    setTimeout(() => {
+      props.setLoggedIn(false);
+    }, 1000);
+  };
+
   return (
     <div className={props.className}>
-        <Button>Sign Out</Button>
+      <div className={classes.signOut}>
+        <Button onClick={logout}>Sign Out</Button>
+      </div>
       <form onSubmit={updateUser}>
         <div>
           <label>First Name:</label>
@@ -66,8 +87,11 @@ export default function Settings(props) {
             id="profileImage"
           ></input>
         </div>
-        <Button>Submit</Button>
+       
+          <Button>Submit</Button>
+        
       </form>
+          <Button className={classes.delete}>Delete</Button>
       <Toaster position="top-center" />
     </div>
   );

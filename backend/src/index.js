@@ -70,6 +70,11 @@ app.get("/", (req, res) => {
   res.sendFile("../react/build/index.html", { root: "." });
 });
 
+//===> Error handler
+app.use((err, req, res, next) => {
+  res.status(err.status || 500 ).json({success: false, message: err.message})
+})
+
 app.listen(PORT, () => {
   console.log("Server is running on port:", PORT);
 });

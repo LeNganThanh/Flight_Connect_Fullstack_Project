@@ -8,8 +8,9 @@ import ActivityDisplay from "./activityDisplay.js";
 import { useNavigate } from "react-router";
 
 const Offers = () => {
-  const [state] = useContext(FlightsContext);
+  const [state, dispatch] = useContext(FlightsContext);
   const { offers } = state;
+  console.log(offers);
   const navigate = useNavigate();
   const inputFrom = document.getElementById("from");
   const inputTo = document.getElementById("to");
@@ -19,6 +20,25 @@ const Offers = () => {
       navigate("/");
     }
   }, []);
+
+  const bookFlight = () => {
+    if(!state.user){
+      navigate('/login')
+    }else{
+      fetch('http://localhost:1338/flights', {method: 'POST', headers: {token: localStorage.getItem('token'), 'Content-Type': 'application/json'}, body: JSON.stringify({ flights: offers.itineraries.map((flight)=> flight.id)})})
+      .then(res => res.json())
+      .then(result => {
+        console.log(result);
+        if(result.success){
+          console.log(result);
+          dispatch({
+            type: 'setOffers',
+            offers: result.data
+          })
+        }
+      })
+    }
+  }
 
   if (offers.length > 0) {
     return (
@@ -157,7 +177,7 @@ const Offers = () => {
               </div>
               <div className={classes.price} key={offer.id}>
                 <h2> {offer.price.total}€</h2>
-                <button>Select</button>
+                <button onClick={ bookFlight }>Select</button>
               </div>
             </div>
           );
