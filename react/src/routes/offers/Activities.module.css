@@ -1,14 +1,25 @@
 .activBox {
-  width: 60vw;
+  width: 29.6vw;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 0 2rem;
   margin: auto;
 }
-/* .activBox:hover{ */
-/*   transform: translateY(-1.5rem) scale(1.03); */
-/* } */
+
+
+#entering {
+  transform-origin: translateX(440px);
+  transform: translateX(0px);
+  transition: 3s linear;
+}
+
+#exiting {
+  transform-origin: translateX(0px);
+  transform: translateX(-440px);
+  transition: 3s linear;
+}
+
 .activBox img {
   width: 25rem;
   height: 15rem;

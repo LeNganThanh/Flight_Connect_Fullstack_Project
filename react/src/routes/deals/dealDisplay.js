@@ -2,7 +2,6 @@ import React, { useContext, useEffect } from "react";
 import { getDeals } from "../../api/deals.api.js";
 import { FlightsContext } from "../../context/FlightsContext";
 import classes from './Deals.module.css'
-import axios from 'axios'
 
 const DealDisplay = props => {
   const [state, dispatch] = useContext(FlightsContext);
@@ -83,10 +82,6 @@ const DealDisplay = props => {
     );
   };
 
-  // const googleCall = async() => {
-  //  const response = await axios.get('http://localhost:1338/api/google')
-  //   console.log(response)
-  // }
 
   return (
     <div className= {classes.dealsDisplay}>
