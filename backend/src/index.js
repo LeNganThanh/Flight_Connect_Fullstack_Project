@@ -5,12 +5,11 @@ import cors from "cors";
 import multer from "multer";
 import mongoose from "mongoose";
 //===> API routes
-import autocompRoute from "./router.js";
-import searchRoute from "./SearchRoute.js";
+import autocompRoute from "./autocompRoute.js";
+import searchRoute from "./searchRoute.js";
 import airportRoute from "./airportRoute.js";
 import dealsRoute from "./dealsRoute.js";
 import activityRoute from "./activityRoute.js";
-import googleRoute from './googleRoute.js'
 
 //===> flights routes
 import flightRoute from '../routes/flightsRoute.js'
@@ -62,7 +61,6 @@ app.use("/", searchRoute);
 app.use("/", airportRoute);
 app.use("/", dealsRoute);
 app.use("/", activityRoute);
-app.use("/", googleRoute);
 
 //===> Static files
 app.use(express.static('upload'))

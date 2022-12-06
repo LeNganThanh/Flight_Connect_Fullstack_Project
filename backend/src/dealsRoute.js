@@ -82,7 +82,6 @@ router.get(`/${API}/deals`, async(req, res) => {
       let count = 0;
       while (count < 3) {
         if (destinations[count].length > 0) {
-          console.log(`${destinations[count][0].geoCode.latitude},${destinations[count][0].geoCode.longitude}`)
           const geo = `${destinations[count][0].geoCode.latitude},${destinations[count][0].geoCode.longitude}`
 
           const config = {
@@ -99,7 +98,6 @@ router.get(`/${API}/deals`, async(req, res) => {
         }
         count+=1
       }
-      console.log('attraction loop', gotAttractions)
       return gotAttractions
     }
 
