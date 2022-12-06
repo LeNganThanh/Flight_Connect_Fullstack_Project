@@ -1,8 +1,11 @@
+import React, {useContext} from 'react'
+
 import Button from './Button.js';
 import toast, {Toaster} from 'react-hot-toast'
+import { FlightsContext } from '../context/FlightsContext.js';
 
 export default function Signup(props) {
-  
+  const [state, dispatch] = useContext(FlightsContext)
   const registerUser = e => {
     e.preventDefault();
  
@@ -16,9 +19,12 @@ export default function Signup(props) {
         console.log(result);
          if(result.success){
             toast.success('Successfully Signed Up!')
+            props.setRegister(false)
             setTimeout(() => {
-                props.setRegister(false)
-                props.setLogin(true)
+                dispatch({
+                  type: 'setLogin',
+                  login: true
+                })
             }, 2000)
             }else{
                 toast.error(JSON.stringify(result.message))

@@ -7,3 +7,9 @@
     margin-top: 15rem
 }
 
+form img{
+    margin-top: 1rem;
+    width: 15rem;
+    height: 15rem;
+    border-radius: 50%;
+}

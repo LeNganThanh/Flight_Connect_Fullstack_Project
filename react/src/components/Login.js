@@ -27,7 +27,10 @@ export default function Login(props) {
           })
           setTimeout(() => {
             props.setRegister(false);
-            props.setLogin(false);
+           dispatch({
+            type: 'setLogin',
+            login: false
+           })
             props.setLoggedIn(true)
           }, 2000);
         } else {

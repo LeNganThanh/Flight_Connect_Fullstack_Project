@@ -33,7 +33,7 @@ export const createUser = async (req, res, next) => {
   try {
     const user = new UserCollection(req.body);
     if (req.file) {
-      user.profileImage = `/${req.file.filename}`;
+      user.profileImage = `http://localhost:1338/${req.file.filename}`;
     }
     await user.save();
     console.log(user);
@@ -52,7 +52,7 @@ export const updateUser = async (req, res, next) => {
   try {
     let user = await UserCollection.findById(req.params.id);
     if (req.file) {
-      user.profileImage = `/${req.file.filename}`;
+      user.profileImage = `http://localhost:1338/${req.file.filename}`;
     }
     if (req.body.password) {
       user.password = req.body.password;

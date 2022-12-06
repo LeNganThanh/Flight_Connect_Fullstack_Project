@@ -7,6 +7,10 @@ export const initialGeoState = {
   deals: false,
   user: null,
   bookmarks: false,
+  flight: null, 
+  login: false,
+  
+  
 }
 
 export const geoReducer = function(state, action) {
@@ -45,6 +49,16 @@ export const geoReducer = function(state, action) {
       return{
         ...state,
         bookmarks: action.bookmarks
+      }
+    }case 'setFlights':{
+      return{
+        ...state,
+        flight: action.flight
+      }
+    }case 'setLogin':{
+      return{
+        ...state,
+        login: action.login,
       }
     }
 

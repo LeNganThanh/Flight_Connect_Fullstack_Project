@@ -10,7 +10,10 @@ export default function Settings(props) {
   const [state, dispatch] = useContext(FlightsContext);
   const { user } = state;
   const navigate = useNavigate();
+
+  
   const updateUser = e => {
+    console.log(e.target);
     e.preventDefault();
 
     const data = new FormData(e.target);
@@ -24,7 +27,7 @@ export default function Settings(props) {
       .then(result => {
         console.log(result);
         if (result.success) {
-          toast.success('Successfully Signed Up!');
+          toast.success('Successfully Updated!');
           dispatch({
             type: 'setUser',
             user: result.data,
@@ -52,6 +55,29 @@ export default function Settings(props) {
     }, 1000);
   };
 
+  const deleteUserAccount = () => {
+    console.log(' hey delete!!!!');
+    fetch(`http://localhost:1338/users/${user._id}`, {
+      method: 'DELETE',
+      headers: { token: localStorage.getItem('token') },
+    })
+      .then(res => res.json())
+      .then(result => {
+        if (result.success) {
+          toast.success('The account is deleted');
+          setTimeout(() => {
+            dispatch({
+              type: 'setUser',
+              user: null,
+            });
+            localStorage.removeItem('token');
+            props.setSettings(false);
+            props.setLoggedIn(false);
+          }, 1000);
+        }
+      });
+  };
+
   return (
     <div className={props.className}>
       <div className={classes.signOut}>
@@ -60,38 +86,29 @@ export default function Settings(props) {
       <form onSubmit={updateUser}>
         <div>
           <label>First Name:</label>
-          <input type="text" id="firstName" name="firstName" required></input>
+          <input type="text" id="firstName" name="firstName" />
         </div>
         <div>
           <label>Last Name:</label>
-          <input type="text" id="lastName" name="lastName" required></input>
+          <input type="text" id="lastName" name="lastName" />
         </div>
 
         <div>
           <label>Password:</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            required
-            minLength="8"
-          ></input>
+          <input type="password" id="password" name="password" minLength="8" />
         </div>
 
         <div>
           <label>Profile Image:</label>
-          <input
-            type="file"
-            accept="image/*"
-            name="image"
-            id="profileImage"
-          ></input>
+          <input type="file"  name="image"  />
         </div>
-       
-          <Button>Submit</Button>
-        
+
+        <Button>Update Account</Button>
+       {user && <img src={user.profileImage}  alt="profileImage" />} 
       </form>
-          <Button className={classes.delete}>Delete</Button>
+      <Button onClick={deleteUserAccount} className={classes.delete}>
+        Delete Account
+      </Button>
       <Toaster position="top-center" />
     </div>
   );
