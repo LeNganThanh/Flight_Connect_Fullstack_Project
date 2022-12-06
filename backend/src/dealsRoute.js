@@ -1,6 +1,7 @@
 import axios from 'axios';
 import express from 'express';
-import { USER_ID, USER_PASS } from './config.js';
+import { USER_ID, USER_PASS, GOOGLE_KEY } from './config.js';
+import amadeus from './amadeus.js'
 
 
 const router = express.Router();
@@ -58,7 +59,53 @@ router.get(`/${API}/deals`, async(req, res) => {
       return gotFlightInspiration
     }
     const flightInspiration = await getInspiration()
-    res.send([topDestinations.data, flightInspiration.data])
+
+    const getDestinationInfo = async() => {
+      let gotDestinations = []
+      let count = 0;
+      while(count < 3) {
+        const response = await amadeus.client.get('/v1/reference-data/locations', {
+          keyword: flightInspiration.data.FareInfo[count].DestinationLocation,
+          subType: 'CITY',
+        }).catch(err => console.log(err))
+
+        gotDestinations.push(response.data)
+        count++
+      }
+      return gotDestinations
+    }
+    const destinations = await getDestinationInfo()
+    console.log('destinations', destinations)
+
+    const getDestinationAttractions = async() => {
+      let gotAttractions = [];
+      let count = 0;
+      while (count < 3) {
+        if (destinations[count].length > 0) {
+          console.log(`${destinations[count][0].geoCode.latitude},${destinations[count][0].geoCode.longitude}`)
+          const geo = `${destinations[count][0].geoCode.latitude},${destinations[count][0].geoCode.longitude}`
+
+          const config = {
+            method: 'get',
+            url: `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${geo}&radius=40000&type=tourist_attraction&language=en&key=${GOOGLE_KEY}`,
+            headers: { }
+          };
+
+          const response = await axios(config).catch(err => console.log(err))
+
+          gotAttractions.push(response.data);
+        } else if (destinations[count].length === 0){
+          gotAttractions.push('hi')
+        }
+        count+=1
+      }
+      console.log('attraction loop', gotAttractions)
+      return gotAttractions
+    }
+
+    const attractions = await getDestinationAttractions()
+
+    res.json([topDestinations.data, flightInspiration.data, destinations, attractions])
   }catch(err){
     res.json(err)
   }
