@@ -11,8 +11,8 @@ const Activities = props => {
   const [secondFourAct, setSecondFourAct] = useState(false);
 
   useEffect(() => {
-    setFirstFourAct(activities.slice(5, 9));
-    setSecondFourAct(activities.slice(13, 17));
+    setFirstFourAct(activities[0].results.slice(0, 4));
+    setSecondFourAct(activities[0].results.slice(4, 8));
   }, [activities]);
 
   //function use to clear all html tags includes in description from api
@@ -29,12 +29,11 @@ const Activities = props => {
           <div className={classes.activBox}>
             {firstFourAct.map((action, idx) => {
               return (
-                <div key={idx} id={action.id}>
+                <div key={idx}>
                   <div className={classes.article}>
-                    <img src={action.pictures[0]} alt="activities images" />
                     <h3>{action.name} </h3>
                     <div className={classes.para}>
-                      <p>{extractContent(action.shortDescription)} </p>
+                      <p>{extractContent(action.types.join(' | '))}</p>
                     </div>
                   </div>
                 </div>
@@ -47,10 +46,9 @@ const Activities = props => {
                 return (
                   <div key={idx}>
                     <div className={classes.article}>
-                      <img src={action.pictures[0]} alt="activities images" />
                       <h3>{action.name} </h3>
                       <div className={classes.para}>
-                        <p>{extractContent(action.shortDescription)}</p>
+                        <p>{extractContent(action.types.join(' | '))}</p>
                       </div>
                     </div>
                   </div>

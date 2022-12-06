@@ -10,6 +10,7 @@ import searchRoute from "./SearchRoute.js";
 import airportRoute from "./airportRoute.js";
 import dealsRoute from "./dealsRoute.js";
 import activityRoute from "./activityRoute.js";
+import googleRoute from './googleRoute.js'
 
 //===> flights routes
 import flightRoute from '../routes/flightsRoute.js'
@@ -61,6 +62,7 @@ app.use("/", searchRoute);
 app.use("/", airportRoute);
 app.use("/", dealsRoute);
 app.use("/", activityRoute);
+app.use("/", googleRoute);
 
 //===> Static files
 

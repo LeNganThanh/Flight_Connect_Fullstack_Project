@@ -130,7 +130,8 @@ const FlightsForm = props => {
       latitude: state.latitude,
       longitude: state.longitude,
     }).then(result => {
-      setActivities(result.data.data);
+      console.log(result.data)
+      setActivities(result.data);
     });
   };
 

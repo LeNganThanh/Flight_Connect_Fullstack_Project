@@ -10,7 +10,6 @@ router.get(`/${API}/airports`, async (req, res) => {
   const { page, subType, keyword } = req.query;
 
   try {
-
     const response = await amadeus.client.get('/v1/reference-data/locations', {
       keyword,
       subType,
