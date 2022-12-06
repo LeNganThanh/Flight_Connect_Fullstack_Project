@@ -1,4 +1,5 @@
 import FlightsCollection from '../models/flightsschema.js';
+import UserCollection from '../models/usersschema.js';
 
 
 
@@ -16,12 +17,16 @@ export const getAllFlights = async(req, res, next) => {
 }
 
 export const createFlight  = async(req, res, next) => {
+    console.log(req.body);
     try{
+
         const flight = new FlightsCollection(req.body);
         await flight.save()
+        const user = await UserCollection.findByIdAndUpdate(flight.userId, {$push: {flights: flight._id}}, {new:true})
+     
         res.json({
             success: true,
-            data: flight
+            data: user
         })
     }catch(err){
         next(err)

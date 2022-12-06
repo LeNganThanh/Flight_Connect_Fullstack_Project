@@ -1,8 +1,11 @@
+import React, {useContext} from 'react'
+
 import Button from './Button.js';
 import toast, {Toaster} from 'react-hot-toast'
+import { FlightsContext } from '../context/FlightsContext.js';
 
 export default function Signup(props) {
-  
+  const [state, dispatch] = useContext(FlightsContext)
   const registerUser = e => {
     e.preventDefault();
  
@@ -16,9 +19,12 @@ export default function Signup(props) {
         console.log(result);
          if(result.success){
             toast.success('Successfully Signed Up!')
+            props.setRegister(false)
             setTimeout(() => {
-                props.setRegister(false)
-                props.setLogin(true)
+                dispatch({
+                  type: 'setLogin',
+                  login: true
+                })
             }, 2000)
             }else{
                 toast.error(JSON.stringify(result.message))
@@ -30,15 +36,15 @@ export default function Signup(props) {
       <form onSubmit={registerUser}>
         <div>
           <label>First Name:</label>
-          <input type="text" id="firstName" name="firstName" required></input>
+          <input type="text" id="firstName" name="firstName" required/>
         </div>
         <div>
           <label>Last Name:</label>
-          <input type="text" id="lastName" name="lastName" required></input>
+          <input type="text" id="lastName" name="lastName" required/>
         </div>
         <div>
           <label>Email:</label>
-          <input type="email" id="email" name="email" required></input>
+          <input type="email" id="email" name="email" required/>
         </div>
         <div>
           <label>Password:</label>
@@ -48,7 +54,7 @@ export default function Signup(props) {
             name="password"
             required
             minLength="8"
-          ></input>
+          />
         </div>
 
         <div>
@@ -58,7 +64,7 @@ export default function Signup(props) {
             accept="image/*"
             name="image"
             id="profileImage"
-          ></input>
+          />
         </div>
         <Button>Submit</Button>
       </form>

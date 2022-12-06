@@ -7,9 +7,11 @@ import classes from "./Offers.module.css";
 import ActivityDisplay from "./activityDisplay.js";
 import { useNavigate } from "react-router";
 
-const Offers = () => {
-  const [state] = useContext(FlightsContext);
+
+const Offers = (props) => {
+  const [state, dispatch] = useContext(FlightsContext);
   const { offers } = state;
+  
   const navigate = useNavigate();
   const inputFrom = document.getElementById("from");
   const inputTo = document.getElementById("to");
@@ -19,6 +21,31 @@ const Offers = () => {
       navigate("/");
     }
   }, []);
+
+  const bookFlight = (e) => {
+    e.preventDefault()
+   
+    if(!state.user){
+     dispatch({
+      type: 'setLogin',
+      login: true
+     })
+    }else{
+
+      fetch('http://localhost:1338/flights', {method: 'POST', headers: {token: localStorage.getItem('token'), 'Content-Type': 'application/json'}, body: JSON.stringify({flight: JSON.stringify(offers[e.target.value]) , userId: state.user._id})})
+      .then(res => res.json())
+      .then(result => {
+        console.log(result);
+        if(result.success){
+          console.log(result);
+          dispatch({
+            type: 'setUser',
+            user: result.data
+          })
+        }
+      })
+    }
+  }
 
   if (offers.length > 0) {
     return (
@@ -157,7 +184,7 @@ const Offers = () => {
               </div>
               <div className={classes.price} key={offer.id}>
                 <h2> {offer.price.total}€</h2>
-                <button>Select</button>
+              <button value={offer.id} onClick={ bookFlight }>Select</button> 
               </div>
             </div>
           );

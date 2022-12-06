@@ -34,11 +34,11 @@ app.use(cors({ origin: "*", exposedHeaders: ['token'] }));
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    let fullPath = "./upload/";
+    let fullPath = "./upload";
     cb(null, fullPath);
   },
   fileName: function (req, file, cb) {
-    let fileName = Date.now() + " " + file.originalName;
+    let fileName = Date.now() + "_" + file.originalname;
     cb(null, fileName);
   },
 });
@@ -65,12 +65,17 @@ app.use("/", activityRoute);
 app.use("/", googleRoute);
 
 //===> Static files
-
+app.use(express.static('upload'))
 app.use(express.static("../react/build"));
 
 app.get("/", (req, res) => {
   res.sendFile("../react/build/index.html", { root: "." });
 });
+
+//===> Error handler
+app.use((err, req, res, next) => {
+  res.status(err.status || 500 ).json({success: false, message: err.message})
+})
 
 app.listen(PORT, () => {
   console.log("Server is running on port:", PORT);

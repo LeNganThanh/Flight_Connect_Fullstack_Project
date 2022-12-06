@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 
 import classes from './Header.module.css';
 import signUpStyles from './Signup.module.css'
@@ -9,22 +9,30 @@ import Login from './Login.js';
 import logo from '../media/logo-5.png';
 import BurgerMenu from './BurgerMenu';
 import Settings from './Settings';
+import { FlightsContext } from '../context/FlightsContext';
 
 const Header = () => {
   const [register, setRegister] = useState(false);
-  const [login, setLogin] = useState(false);
+ // const [login, setLogin] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
+  const [state, dispatch] = useContext(FlightsContext)
   const [settings, setSettings] = useState(false)
 
   const toggleRegister = () => {
     setRegister(register => !register);
-    if (login) {
-      setLogin(login => !login);
+    if (state.login) {
+      dispatch({
+        type: 'setLogin',
+        login: false
+      });
     }
   };
   const toggleLogin = e => {
-    
-    setLogin(login => !login);
+    dispatch({
+      type: 'setLogin',
+      login: !state.login
+    })
+   
     if (register) {
       setRegister(register => !register);
     }
@@ -56,12 +64,12 @@ const Header = () => {
           </div>
         ) : <BurgerMenu className={button.burger} onClick={toggleSettings}/>}
 
-        <Signup className={`${register ? button.registerOn : button.registerOff } ${signUpStyles.signUpForm}`}  setLogin={setLogin} setRegister={setRegister}/>
+        <Signup className={`${register ? button.registerOn : button.registerOff } ${signUpStyles.signUpForm}`}  setRegister={setRegister}/>
           
         
-        <Login className= {`${login ? button.loginOn : button.loginOff }  ${signUpStyles.signUpForm}`}  setLogin={setLogin} setRegister={setRegister} setLoggedIn={setLoggedIn}/>
+        <Login className= {`${state.login ? button.loginOn : button.loginOff }  ${signUpStyles.signUpForm}`}  setRegister={setRegister} setLoggedIn={setLoggedIn}/>
           
-          <Settings className={`${settings ? button.settingsOn : button.settingsOff } ${signUpStyles.signUpForm}`} setSettings= {setSettings} />
+          <Settings className={`${settings ? button.settingsOn : button.settingsOff } ${signUpStyles.signUpForm}`} setSettings= {setSettings} setLoggedIn={setLoggedIn}/>
         
       </div>
     </div>

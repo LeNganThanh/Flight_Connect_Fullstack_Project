@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 const flightSchema = new Schema({
    flight: {type: String, required:true},
-   /* userId: { type:Schema.Types.ObjectId, ref:"users", required:true} */
+     userId: { type:Schema.Types.ObjectId, ref:"users", required:true}  
   
 });
 

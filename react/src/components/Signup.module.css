@@ -34,7 +34,3 @@
 .signUpForm form div:has(input[type='file']) {
     flex-direction: row;
 }
-
-/* .signUpForm form:nth-last-child(2){
-
-} */
