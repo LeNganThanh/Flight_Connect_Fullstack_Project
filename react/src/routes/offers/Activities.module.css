@@ -1,23 +1,20 @@
+h2 {
+color: #354259;
+}
+
+h3 {
+color: #354259;
+text-align: center;
+}
+
 .activBox {
-  width: 29.6vw;
+  width: 30vw;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 0 2rem;
   margin: auto;
-}
-
-
-#entering {
-  transform-origin: translateX(440px);
-  transform: translateX(0px);
-  transition: 3s linear;
-}
-
-#exiting {
-  transform-origin: translateX(0px);
-  transform: translateX(-440px);
-  transition: 3s linear;
+  color: #354259;
 }
 
 .activBox img {

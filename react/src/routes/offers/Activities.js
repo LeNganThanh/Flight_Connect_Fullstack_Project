@@ -1,10 +1,12 @@
-import React, { useState, useContext, } from "react";
+import React, { useState, useContext, useLayoutEffect, } from "react";
 import classes from "./Activities.module.css";
 import { FlightsContext } from "../../context/FlightsContext";
 
 const Activities = props => {
   const [state] = useContext(FlightsContext);
   const { activities } = state;
+
+  const inputTo = document.getElementById("to");
 
   //function use to clear all html tags includes in description from api
   function extractContent(html) {
@@ -30,11 +32,15 @@ const Activities = props => {
     return result
   }
 
+  useLayoutEffect(() => {
+    setCounter(0)
+  }, [activities])
+  
   return (
     <div>
+      <h2 className={classes.topTitle}>Attractions in {inputTo.value}</h2>
       {activities.length > 0 ? (
         <div>
-          <h1 className={classes.topTitle}>TOP ACTIVITIES</h1>
           <div className={classes.activBox}>
             <button onClick={previous}>{'<'}</button>
                 <div>
@@ -49,7 +55,7 @@ const Activities = props => {
             <button onClick={next}>{'>'}</button>
          </div>
         </div>
-      ) : null}
+      ) : <h3>Loading...</h3>}
     </div>
   );
 };

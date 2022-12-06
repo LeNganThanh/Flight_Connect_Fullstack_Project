@@ -4,7 +4,7 @@ import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import { FlightsContext } from "../../context/FlightsContext";
 import airPlane from "../../media/Airplane-logo.png";
 import classes from "./Offers.module.css";
-import ActivityDisplay from "./activityDisplay.js";
+import Activities from "./Activities";
 import { useNavigate } from "react-router";
 
 
@@ -17,7 +17,7 @@ const Offers = (props) => {
   const inputTo = document.getElementById("to");
 
   useEffect(() => {
-    if (!offers) {
+    if (!offers && state.latitude === '') {
       navigate("/");
     }
   }, []);
@@ -50,7 +50,7 @@ const Offers = (props) => {
   if (offers.length > 0) {
     return (
       <div className={classes.offers}>
-        <ActivityDisplay />
+        <Activities />
 
         <div className={classes.offersHeader}>
           <h2>
@@ -191,6 +191,12 @@ const Offers = (props) => {
         })}
       </div>
     );
+  } else if (!offers && state.latitude !== '') {
+    return (
+      <div>
+        <h2>Loading Results</h2>
+      </div>
+    )
   } else if (offers.length === 0) {
     return (
       <div>

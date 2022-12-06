@@ -66,7 +66,7 @@ export default function Signup(props) {
             id="profileImage"
           />
         </div>
-        <Button>Submit</Button>
+        <Button>SIGN UP</Button>
       </form>
       <Toaster position='top-center'/>
     </div>

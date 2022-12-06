@@ -56,7 +56,7 @@ export default function Login(props) {
           ></input>
         </div>
 
-        <Button>Submit</Button>
+        <Button>Log In</Button>
       </form>
       <Toaster position="top-center" />
     </div>

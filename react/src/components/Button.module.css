@@ -13,7 +13,6 @@ button {
   position: relative;
   color: #ece5c7;
   animation: moveInBottom .5s ease-out;
-  
 }
 
 button::after{
@@ -36,7 +35,8 @@ button:hover::after {
 }
 
 .user{
-  width: 5vw
+  width: 5vw;
+  font-size: .95rem;
 }
 .submitButton {
   margin-top: 1.5rem;
