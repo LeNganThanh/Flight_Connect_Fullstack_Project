@@ -1,5 +1,5 @@
 
-import React, { useState, useContext, useLayoutEffect, } from "react";
+import React, { useState, useContext, useLayoutEffect, useEffect, } from "react";
 import classes from "./Activities.module.css";
 import { FlightsContext } from "../../context/FlightsContext";
 import {getDetails} from '../../api/details.api.js'
@@ -18,13 +18,13 @@ const Activities = props => {
 
   const previous = () => {
     if (counter > 2) {
-      setCounter(counter - 3)
+      setCounter(Number(counter) - 3)
       setPhotoCounter([0, 0, 0])
     }
   }
   const next = () => {
     if ((counter + 3) < activities[0].length) {
-      setCounter(counter + 3)
+      setCounter(Number(counter) + 3)
       setPhotoCounter([0, 0, 0])
     }
   };
@@ -32,30 +32,36 @@ const Activities = props => {
   const prevPhoto = (e) => {
     e.preventDefault()
     const num = Number(e.target.value)
+    const count = Number(counter)
+    const photoCount = Number(photoCounter[num + count])
+    console.log(count + num)
     if (photoCounter[num] > 0) {
       if (num === 0) {
-        setPhotoCounter([photoCounter[0] - 1, photoCounter[1], photoCounter[2]])
+        setPhotoCounter([Number(photoCount - 1), Number(photoCounter[1]), Number(photoCounter[2])])
       } else if (num === 1) {
-        setPhotoCounter([photoCounter[0], photoCounter[1] - 1, photoCounter[2]])
+        setPhotoCounter([Number(photoCounter[0]), Number(photoCount - 1), Number(photoCounter[2])])
       } else if (num === 2) {
-        setPhotoCounter([photoCounter[0], photoCounter[1], photoCounter[2] - 1])
+        setPhotoCounter([Number(photoCounter[0]), Number(photoCounter[1]), Number(photoCount - 1)])
       }
     }
   }
-  const nextPhoto = (e) => {
+  const nextPhoto = async(e) => {
     e.preventDefault()
     const num = Number(e.target.value)
-    console.log(counter + num)
+    const count = Number(counter)
+    const photoCount = Number(photoCounter[Number(num) + Number(count)])
+    console.log(Number(count + num))
+    console.log(counter, photoCounter)
 
-    if (activities[1][counter + num][photoCounter[num] + 1] === undefined && activities[1][counter + num].length === 1) {
-      getDetails({
-        placeId: activities[0][counter + num].place_id
+    if (activities[1][count + num][photoCount + 1] === undefined && activities[1][count + num].length === 1) {
+      await getDetails({
+        placeId: activities[0][count + num].place_id
       })
       .then(res => { 
         const info = [...activities[0]]
         let photos = [...activities[1]]
         const please = photos.map((photos, index) => {
-          if (index !== counter + num) {
+          if (Number(index) !== Number(count) + Number(num)){
             return photos
           } else {
             return res.data
@@ -68,24 +74,27 @@ const Activities = props => {
         })
       })
         if (num === 0) {
-          setPhotoCounter([photoCounter[0] + 1, photoCounter[1], photoCounter[2]])
+          setPhotoCounter([Number(photoCount + 1), Number(photoCounter[1]), Number(photoCounter[2])])
         } else if (num === 1) {
-          setPhotoCounter([photoCounter[0], photoCounter[1] + 1, photoCounter[2]])
+          setPhotoCounter([Number(photoCounter[0]), Number(photoCount + 1), Number(photoCounter[2])])
         } else if (num === 2) {
-          setPhotoCounter([photoCounter[0], photoCounter[1], photoCounter[2] + 1])
+          setPhotoCounter([Number(photoCounter[0]), Number(photoCounter[1]), Number(photoCount + 1)])
         }
     } 
-      if (activities[1][counter + num][photoCounter[num] + 1]) {
+      if (activities[1][Number(count) + Number(num)][Number(photoCount) + 1]) {
         if (num === 0) {
-          setPhotoCounter([photoCounter[0] + 1, photoCounter[1], photoCounter[2]])
+          setPhotoCounter([Number(photoCount + 1), Number(photoCounter[1]), Number(photoCounter[2])])
         } else if (num === 1) {
-          setPhotoCounter([photoCounter[0], photoCounter[1] + 1, photoCounter[2]])
+          setPhotoCounter([Number(photoCounter[0]), Number(photoCount + 1), Number(photoCounter[2])])
         } else if (num === 2) {
-          setPhotoCounter([photoCounter[0], photoCounter[1], photoCounter[2] + 1])
+          setPhotoCounter([Number(photoCounter[0]), Number(photoCounter[1]), Number(photoCount + 1)])
         }
       }
-
   }
+
+  useEffect(() => {
+    console.log(counter, '-->', photoCounter)
+  })
 
   const imageRef = (num) => {
     const search = activities[0][counter + num].name
