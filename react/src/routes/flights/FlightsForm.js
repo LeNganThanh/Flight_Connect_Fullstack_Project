@@ -117,6 +117,7 @@ const FlightsForm = props => {
     const dateOfDeparture = document.getElementById("departureDate");
     const dateOfReturn = document.getElementById("returnDate");
 
+    navigate("/flights");
     await getSearchData({
       originCode: inputFrom.name,
       destinationCode: inputTo.name,
@@ -135,14 +136,6 @@ const FlightsForm = props => {
     });
   };
 
-  const [check, setCheck] = useState(false);
-  useEffect(() => {
-    if (check) {
-      navigate("/flights");
-    } else {
-      setCheck(true);
-    }
-  }, [state.activities]);
 
   const setOffers = async value => {
     await dispatch({
@@ -242,8 +235,8 @@ const FlightsForm = props => {
               autoComplete="off"
               id="to"
               onChange={inputHandler}
-              defaultValue="MELBOURNE"
-              name="MEL"
+              defaultValue="BARCELONA"
+              name="BCN"
               type="text"
               placeholder="City / Airport"
             />

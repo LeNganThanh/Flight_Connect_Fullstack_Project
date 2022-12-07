@@ -2,6 +2,10 @@ import axios from 'axios'
 import express from "express";
 import { GOOGLE_KEY } from './config.js';
 
+import GooglePlacesApi from 'dcts-google-places-api';
+const apiKey = GOOGLE_KEY;
+const googleapi = new GooglePlacesApi(apiKey)
+
 const router = express.Router();
 
 const API = `api`;
@@ -16,21 +20,48 @@ router.get(`/${API}/activities`, async(req, res) => {
       headers: { }
     };
     const response = await axios(config).catch(err => console.log(err))
-    const activities = response.data
-    // let photos = []
-    // for (let i = 0; i < 2; i++) {
-    //   const config = {
-    //     method: 'get',
-    //     url: `https://maps.googleapis.com/maps/api/place/photo?photo_reference=${activities.results[i].photos[0].photo_reference}&key=${GOOGLE_KEY}`,
-    //     headers: { }
-    //   };
-    //   const response = axios(config).catch(err => console.log(err))
-    //   photos.push(response.data.toDataUrl('image/png'))
+    let activities = response.data.results.filter(act => act.photos)
+
+    // const getDetails = async() => {
+    //   let details = []
+    //   let count = 0
+    //   while (count < activities.length) {
+    //     const placeId = activities[count].place_id
+    //     const detail = await googleapi.runPlaceDetails(placeId)
+    //     details.push(detail)
+    //     count++
+    //   }
+    //   return details
     // }
-    // console.log(photos)
-    //res.send([activities, photos])
-    res.send([activities, []])
+
+    // const details2 = await getDetails()
+    // details2.length
+    // const details = details2.filter(detail => detail.photos)
+    // console.log(details.length)
+
+    const getPhotos = async() => {
+      let photos = []
+      let count = 0 
+      while (count < activities.length) {
+        // let count2 = 0
+        // let photos2 = []
+        // while (count2 < details[count].photos.length && count2 < 3) {
+          const photoReference = activities[count].photos[0].photo_reference
+          const photo = await googleapi.runPlacePhotos(photoReference).catch(err => console.log(err))
+          // photos2.push(photo)
+          // count2++
+        // }
+        photos.push(photo)
+        count++
+      }
+      return photos
+    }
+
+     const photos = await getPhotos()
+
+    res.json([activities, photos])
   }catch(err){
+    console.log(err)
     res.json(err)
   }
 });
