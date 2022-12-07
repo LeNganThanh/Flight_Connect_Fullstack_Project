@@ -2,9 +2,10 @@
 import axios from 'axios'
 
 export const getDetails = params => {
-  const {placeId} = params
+  console.log(params)
+  const {placeIds} = params
  
-  const out = axios.get(`http://localhost:1338/api/google/details/?placeId=${placeId}`)
+  const out = axios.get(`http://localhost:1338/api/google/details/?placeIds=${placeIds}`)
 
   return out;
 }

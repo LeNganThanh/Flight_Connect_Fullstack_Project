@@ -15,7 +15,8 @@ router.get(`/${API}/local-airport`, async(req, res) => {
       })
       res.json(JSON.parse(response.body))
   }catch(err){
-      res.json(err)
+    console.log(err.description)
+    res.json(err)
   }
 })
 

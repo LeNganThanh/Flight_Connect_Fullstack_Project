@@ -15,7 +15,30 @@ const Activities = props => {
 
   const [counter, setCounter] = useState(0)
   const [photoCounter, setPhotoCounter] = useState([0, 0, 0])
-  const [toggle, setToggle] = useState(false)
+
+  useEffect(() => {
+    if(!localStorage.getItem('activities')) {
+      console.log(activities[0])
+      const placeIds = activities[0].map(act => act.place_id)
+      getDetails({placeIds: placeIds})
+      .then(res => {
+        const info = [...activities[0]]
+        dispatch({
+          type: 'setActivities',
+          activities: [info, res.data]
+        })
+      })
+      if (activities[0].length === activities[1].length) {
+        localStorage.setItem('activities', JSON.stringify(activities))
+      }
+    } else if (localStorage.getItem('activities') && activities[0].length !== activities[1].length){
+      console.log('localStorage')
+        dispatch({
+          type: 'setActivities',
+          activities: JSON.parse(localStorage.getItem('activities'))
+        })
+    }
+  }, [activities])
 
   const previous = () => {
     if (counter > 2) {
@@ -50,53 +73,10 @@ const Activities = props => {
     const num = Number(e.target.value)
     const count = Number(counter)
     const photoCount = Number(photoCounter[num])
-    console.log(Number(count) + Number(num))
-    console.log(counter, photoCounter)
 
-    if (activities[1][Number(count) + Number(num)][Number(photoCount) + 1] === undefined && activities[1][Number(count) + Number(num)].length === 1) {
-      await getDetails({
-        placeId: activities[0][Number(count) + Number(num)].place_id
-      })
-      .then(res => { 
-        const info = [...activities[0]]
-        let photos = [...activities[1]]
-        const please = photos.map((photos, index) => {
-          if (Number(index) !== Number(count) + Number(num)){
-            return photos
-          } else {
-            return res.data
-          }
-        })
-        console.log([info, please])
-        dispatch({
-          type: 'setActivities',
-          activities: [info, please]
-        })
-      })
-
-      setToggle(num)
-
-    } else if (activities[1][Number(count) + Number(num)][Number(photoCount) + 1]) {
-        if (num === 0) {
-          setPhotoCounter([Number(Number(photoCount) + 1), Number(photoCounter[1]), Number(photoCounter[2])])
-        } else if (num === 1) {
-          setPhotoCounter([Number(photoCounter[0]), Number(Number(photoCount) + 1), Number(photoCounter[2])])
-        } else if (num === 2) {
-          setPhotoCounter([Number(photoCounter[0]), Number(photoCounter[1]), Number(Number(photoCount) + 1)])
-        }
-    }
-  }
-
-  useEffect(() => {
-    console.log(counter, '-->', photoCounter)
-  }, [counter, photoCounter])
-
-  useLayoutEffect(() => {
-    const num = toggle
-    const count = Number(counter)
-    const photoCount = Number(photoCounter[num])
-
-    if (activities[1][Number(count) + Number(num)][photoCount + 1]) {
+    if (activities[1][Number(count) + Number(num)][Number(photoCount) + 1] === undefined) {
+      console.log('no more pictures')
+    } else {
       if (num === 0) {
         setPhotoCounter([Number(Number(photoCount) + 1), Number(photoCounter[1]), Number(photoCounter[2])])
       } else if (num === 1) {
@@ -105,7 +85,7 @@ const Activities = props => {
         setPhotoCounter([Number(photoCounter[0]), Number(photoCounter[1]), Number(Number(photoCount) + 1)])
       }
     }
-  }, [toggle])
+  }
 
   const imageRef = (num) => {
     const search = activities[0][Number(counter) + Number(num)].name

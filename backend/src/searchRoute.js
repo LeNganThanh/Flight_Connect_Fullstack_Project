@@ -36,6 +36,7 @@ router.get(`/${API}/offers`, async(req, res) =>{
           })
           res.json(JSON.parse(response.body))
       }catch(err){
+        console.log(err.description)
           res.json(err)
       }
 
