@@ -1,10 +1,7 @@
 import axios from 'axios'
 import express from "express";
 import { GOOGLE_KEY } from './config.js';
-
-import GooglePlacesApi from 'dcts-google-places-api';
-const apiKey = GOOGLE_KEY;
-const googleapi = new GooglePlacesApi(apiKey)
+import googleapi from './googleapi.js'
 
 const router = express.Router();
 
@@ -20,7 +17,8 @@ router.get(`/${API}/activities`, async(req, res) => {
       headers: { }
     };
     const response = await axios(config).catch(err => console.log(err))
-    let activities = response.data.results.filter(act => act.photos)
+    let activ = response.data.results
+    const activities = activ.filter(act => act.photos)
 
     // const getDetails = async() => {
     //   let details = []
@@ -38,6 +36,8 @@ router.get(`/${API}/activities`, async(req, res) => {
     // details2.length
     // const details = details2.filter(detail => detail.photos)
     // console.log(details.length)
+    
+    console.log(activities)
 
     const getPhotos = async() => {
       let photos = []
@@ -51,7 +51,7 @@ router.get(`/${API}/activities`, async(req, res) => {
           // photos2.push(photo)
           // count2++
         // }
-        photos.push(photo)
+        photos.push([photo])
         count++
       }
       return photos
