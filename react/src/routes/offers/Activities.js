@@ -50,12 +50,12 @@ const Activities = props => {
     const num = Number(e.target.value)
     const count = Number(counter)
     const photoCount = Number(photoCounter[Number(num) + Number(count)])
-    console.log(Number(count + num))
+    console.log(Number(count) + Number(num))
     console.log(counter, photoCounter)
 
-    if (activities[1][count + num][photoCount + 1] === undefined && activities[1][count + num].length === 1) {
+    if (activities[1][Number(count) + Number(num)][Number(photoCount) + 1] === undefined && activities[1][Number(count) + Number(num)].length === 1) {
       await getDetails({
-        placeId: activities[0][count + num].place_id
+        placeId: activities[0][Number(count) + Number(num)].place_id
       })
       .then(res => { 
         const info = [...activities[0]]
@@ -74,20 +74,20 @@ const Activities = props => {
         })
       })
         if (num === 0) {
-          setPhotoCounter([Number(photoCount + 1), Number(photoCounter[1]), Number(photoCounter[2])])
+          setPhotoCounter([Number(photoCount) + 1, Number(photoCounter[1]), Number(photoCounter[2])])
         } else if (num === 1) {
-          setPhotoCounter([Number(photoCounter[0]), Number(photoCount + 1), Number(photoCounter[2])])
+          setPhotoCounter([Number(photoCounter[0]), Number(photoCount) + 1, Number(photoCounter[2])])
         } else if (num === 2) {
-          setPhotoCounter([Number(photoCounter[0]), Number(photoCounter[1]), Number(photoCount + 1)])
+          setPhotoCounter([Number(photoCounter[0]), Number(photoCounter[1]), Number(photoCount) + 1])
         }
     } 
       if (activities[1][Number(count) + Number(num)][Number(photoCount) + 1]) {
         if (num === 0) {
-          setPhotoCounter([Number(photoCount + 1), Number(photoCounter[1]), Number(photoCounter[2])])
+          setPhotoCounter([Number(photoCount) + 1, Number(photoCounter[1]), Number(photoCounter[2])])
         } else if (num === 1) {
-          setPhotoCounter([Number(photoCounter[0]), Number(photoCount + 1), Number(photoCounter[2])])
+          setPhotoCounter([Number(photoCounter[0]), Number(photoCount) + 1, Number(photoCounter[2])])
         } else if (num === 2) {
-          setPhotoCounter([Number(photoCounter[0]), Number(photoCounter[1]), Number(photoCount + 1)])
+          setPhotoCounter([Number(photoCounter[0]), Number(photoCounter[1]), Number(photoCount) + 1])
         }
       }
   }
