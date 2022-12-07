@@ -10,7 +10,6 @@ text-align: center;
 }
 
 .activBox {
-  width: 30vw;
   display: flex;
   justify-content: center;
   gap: 0 2rem;
@@ -19,14 +18,14 @@ text-align: center;
 }
 
 .activBox img {
-  width: 40rem;
+  width: 10rem;
   height: 20rem;
   object-fit: cover;
 }
 
 
 .article {
-  width: 40rem;
+  width: 20rem;
   height: 30rem;
   overflow: hidden;
   border-radius: 5px;
