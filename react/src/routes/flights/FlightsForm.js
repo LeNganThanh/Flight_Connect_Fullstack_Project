@@ -235,8 +235,8 @@ const FlightsForm = props => {
               autoComplete="off"
               id="to"
               onChange={inputHandler}
-              defaultValue="MELBOURNE"
-              name="MEL"
+              defaultValue="BARCELONA"
+              name="BCN"
               type="text"
               placeholder="City / Airport"
             />

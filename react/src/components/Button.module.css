@@ -29,15 +29,11 @@ button::after{
 }
 
 button:hover::after {
-  transform: scaleX(1.4) scaleY(1.6);
+  transform: scaleX(1.2) scaleY(1.4);
   background-color:  #354259;
   opacity: 0;
 }
 
-.user{
-  width: 5vw;
-  font-size: .95rem;
-}
 .submitButton {
   margin-top: 1.5rem;
   font-size: 2rem;
@@ -47,7 +43,7 @@ button:hover::after {
 
 button:hover{ 
   transform: translateY(-.2rem);
-  box-shadow: 0 1rem 2rem rgba(0,0,0,.2 ) ;
+  box-shadow: 0 .3rem .5rem rgba(0,0,0,.4 ) ;
 }
 
  button:active{
@@ -55,6 +51,16 @@ button:hover{
   box-shadow: 0 .5rem 1rem rgba(0,0,0,.2 ) ;
 
 } 
+.user, .userOn{
+  width: 5vw;
+  font-size: .95rem;
+  transition: 0.2s linear
+}
+
+.userOn {
+  color:  #354259;
+  background-color: #ece5c7; 
+}
  
 .registerOff,
 .registerOn,
@@ -69,14 +75,13 @@ button:hover{
   transition: 0.3s linear;
 }
 
-
-
 .loginOn,
 .settingsOn,
 .registerOn {
   z-index: 100;
   right: 0;
 }
+
 .loginOff,
 .settingsOff,
 .registerOff {
@@ -93,9 +98,6 @@ button:hover{
   top: 0;
   transition: 0.3s linear;
 }
-
-
-
 
 .burger{
   margin-right: 1rem;

@@ -27,7 +27,7 @@ const Header = () => {
       });
     }
   };
-  const toggleLogin = e => {
+  const toggleLogin = () => {
     dispatch({
       type: 'setLogin',
       login: !state.login
@@ -53,11 +53,11 @@ const Header = () => {
 
         {!loggedIn ? (
           <div className={classes.headerText}>
-            <Button className={button.user} onClick={toggleRegister}>
+            <Button className={register ? button.userOn : button.user} onClick={toggleRegister}>
               Sign up
             </Button>
             {' '}
-            <Button className={button.user} onClick={toggleLogin}>
+            <Button className={state.login ? button.userOn : button.user} onClick={toggleLogin}>
               Log in
             </Button>
           </div>

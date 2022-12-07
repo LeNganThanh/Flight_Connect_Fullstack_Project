@@ -22,22 +22,46 @@ router.get(`/${API}/activities`, async(req, res) => {
     const response = await axios(config).catch(err => console.log(err))
     let activities = response.data.results.filter(act => act.photos)
 
+    // const getDetails = async() => {
+    //   let details = []
+    //   let count = 0
+    //   while (count < activities.length) {
+    //     const placeId = activities[count].place_id
+    //     const detail = await googleapi.runPlaceDetails(placeId)
+    //     details.push(detail)
+    //     count++
+    //   }
+    //   return details
+    // }
+
+    // const details2 = await getDetails()
+    // details2.length
+    // const details = details2.filter(detail => detail.photos)
+    // console.log(details.length)
+
     const getPhotos = async() => {
       let photos = []
       let count = 0 
       while (count < activities.length) {
-        const photoReference = activities[count].photos[0].photo_reference
-        const photo = await googleapi.runPlacePhotos(photoReference)
-        photos.push(String(photo))
+        // let count2 = 0
+        // let photos2 = []
+        // while (count2 < details[count].photos.length && count2 < 3) {
+          const photoReference = activities[count].photos[0].photo_reference
+          const photo = await googleapi.runPlacePhotos(photoReference).catch(err => console.log(err))
+          // photos2.push(photo)
+          // count2++
+        // }
+        photos.push(photo)
         count++
       }
       return photos
     }
 
-    const photos = await getPhotos()
+     const photos = await getPhotos()
 
     res.json([activities, photos])
   }catch(err){
+    console.log(err)
     res.json(err)
   }
 });

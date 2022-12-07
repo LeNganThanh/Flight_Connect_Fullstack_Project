@@ -14,17 +14,31 @@ const Activities = props => {
       .textContent;
   }
   const [counter, setCounter] = useState(0)
+  //const [photoCounter, setPhotoCounter] = useState(0)
 
   const previous = () => {
     if (counter > 0) {
       setCounter(counter - 1)
+      //setPhotoCounter(0)
     }
   }
   const next = () => {
     if (counter < (activities[0].length - 1)) {
       setCounter(counter + 1)
+      //setPhotoCounter(0)
     }
   }
+
+  // const prevPhoto = () => {
+  //   if (photoCounter > 0) {
+  //     setPhotoCounter(photoCounter - 1)
+  //   }
+  // }
+  // const nextPhoto = () => {
+  //   if (photoCounter < (activities[1][counter].length - 1)) {
+  //     setPhotoCounter(photoCounter + 1)
+  //   }
+  // }
 
   const imageRef = () => {
     const search = activities[0][counter].name
@@ -34,13 +48,14 @@ const Activities = props => {
 
   useLayoutEffect(() => {
     setCounter(0)
+    //setPhotoCounter(0)
   }, [activities])
   
   return (
     <div>
-      <h2 className={classes.topTitle}>Attractions in {inputTo.value}</h2>
       {activities.length > 0 ? (
         <div>
+          <h2 className={classes.topTitle}>Attractions in {inputTo.value}</h2>
           <div className={classes.activBox}>
             <button onClick={previous}>{'<'}</button>
                 <div>
@@ -55,7 +70,7 @@ const Activities = props => {
             <button onClick={next}>{'>'}</button>
          </div>
         </div>
-      ) : <h3>Loading...</h3>}
+      ) : null}
     </div>
   );
 };
