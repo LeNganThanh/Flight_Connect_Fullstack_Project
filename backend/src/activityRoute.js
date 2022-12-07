@@ -37,7 +37,6 @@ router.get(`/${API}/activities`, async(req, res) => {
     // const details = details2.filter(detail => detail.photos)
     // console.log(details.length)
     
-    console.log(activities)
 
     const getPhotos = async() => {
       let photos = []

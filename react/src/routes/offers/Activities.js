@@ -13,7 +13,7 @@ const Activities = props => {
   const [photoCounter, setPhotoCounter] = useState([0, 0, 0])
 
   const previous = () => {
-    if (counter > 0) {
+    if (counter > 2) {
       setCounter(counter - 3)
       setPhotoCounter([0, 0, 0])
     }
@@ -28,14 +28,13 @@ const Activities = props => {
   const prevPhoto = (e) => {
     e.preventDefault()
     const num = Number(e.target.value)
-
     if (photoCounter[num] > 0) {
       if (num === 0) {
-        setPhotoCounter([photoCounter[0] + 1, photoCounter[1], photoCounter[2]])
+        setPhotoCounter([photoCounter[0] - 1, photoCounter[1], photoCounter[2]])
       } else if (num === 1) {
-        setPhotoCounter([photoCounter[0], photoCounter[1] + 1, photoCounter[2]])
+        setPhotoCounter([photoCounter[0], photoCounter[1] - 1, photoCounter[2]])
       } else if (num === 2) {
-        setPhotoCounter([photoCounter[0], photoCounter[1], photoCounter[2] + 1])
+        setPhotoCounter([photoCounter[0], photoCounter[1], photoCounter[2] - 1])
       }
     }
   }
