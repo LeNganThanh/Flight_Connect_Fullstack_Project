@@ -15,6 +15,7 @@ const Activities = props => {
 
   const [counter, setCounter] = useState(0)
   const [photoCounter, setPhotoCounter] = useState([0, 0, 0])
+  const [toggle, setToggle] = useState(false)
 
   const previous = () => {
     if (counter > 2) {
@@ -32,24 +33,23 @@ const Activities = props => {
   const prevPhoto = (e) => {
     e.preventDefault()
     const num = Number(e.target.value)
-    const count = Number(counter)
-    const photoCount = Number(photoCounter[num + count])
-    console.log(count + num)
-    if (photoCounter[num] > 0) {
-      if (num === 0) {
-        setPhotoCounter([Number(photoCount - 1), Number(photoCounter[1]), Number(photoCounter[2])])
-      } else if (num === 1) {
-        setPhotoCounter([Number(photoCounter[0]), Number(photoCount - 1), Number(photoCounter[2])])
-      } else if (num === 2) {
-        setPhotoCounter([Number(photoCounter[0]), Number(photoCounter[1]), Number(photoCount - 1)])
+    const photoCount = Number(photoCounter[num])
+    if (photoCount > 0) {
+      if (Number(num) === 0) {
+        setPhotoCounter([Number(Number(photoCount) - 1), Number(photoCounter[1]), Number(photoCounter[2])])
+      } else if (Number(num) === 1) {
+        setPhotoCounter([Number(photoCounter[0]), Number(Number(photoCount) - 1), Number(photoCounter[2])])
+      } else if (Number(num) === 2) {
+        setPhotoCounter([Number(photoCounter[0]), Number(photoCounter[1]), Number(Number(photoCount) - 1)])
       }
     }
   }
+
   const nextPhoto = async(e) => {
     e.preventDefault()
     const num = Number(e.target.value)
     const count = Number(counter)
-    const photoCount = Number(photoCounter[Number(num) + Number(count)])
+    const photoCount = Number(photoCounter[num])
     console.log(Number(count) + Number(num))
     console.log(counter, photoCounter)
 
@@ -73,31 +73,42 @@ const Activities = props => {
           activities: [info, please]
         })
       })
+
+      setToggle(num)
+
+    } else if (activities[1][Number(count) + Number(num)][Number(photoCount) + 1]) {
         if (num === 0) {
-          setPhotoCounter([Number(photoCount) + 1, Number(photoCounter[1]), Number(photoCounter[2])])
+          setPhotoCounter([Number(Number(photoCount) + 1), Number(photoCounter[1]), Number(photoCounter[2])])
         } else if (num === 1) {
-          setPhotoCounter([Number(photoCounter[0]), Number(photoCount) + 1, Number(photoCounter[2])])
+          setPhotoCounter([Number(photoCounter[0]), Number(Number(photoCount) + 1), Number(photoCounter[2])])
         } else if (num === 2) {
-          setPhotoCounter([Number(photoCounter[0]), Number(photoCounter[1]), Number(photoCount) + 1])
+          setPhotoCounter([Number(photoCounter[0]), Number(photoCounter[1]), Number(Number(photoCount) + 1)])
         }
-    } 
-      if (activities[1][Number(count) + Number(num)][Number(photoCount) + 1]) {
-        if (num === 0) {
-          setPhotoCounter([Number(photoCount) + 1, Number(photoCounter[1]), Number(photoCounter[2])])
-        } else if (num === 1) {
-          setPhotoCounter([Number(photoCounter[0]), Number(photoCount) + 1, Number(photoCounter[2])])
-        } else if (num === 2) {
-          setPhotoCounter([Number(photoCounter[0]), Number(photoCounter[1]), Number(photoCount) + 1])
-        }
-      }
+    }
   }
 
   useEffect(() => {
     console.log(counter, '-->', photoCounter)
-  })
+  }, [counter, photoCounter])
+
+  useLayoutEffect(() => {
+    const num = toggle
+    const count = Number(counter)
+    const photoCount = Number(photoCounter[num])
+
+    if (activities[1][Number(count) + Number(num)][photoCount + 1]) {
+      if (num === 0) {
+        setPhotoCounter([Number(Number(photoCount) + 1), Number(photoCounter[1]), Number(photoCounter[2])])
+      } else if (num === 1) {
+        setPhotoCounter([Number(photoCounter[0]), Number(Number(photoCount) + 1), Number(photoCounter[2])])
+      } else if (num === 2) {
+        setPhotoCounter([Number(photoCounter[0]), Number(photoCounter[1]), Number(Number(photoCount) + 1)])
+      }
+    }
+  }, [toggle])
 
   const imageRef = (num) => {
-    const search = activities[0][counter + num].name
+    const search = activities[0][Number(counter) + Number(num)].name
     const result =`https://www.google.com/maps/search/${search}`
     return result
   }
