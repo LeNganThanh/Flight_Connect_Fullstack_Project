@@ -4,6 +4,7 @@ import { FlightsContext } from "../../context/FlightsContext";
 
 const DropDown = props => {
   const [state, dispatch] = useContext(FlightsContext);
+
   const passInfo = async e => {
     e.preventDefault();
 

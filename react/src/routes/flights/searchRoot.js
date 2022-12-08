@@ -19,23 +19,23 @@ const SearchRoot = () => {
    */
   useEffect(() => {
     //setLoading(true);
-    const { out, source } = getAmadeusData(search);
+        const { out, source } = getAmadeusData(search);
 
-    out
-      .then(res => {
-        if (!res.data.code) {
-          setDataSource(res.data);
-        }
-        // setLoading(false);
-      })
-      .catch(err => {
-        axios.isCancel(err);
-        // setLoading(false);
-      });
+      out
+        .then(res => {
+          if (!res.data.code) {
+            setDataSource(res.data);
+          }
+          // setLoading(false);
+        })
+        .catch(err => {
+          axios.isCancel(err);
+          // setLoading(false);
+        });
 
-    return () => {
-      source.cancel();
-    };
+      return () => {
+        source.cancel();
+      };
   }, [search]);
   return (
     <div>

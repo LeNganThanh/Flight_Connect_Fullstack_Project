@@ -37,7 +37,6 @@ const Offers = (props) => {
       .then(result => {
         console.log(result);
         if(result.success){
-          console.log(result);
           dispatch({
             type: 'setUser',
             user: result.data

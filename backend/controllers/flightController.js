@@ -22,7 +22,7 @@ export const createFlight  = async(req, res, next) => {
 
         const flight = new FlightsCollection(req.body);
         await flight.save()
-        const user = await UserCollection.findByIdAndUpdate(flight.userId, {$push: {flights: flight._id}}, {new:true})
+        const user = await UserCollection.findByIdAndUpdate(flight.userId, {$push: {flights: flight._id}}, {new:true}).populate('flights')
      
         res.json({
             success: true,
@@ -42,7 +42,7 @@ export const createFlight  = async(req, res, next) => {
             if(bookedFlight){
                 await FlightsCollection.deleteOne({_id: bookedFlight._id})
                 
-               const updateUser = await UserCollection.findByIdAndUpdate(bookedFlight.userId, {$pull: {flights: id}}, {new: true})
+               const updateUser = await UserCollection.findByIdAndUpdate(bookedFlight.userId, {$pull: {flights: id}}, {new: true}).populate('flights')
                console.log(updateUser);
                 res.send({
                     success: true,

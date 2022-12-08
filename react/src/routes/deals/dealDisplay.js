@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { getDeals } from "../../api/deals.api.js";
 import { FlightsContext } from "../../context/FlightsContext";
 import classes from './Deals.module.css'
@@ -6,12 +6,13 @@ import classes from './Deals.module.css'
 const DealDisplay = props => {
   const [state, dispatch] = useContext(FlightsContext);
   const { deals } = state;
+  const [check, setCheck] = useState(false)
 
   const dateOfDeparture = document.getElementById("departureDate");
   const dateOfReturn = document.getElementById("returnDate");
 
   useEffect(() => {
-    if (!localStorage.getItem("deals") && !deals) {
+    if (!localStorage.getItem("deals") && !deals && !check) {
       const getData = async () => {
         const deals = await getDeals({
           geoInfo: props.geoInfo,
@@ -19,6 +20,7 @@ const DealDisplay = props => {
           dateOfReturn: dateOfReturn.value,
         });
         console.log('deals', deals)
+        setCheck(true)
         if (deals.data[0]) {
           console.log('if deals', deals.data)
           localStorage.setItem("deals", JSON.stringify([deals.data[0], deals.data[1], deals.data[2], deals.data[3]]));

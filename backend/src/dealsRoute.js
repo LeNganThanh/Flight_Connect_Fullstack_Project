@@ -1,7 +1,7 @@
 import axios from 'axios';
 import express from 'express';
 import { USER_ID, USER_PASS, GOOGLE_KEY } from './config.js';
-import amadeus from './amadeus.js'
+import googleapi from './googleapi.js';
 
 
 const router = express.Router();
@@ -32,7 +32,7 @@ router.get(`/${API}/deals`, async(req, res) => {
     
 
     const countryCode = geoInfo[0].countryCode
-    let query = `origincountry=${countryCode}&lookbackweeks=12`
+    let query = `origincountry=${countryCode}&topdestinations=10&lookbackweeks=12`
     
     const topDestinations = await axios.get(`https://api-crt.cert.havail.sabre.com/v1/lists/top/destinations?${query}`, {
       headers: {
@@ -51,8 +51,7 @@ router.get(`/${API}/deals`, async(req, res) => {
             Authorization: `Bearer ${access}`
           }
         })
-
-        gotFlightInspiration = result
+        gotFlightInspiration = result.data
       
         count++
       }
@@ -63,39 +62,45 @@ router.get(`/${API}/deals`, async(req, res) => {
     const getDestinationInfo = async() => {
       let gotDestinations = []
       let count = 0;
-      while(count < 3) {
-        const response = await amadeus.client.get('/v1/reference-data/locations', {
-          keyword: flightInspiration.data.FareInfo[count].DestinationLocation,
-          subType: 'CITY',
-        }).catch(err => console.log(err))
+      const input = flightInspiration.FareInfo.slice(0, 20)
+      while(count < input.length) {
+        const config = {
+          method: 'get',
+          url: `https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=${input[count].DestinationLocation}&inputtype=textquery&type=airport&language=en&key=${GOOGLE_KEY}`,
+          headers: { }
+        };
 
-        gotDestinations.push(response.data)
+        const response = await axios(config).catch(err => console.log(err))
+        
+        const id = response.data.candidates
+        if(id.length > 0) {
+          const detail = await googleapi.runPlaceDetails(id[0].place_id)
+
+          gotDestinations.push(detail)
+        }
         count++
       }
       return gotDestinations
     }
     const destinations = await getDestinationInfo()
-    console.log('destinations', destinations)
 
     const getDestinationAttractions = async() => {
+      
       let gotAttractions = [];
       let count = 0;
-      while (count < 3) {
-        if (destinations[count].length > 0) {
-          const geo = `${destinations[count][0].geoCode.latitude},${destinations[count][0].geoCode.longitude}`
+      while (count < destinations.length) {
+        const geo = `${destinations[count].geometry.location.lat},${destinations[count].geometry.location.lng}`
 
-          const config = {
-            method: 'get',
-            url: `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${geo}&radius=40000&type=tourist_attraction&language=en&key=${GOOGLE_KEY}`,
-            headers: { }
-          };
+        const config = {
+          method: 'get',
+          url: `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${geo}&radius=40000&type=tourist_attraction&language=en&key=${GOOGLE_KEY}`,
+          headers: { }
+        };
 
-          const response = await axios(config).catch(err => console.log(err))
+        const response = await axios(config).catch(err => console.log(err))
 
-          gotAttractions.push(response.data);
-        } else if (destinations[count].length === 0){
-          gotAttractions.push('hi')
-        }
+        gotAttractions.push(response.data.results);
+
         count+=1
       }
       return gotAttractions
@@ -103,9 +108,9 @@ router.get(`/${API}/deals`, async(req, res) => {
 
     const attractions = await getDestinationAttractions()
 
-    res.json([topDestinations.data, flightInspiration.data, destinations, attractions])
+    res.json([topDestinations.data, flightInspiration, destinations, attractions])
   }catch(err){
-    console.log(err.description)
+    console.log(err)
     res.json(err)
   }
 })
