@@ -57,7 +57,7 @@ const Bookmarks = () => {
       return [flight.flight, flight._id]
     })
     return (
-      <div>
+      <div className={classes.offers}>
         {bookmarks.map((flight, iFlight) => {
           const flight_data = JSON.parse(flight[0])
           const flight_id = flight[1]

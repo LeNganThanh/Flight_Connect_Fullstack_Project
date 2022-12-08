@@ -11,7 +11,6 @@ export default function Settings(props) {
   const { user } = state;
   const navigate = useNavigate();
 
-  
   const updateUser = e => {
     console.log(e.target);
     e.preventDefault();
@@ -100,11 +99,17 @@ export default function Settings(props) {
 
         <div>
           <label>Profile Image:</label>
-          <input type="file"  name="image"  />
+          <input type="file" name="image" />
         </div>
 
         <Button>Update Account</Button>
-       {user && <img src={user.profileImage}  alt="profileImage" />} 
+        {user && (
+          <>
+            {' '}
+            <img src={user.profileImage} alt="profileImage" />
+            <h3 className={classes.userName}>{user.fullName}</h3>
+          </>
+        )}
       </form>
       <Button onClick={deleteUserAccount} className={classes.delete}>
         Delete Account

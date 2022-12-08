@@ -9,7 +9,11 @@
 
 form img{
     margin-top: 1rem;
-    width: 15rem;
-    height: 15rem;
+    width: 10rem;
+    height: 10rem;
     border-radius: 50%;
+}
+
+.userName{
+    margin-top: 2rem;
 }
