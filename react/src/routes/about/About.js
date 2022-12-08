@@ -162,6 +162,9 @@ const About = () => {
           </div>
         </div>
       </div>
+      <div className={classes.footer}>
+        
+      </div>
     </div>
   );
 };

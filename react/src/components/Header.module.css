@@ -7,7 +7,7 @@
   text-align: center;
   vertical-align: center;
   margin: auto;
-  width: 100%; 
+  width: 100%;
   background-color: transparent;
   z-index: 100;
 }
@@ -16,7 +16,7 @@
   margin-right: 1rem;
   z-index: 200;
 }
-.container{
+.container {
   display: flex;
   flex-direction: column;
   background-color: transparent;
@@ -38,4 +38,3 @@
   margin-left: 1rem;
   color: white;
 }
- 
