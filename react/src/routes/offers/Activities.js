@@ -15,20 +15,38 @@ const Activities = props => {
 
   const [counter, setCounter] = useState(0)
   const [photoCounter, setPhotoCounter] = useState([0, 0, 0])
+  const [divider, setDivider] = useState(0)
 
   useEffect(() => {
     if(!localStorage.getItem('activities')) {
-      const placeIds = activities[0].map(act => act.place_id)
-      getDetails({placeIds: placeIds})
-      .then(res => {
-        const info = [...activities[0]]
-        dispatch({
-          type: 'setActivities',
-          activities: [info, res.data]
+      if (activities[0].length >= divider + 2) {
+        console.log(activities)
+        console.log(divider)
+        const places = activities[0].slice(divider, divider + 3).map(act => act.place_id)
+
+        getDetails({placeIds: places})
+        .then(res => {
+          console.log(res)
+          const info = [...activities[0]]
+          if (activities[1][0].length === 1) {
+            dispatch({
+              type: 'setActivities',
+              activities: [info, res.data]
+            })
+          } else {
+            const curr = activities[1]
+            res.data.map(pic => curr.push(pic))
+            console.log('spreadphotos', curr)
+            dispatch({
+              type: 'setActivities',
+              activities: [info, curr]
+            })
+          }
         })
-      })
-      if (activities[0].length === activities[1].length) {
-        localStorage.setItem('activities', JSON.stringify(activities))
+        setDivider(divider + 3)
+        if (activities[0].length === activities[1].length) {
+          localStorage.setItem('activities', JSON.stringify(activities))
+        }
       }
     } else if (localStorage.getItem('activities') && activities[0].length !== activities[1].length){
       console.log('localStorage')
