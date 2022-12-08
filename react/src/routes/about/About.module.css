@@ -1,95 +1,100 @@
-
 .travel,
-.modernTravel{
-    margin: 3rem auto;
-    display:flex;
-    justify-content: center;
-    width: 65rem;
-
-    
+.modernTravel {
+  margin: 3rem auto;
+  display: flex;
+  justify-content: center;
+  width: 65rem;
 }
 .travel h2,
-.modernTravel h2{
-    font-size: 3rem;
-    text-align: left
+.modernTravel h2 {
+  font-size: 3rem;
+  text-align: left;
 }
 
 .travelTxt,
-.modernTravelTxt{
-    width: 35rem;
-    margin-left: 3rem;
-    display: flex;
-    flex-direction: column;
-    text-align:left;
-    line-height: 1.5;
-    
+.modernTravelTxt {
+  width: 35rem;
+  margin-left: 3rem;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  line-height: 1.5;
 }
 .travelTxt p,
-.modernTravelTxt p{
-    margin-bottom: .5rem;
+.modernTravelTxt p {
+  margin-bottom: 0.5rem;
 }
 
-.modernTravel img{
-    margin-top: 2rem;
-    width: 20rem;
+.modernTravel img {
+  margin-top: 2rem;
+  width: 20rem;
 }
 
-.logoBox{
-    text-align: center;
-    align-items: center;
-    margin-bottom: 3rem;
-height: 30rem;
-   
-   background-image: linear-gradient(to right , #ece5c7, #C58940, #E5BA73, #FAEAB1);
+.logoBox {
+  text-align: center;
+  align-items: center;
+  margin-bottom: 3rem;
+  height: 30rem;
 
+  background-image: linear-gradient(
+    to right,
+    #ece5c7,
+    #c58940,
+    #e5ba73,
+    #faeab1
+  );
 }
 
-.logoBox div{
-    margin:  auto;
-    padding: 2rem;
-    width:50%;
-   
+.logoBox div {
+  margin: auto;
+  padding: 2rem;
+  width: 50%;
 }
 
-.logoBox h2{
-    font-size: 3.5rem;
+.logoBox h2 {
+  font-size: 3.5rem;
 }
 
-.logoBox img{
-    width: 20rem;
-    margin: 2rem auto;
+.logoBox img {
+  width: 15rem;
+  margin: 2rem auto;
 }
 
-.dealsMain{
-    width: 60rem;
-    height: 32rem;
-    box-shadow: 0 0 4px gray;
-    border-radius: 8px;
-    margin: auto;
-    background-color: rgba(174, 192, 245, 0.559);
-
+.dealsMain {
+  width: 60rem;
+  height: 32rem;
+  box-shadow: 0 0 4px gray;
+  border-radius: 8px;
+  margin: auto;
+  background-color: rgba(174, 192, 245, 0.559);
 }
 
-.dealsTxt{
-    padding: 1rem 0 0 .5rem;
-    margin-bottom: 2.5rem;
+.dealsTxt {
+  padding: 1rem 0 0 0.5rem;
+  margin-bottom: 2.5rem;
 }
-.dealsTxt h2{
-    padding: .5rem;
-    text-align: left;
-    
+.dealsTxt h2 {
+  padding: 0.5rem;
+  text-align: left;
 }
 
-.dealsBox{
-    display: flex;
-    flex-direction: row;
-    text-align: center;
-    align-items: center;
-    justify-content: center;
+.dealsBox {
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
   justify-content: space-evenly;
   width: 100%;
 }
 
-.dealsBox img{
-    margin-bottom: 1.5rem;
+.dealsBox img {
+  margin-bottom: 1.5rem;
+}
+
+.footer{
+    height: 35rem;
+    background-color: #354259;
+    margin-top: 3rem;
+    
 }

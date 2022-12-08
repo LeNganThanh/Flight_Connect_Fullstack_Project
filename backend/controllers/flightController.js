@@ -36,15 +36,23 @@ export const createFlight  = async(req, res, next) => {
     export const deleteFlight = async(req, res, next) => {
         try{
             const {id} = req.params;
+            console.log(id);
             const bookedFlight = await FlightsCollection.findById(id)
+            console.log(bookedFlight);
             if(bookedFlight){
-                const deletedFlight = await FlightsCollection.deleteOne({_id: bookedFlight._id})
-                res.json({
+                await FlightsCollection.deleteOne({_id: bookedFlight._id})
+                
+               const updateUser = await UserCollection.findByIdAndUpdate(bookedFlight.userId, {$pull: {flights: id}}, {new: true})
+               console.log(updateUser);
+                res.send({
                     success: true,
-                    status: deletedFlight
-                })
+                    data: updateUser
+                }) 
+            }else{
+                throw new Error( 'The bookmark does not exist!' )
             }
         }catch(err){
+           
             next(err)
         }
     }

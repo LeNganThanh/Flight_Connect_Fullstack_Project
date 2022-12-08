@@ -6,9 +6,10 @@ export const initialGeoState = {
   activities: {},
   deals: false,
   user: null,
-  bookmarks: false,
+  bookmarks: [],
   flight: null, 
   login: false,
+
   
   
 }

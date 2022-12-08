@@ -112,7 +112,7 @@ const Activities = props => {
                   <Button value={0} className={classes.slidesBtn} onClick={prevPhoto}>
                     <FontAwesomeIcon icon={faChevronLeft} />
                   </Button>
-                  {activities[1][counter][photoCounter[0]] ? <a href={imageRef(0)} target='_blank'><img src={activities[1][counter][photoCounter[0]]}></img></a> : null}
+                  {activities[1][counter][photoCounter[0]] ? <a href={imageRef(0)} target='_blank'><img src={activities[1][counter][photoCounter[0]] } alt='holiday'/></a> : null}
                   <Button value={0} className={classes.slidesBtn} onClick={nextPhoto}>
                     <FontAwesomeIcon icon={faChevronRight} />
                   </Button>
