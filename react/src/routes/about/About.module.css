@@ -39,7 +39,8 @@
     align-items: center;
     margin-bottom: 3rem;
 height: 30rem;
-    background-color: #ece5c7 ;
+   
+   background-image: linear-gradient(to right , #ece5c7, #C58940, #E5BA73, #FAEAB1);
 
 }
 
