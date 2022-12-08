@@ -64,7 +64,7 @@ const Activities = props => {
     }
   }
   const next = () => {
-    if ((counter + 3) < activities[0].length) {
+    if ((Number(counter) + 3) < activities[0].length && activities[1][Number(counter + 3)]) {
       setCounter(Number(counter) + 3)
       setPhotoCounter([0, 0, 0])
     }
