@@ -10,7 +10,7 @@ import { useNavigate } from "react-router";
 
 const Offers = (props) => {
   const [state, dispatch] = useContext(FlightsContext);
-  const { offers } = state;
+  const { offers, activities } = state;
   
   const navigate = useNavigate();
   const inputFrom = document.getElementById("from");
@@ -50,7 +50,7 @@ const Offers = (props) => {
   if (offers.length > 0) {
     return (
       <div className={classes.offers}>
-        <Activities />
+        {activities.length > 0 ? <Activities /> : null}
 
         <div className={classes.offersHeader}>
           <h2>

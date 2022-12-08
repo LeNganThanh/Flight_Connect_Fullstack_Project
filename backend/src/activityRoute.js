@@ -1,10 +1,7 @@
 import axios from 'axios'
 import express from "express";
 import { GOOGLE_KEY } from './config.js';
-
-import GooglePlacesApi from 'dcts-google-places-api';
-const apiKey = GOOGLE_KEY;
-const googleapi = new GooglePlacesApi(apiKey)
+import googleapi from './googleapi.js'
 
 const router = express.Router();
 
@@ -20,38 +17,16 @@ router.get(`/${API}/activities`, async(req, res) => {
       headers: { }
     };
     const response = await axios(config).catch(err => console.log(err))
-    let activities = response.data.results.filter(act => act.photos)
-
-    // const getDetails = async() => {
-    //   let details = []
-    //   let count = 0
-    //   while (count < activities.length) {
-    //     const placeId = activities[count].place_id
-    //     const detail = await googleapi.runPlaceDetails(placeId)
-    //     details.push(detail)
-    //     count++
-    //   }
-    //   return details
-    // }
-
-    // const details2 = await getDetails()
-    // details2.length
-    // const details = details2.filter(detail => detail.photos)
-    // console.log(details.length)
+    let activ = response.data.results
+    const activities = activ.filter(act => act.photos)
 
     const getPhotos = async() => {
       let photos = []
       let count = 0 
-      while (count < activities.length) {
-        // let count2 = 0
-        // let photos2 = []
-        // while (count2 < details[count].photos.length && count2 < 3) {
-          const photoReference = activities[count].photos[0].photo_reference
-          const photo = await googleapi.runPlacePhotos(photoReference).catch(err => console.log(err))
-          // photos2.push(photo)
-          // count2++
-        // }
-        photos.push(photo)
+      while (count < 6) {
+        const photoReference = activities[count].photos[0].photo_reference
+        const photo = await googleapi.runPlacePhotos(photoReference).catch(err => console.log(err))
+        photos.push([photo])
         count++
       }
       return photos
