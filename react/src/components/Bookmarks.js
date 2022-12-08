@@ -9,20 +9,18 @@ const Bookmarks = () => {
   const [state, dispatch] = useContext(FlightsContext);
 
   const user = state.user;
-  const bookmarks = state.bookmarks;
 
   const deleteBookmark = (e) => {
     e.preventDefault();
-    console.log(bookmarks);
     const id = e.target.value;
     console.log(id);
     fetch(`http://localhost:1338/flights/${id}`, {
       method: 'DELETE',
       headers: { token: localStorage.getItem('token') },
     })
-       .then(res =>  res.json(), ) 
+      .then(res =>  res.json(), ) 
       .then(result => {
-        console.log(result);
+        console.log('updateResult', result);
         if (result.success) {
           dispatch({
             type: 'setUser',
@@ -32,33 +30,41 @@ const Bookmarks = () => {
       });
   };
 
+  // useEffect(() => {
+  //   if(user.flights.length > 0){
+  //       console.log('useEffect', user)
+  //     const bookmarks = user.flights.map(flight => {
+  //     console.log(user.flights);
+  //     return [JSON.parse(flight.flight), flight._id];
+  //   });
+  //   dispatch({
+  //     type: 'setBookmarks',
+  //     bookmarks: bookmarks,
+  //   })};
+  // }, [user]);
+
   useEffect(() => {
-    if(user.flights.length > 0){
-    const bookmarks = user.flights.map(flight => {
-     console.log(user.flights);
-      return [JSON.parse(flight.flight), flight._id];
-    
-    });
-    dispatch({
-      type: 'setBookmarks',
-      bookmarks: bookmarks,
-    })};
-  }, [user]);
+    console.log('bookmarks after', user);
+  }, [user])
 
   /*  return (
     <div className={classes.offers}>
       <div className={classes.offersHeader}>
         <h2>Bookmarks</h2>
       </div> */
-  if (bookmarks.length > 0) {
+  if (user.flights.length > 0) {
+    const bookmarks = user.flights.map(flight => {
+      return [flight.flight, flight._id]
+    })
     return (
-      <div>
+      <div className={classes.offers}>
         {bookmarks.map((flight, iFlight) => {
-           console.log(flight);
+          const flight_data = JSON.parse(flight[0])
+          const flight_id = flight[1]
           return (
             <div key={iFlight} className={classes.mainBox}>
               <div className={classes.singleOffer}>
-                {flight[0].itineraries.map((iti, itiIndex) => {
+                {flight_data.itineraries.map((iti, itiIndex) => {
                   const segments = iti.segments;
                   const duration = iti.duration.slice(0, -1);
 
@@ -179,9 +185,9 @@ const Bookmarks = () => {
                   );
                 })}
               </div>
-              <div className={classes.price} key={flight[0].id}>
-                <h2> {flight[0].price.total}€</h2>
-                <button value={flight[1]} onClick={deleteBookmark}>
+              <div className={classes.price} key={flight_data.id}>
+                <h2> {flight_data.price.total}€</h2>
+                <button value={flight_id} onClick={deleteBookmark}>
                   Delete
                 </button>
               </div>

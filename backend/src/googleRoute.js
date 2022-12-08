@@ -15,7 +15,6 @@ router.get(`/${API}/google/details`, async(req, res) => {
       let count = 0 
       while (count < places.length) {
         const detail = await googleapi.runPlaceDetails(places[count])
-        console.log(detail)
         details.push(detail)
         count++
       }
@@ -23,7 +22,6 @@ router.get(`/${API}/google/details`, async(req, res) => {
     }
 
     const details = await getDetails()
-    console.log(details)
       
     const getPhotos = async() => {
       let photos = []
@@ -34,7 +32,6 @@ router.get(`/${API}/google/details`, async(req, res) => {
         while (count2 < details[count].photos.length && count2 < 3) {
           const photoReference = details[count].photos[count2].photo_reference
           const photo = await googleapi.runPlacePhotos(photoReference)
-          console.log(photo)
           photos2.push(photo)
           count2++
         }

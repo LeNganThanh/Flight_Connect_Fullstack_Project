@@ -23,7 +23,7 @@ router.get(`/${API}/activities`, async(req, res) => {
     const getPhotos = async() => {
       let photos = []
       let count = 0 
-      while (count < 6) {
+      while (count < 3) {
         const photoReference = activities[count].photos[0].photo_reference
         const photo = await googleapi.runPlacePhotos(photoReference).catch(err => console.log(err))
         photos.push([photo])
