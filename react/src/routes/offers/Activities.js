@@ -18,7 +18,6 @@ const Activities = props => {
 
   useEffect(() => {
     if(!localStorage.getItem('activities')) {
-      console.log(activities[0])
       const placeIds = activities[0].map(act => act.place_id)
       getDetails({placeIds: placeIds})
       .then(res => {
@@ -54,7 +53,7 @@ const Activities = props => {
   };
 
   const prevPhoto = (e) => {
-    e.preventDefault()
+    console.log(e.target.key, e.target.value, e.target)
     const num = Number(e.target.value)
     const photoCount = Number(photoCounter[num])
     if (photoCount > 0) {
@@ -68,13 +67,13 @@ const Activities = props => {
     }
   }
 
-  const nextPhoto = async(e) => {
-    e.preventDefault()
+  const nextPhoto = (e) => {
+    console.log(e.target.value, e.target)
     const num = Number(e.target.value)
     const count = Number(counter)
     const photoCount = Number(photoCounter[num])
 
-    if (activities[1][Number(count) + Number(num)][Number(photoCount) + 1] === undefined) {
+    if (undefined === activities[1][Number(count) + Number(num)][Number(photoCount) + 1]) {
       console.log('no more pictures')
     } else {
       if (num === 0) {
@@ -105,16 +104,16 @@ const Activities = props => {
           <h2 className={classes.topTitle}>Attractions in {inputTo.value}</h2>
           <div className={classes.activBox}>
               <Button className={classes.slidesBtn} onClick={previous}>
-                <FontAwesomeIcon icon={faChevronLeft} />
+                <FontAwesomeIcon onClick={previous} icon={faChevronLeft} />
               </Button>
 
                 <div className={classes.article}>
                   <Button value={0} className={classes.slidesBtn} onClick={prevPhoto}>
-                    <FontAwesomeIcon icon={faChevronLeft} />
+                    <FontAwesomeIcon value={0} onClick={prevPhoto} icon={faChevronLeft} />
                   </Button>
                   {activities[1][counter][photoCounter[0]] ? <a href={imageRef(0)} target='_blank'><img src={activities[1][counter][photoCounter[0]]}></img></a> : null}
                   <Button value={0} className={classes.slidesBtn} onClick={nextPhoto}>
-                    <FontAwesomeIcon icon={faChevronRight} />
+                    <FontAwesomeIcon value={0} onClick={nextPhoto} icon={faChevronRight} />
                   </Button>
                   <h3>{activities[0][counter].name}</h3>
                   <div className={classes.para}>
@@ -124,11 +123,11 @@ const Activities = props => {
 
                 <div className={classes.article}>
                   <Button value={1} className={classes.slidesBtn} onClick={prevPhoto}>
-                    <FontAwesomeIcon icon={faChevronLeft} />
+                    <FontAwesomeIcon value={1} onClick={prevPhoto} icon={faChevronLeft} />
                   </Button>
                   {activities[1][counter + 1][photoCounter[1]] ? <a href={imageRef(1)} target='_blank'><img src={activities[1][counter + 1][photoCounter[1]]}></img></a> : null}
                   <Button value={1} className={classes.slidesBtn} onClick={nextPhoto}>
-                    <FontAwesomeIcon icon={faChevronRight} />
+                    <FontAwesomeIcon value={1} onClick={nextPhoto} icon={faChevronRight} />
                   </Button>
                   <h3>{activities[0][counter + 1].name}</h3>
                   <div className={classes.para}>
@@ -138,11 +137,11 @@ const Activities = props => {
 
                 <div className={classes.article}>
                   <Button value={2} className={classes.slidesBtn} onClick={prevPhoto}>
-                    <FontAwesomeIcon icon={faChevronLeft} />
+                    <FontAwesomeIcon value={2} onClick={prevPhoto} icon={faChevronLeft} />
                   </Button>
                   {activities[1][counter + 2][photoCounter[2]] ? <a href={imageRef(2)} target='_blank'><img src={activities[1][counter + 2][photoCounter[2]]}></img></a> : null}
                   <Button value={2} className={classes.slidesBtn} onClick={nextPhoto}>
-                    <FontAwesomeIcon icon={faChevronRight} />
+                    <FontAwesomeIcon value={1} onClick={nextPhoto} icon={faChevronRight} />
                   </Button>
                   <h3>{activities[0][counter + 2].name}</h3>
                   <div className={classes.para}>
@@ -151,7 +150,7 @@ const Activities = props => {
                 </div>
                   
                 <Button className={classes.slidesBtn} onClick={next}>
-                <FontAwesomeIcon icon={faChevronRight} />
+                <FontAwesomeIcon onClick={next} icon={faChevronRight} />
                 </Button>
           </div>
         </div>
