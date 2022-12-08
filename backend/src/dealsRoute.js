@@ -107,7 +107,6 @@ router.get(`/${API}/deals`, async(req, res) => {
     }
 
     const attractions = await getDestinationAttractions()
-    console.log(attractions[9])
 
     res.json([topDestinations.data, flightInspiration, destinations, attractions])
   }catch(err){
