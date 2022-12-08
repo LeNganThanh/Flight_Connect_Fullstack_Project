@@ -17,7 +17,7 @@ const Offers = (props) => {
   const inputTo = document.getElementById("to");
 
   useEffect(() => {
-    if (!offers && state.latitude === '') {
+    if (!offers) {
       navigate("/");
     }
   }, []);
