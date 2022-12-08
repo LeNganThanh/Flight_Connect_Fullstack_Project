@@ -52,7 +52,7 @@ const Bookmarks = () => {
       </div> */
   if (bookmarks.length > 0) {
     return (
-      <div>
+      <div className={classes.offers}>
         {bookmarks.map((flight, iFlight) => {
            console.log(flight);
           return (
