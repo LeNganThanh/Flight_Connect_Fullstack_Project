@@ -74,9 +74,11 @@
   position: relative;
   bottom: 0px;
 }
+
 .scrollHeader,
 .scrollMain,
 .scrollVideo {
   transition: 0.2s linear;
+
 }
 

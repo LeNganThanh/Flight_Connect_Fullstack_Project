@@ -57,13 +57,8 @@ export const geoReducer = function(state, action) {
         ...state,
         login: action.login,
       }
-    } case 'scroll': {
-      return {
-        ...state,
-        scrollToggle: action.toggle
-      }
-    }
 
+    }
 
     default: {
       return {

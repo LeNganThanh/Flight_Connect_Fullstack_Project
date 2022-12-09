@@ -25,14 +25,32 @@ text-align: center;
 
 
 .article {
-  width: 20rem;
-  height: 30rem;
+  width: 32rem;
+  height: 27rem;
   overflow: hidden;
   border-radius: 5px;
-  margin: 1.2rem 0;
  transition: all .2s;
   box-shadow: 0 0 10px gray;
+  position: relative;
+ 
 }
+
+.article a img{
+  align-items: center;
+  width: 100%;
+}
+
+
+.PhotoControl{
+  width: 95%;
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+  top: 9rem;
+  left: .5rem;
+}
+
+
 .article h3,
 p {
   padding: 0.5rem;
@@ -46,19 +64,21 @@ p {
 
 .article:hover {
 transform: translateY(-.5rem);
+
 }
 .topTitle {
   text-align: center;
   padding-bottom: 3rem;
-}
-.showBtn {
-  margin-top: 1rem;
-  margin-left: 45%;
 }
 
 /* Activity slides */
 
 .slidesBtn{
   height: 2rem;
-  margin: 14rem auto;
+  margin: 12.5rem auto;
+}
+
+.picBtn{
+  background-color: rgba(255, 255, 255, 0.294);
+  color:white;
 }
