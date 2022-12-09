@@ -9,9 +9,7 @@ export const initialGeoState = {
   bookmarks: [],
   flight: null, 
   login: false,
-
-  
-  
+  scrollToggle: false
 }
 
 export const geoReducer = function(state, action) {
@@ -60,6 +58,11 @@ export const geoReducer = function(state, action) {
       return{
         ...state,
         login: action.login,
+      }
+    } case 'scroll': {
+      return {
+        ...state,
+        scrollToggle: action.toggle
       }
     }
 

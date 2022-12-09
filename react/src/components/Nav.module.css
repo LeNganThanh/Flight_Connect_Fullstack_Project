@@ -1,11 +1,17 @@
-nav {
+.nav {
   display: flex;
   justify-content: left;
   padding-left: 2rem;
   position: fixed;
-  top: 27rem;
+  top: 27.5rem;
   width: 100%;
+  transition: 0.2s linear;
  /*   background-color: #ece5c77b; */ 
+}
+
+.scrollNav {
+  top: 7.5rem;
+  transition: 0.2s linear;
 }
 
  /* .nav{

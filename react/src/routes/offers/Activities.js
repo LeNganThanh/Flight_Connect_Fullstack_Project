@@ -64,15 +64,15 @@ const Activities = props => {
     }
   }
   const next = () => {
-    if ((Number(counter) + 3) < activities[0].length && activities[1][Number(counter + 3)]) {
+    if ((Number(counter) + 3) < activities[0].length && activities[1][Number(counter) + 3]) {
       setCounter(Number(counter) + 3)
       setPhotoCounter([0, 0, 0])
     }
   };
 
   const prevPhoto = (e) => {
-    console.log(e.target.key, e.target.value, e.target)
-    const num = Number(e.target.value)
+    const num = Number(e.target.value || e.target.parentElement.value)
+    console.log(num)
     const photoCount = Number(photoCounter[num])
     if (photoCount > 0) {
       if (Number(num) === 0) {
@@ -86,8 +86,8 @@ const Activities = props => {
   }
 
   const nextPhoto = (e) => {
-    console.log(e.target.value, e.target)
-    const num = Number(e.target.value)
+    const num = Number(e.target.value || e.target.parentElement.value)
+    console.log(num)
     const count = Number(counter)
     const photoCount = Number(photoCounter[num])
 
@@ -121,55 +121,37 @@ const Activities = props => {
         <div>
           <h2 className={classes.topTitle}>Attractions in {inputTo.value}</h2>
           <div className={classes.activBox}>
-              <Button className={classes.slidesBtn} onClick={previous}>
-                <FontAwesomeIcon onClick={previous} icon={faChevronLeft} />
-              </Button>
+            <Button className={classes.slidesBtn} onClick={previous}>
+              <FontAwesomeIcon onClick={previous} icon={faChevronLeft} />
+            </Button>
 
-                <div className={classes.article}>
-                  <Button value={0} className={classes.slidesBtn} onClick={prevPhoto}>
-                    <FontAwesomeIcon value={0} onClick={prevPhoto} icon={faChevronLeft} />
-                  </Button>
-                  {activities[1][counter][photoCounter[0]] ? <a href={imageRef(0)} target='_blank'><img src={activities[1][counter][photoCounter[0]] } alt='holiday'/></a> : null}
-                  <Button value={0} className={classes.slidesBtn} onClick={nextPhoto}>
-                    <FontAwesomeIcon value={0} onClick={nextPhoto} icon={faChevronRight} />
-                  </Button>
-                  <h3>{activities[0][counter].name}</h3>
-                  <div className={classes.para}>
-                    <p>{activities[0][counter].types.join(' | ')}</p>
+              {[0, 1, 2].map(num => {
+                return (
+                  <div key={num} className={classes.article}>
+                    <div>
+                      <Button value={num} className={classes.slidesBtn} onClick={prevPhoto}>
+                        <FontAwesomeIcon value={num} onClick={prevPhoto} icon={faChevronLeft} />
+                      </Button>
+                      <Button value={num} className={classes.slidesBtn} onClick={nextPhoto}>
+                        <FontAwesomeIcon value={num} onClick={nextPhoto} icon={faChevronRight} />
+                      </Button>
+                    </div>
+                    {activities[1][Number(counter) + Number(num)][photoCounter[num]] ? 
+                      <a href={imageRef(num)} target='_blank'>
+                        <img src={activities[1][Number(counter) + Number(num)][photoCounter[num]]}></img>
+                      </a> 
+                    : null}
+                    <h3>{activities[0][Number(counter) + Number(num)].name}</h3>
+                    <div className={classes.para}>
+                      <p>{activities[0][Number(counter) + Number(num)].types.join(' | ')}</p>
+                    </div>
                   </div>
-                </div>
-
-                <div className={classes.article}>
-                  <Button value={1} className={classes.slidesBtn} onClick={prevPhoto}>
-                    <FontAwesomeIcon value={1} onClick={prevPhoto} icon={faChevronLeft} />
-                  </Button>
-                  {activities[1][counter + 1][photoCounter[1]] ? <a href={imageRef(1)} target='_blank'><img src={activities[1][counter + 1][photoCounter[1]]}></img></a> : null}
-                  <Button value={1} className={classes.slidesBtn} onClick={nextPhoto}>
-                    <FontAwesomeIcon value={1} onClick={nextPhoto} icon={faChevronRight} />
-                  </Button>
-                  <h3>{activities[0][counter + 1].name}</h3>
-                  <div className={classes.para}>
-                    <p>{activities[0][counter + 1].types.join(' | ')}</p>
-                  </div>
-                </div>
-
-                <div className={classes.article}>
-                  <Button value={2} className={classes.slidesBtn} onClick={prevPhoto}>
-                    <FontAwesomeIcon value={2} onClick={prevPhoto} icon={faChevronLeft} />
-                  </Button>
-                  {activities[1][counter + 2][photoCounter[2]] ? <a href={imageRef(2)} target='_blank'><img src={activities[1][counter + 2][photoCounter[2]]}></img></a> : null}
-                  <Button value={2} className={classes.slidesBtn} onClick={nextPhoto}>
-                    <FontAwesomeIcon value={1} onClick={nextPhoto} icon={faChevronRight} />
-                  </Button>
-                  <h3>{activities[0][counter + 2].name}</h3>
-                  <div className={classes.para}>
-                    <p>{activities[0][counter + 2].types.join(' | ')}</p>
-                  </div>
-                </div>
+                )
+              }) }  
                   
-                <Button className={classes.slidesBtn} onClick={next}>
-                <FontAwesomeIcon onClick={next} icon={faChevronRight} />
-                </Button>
+            <Button className={classes.slidesBtn} onClick={next}>
+            <FontAwesomeIcon onClick={next} icon={faChevronRight} />
+            </Button>
           </div>
         </div>
       ) : null}
