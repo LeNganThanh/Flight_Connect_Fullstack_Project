@@ -3,7 +3,8 @@ import axios from "axios";
 import Flights from "./Flights";
 import { getAmadeusData } from "../../api/amadeus.api";
 
-const SearchRoot = () => {
+const SearchRoot = (props) => {
+  const {scrollToggle} = props
   const [search, setSearch] = useState({
     keyword: "a",
     city: true,
@@ -39,7 +40,7 @@ const SearchRoot = () => {
   }, [search]);
   return (
     <div>
-      <Flights search={search} setSearch={setSearch} dataSource={dataSource} />
+      <Flights scrollToggle={scrollToggle} search={search} setSearch={setSearch} dataSource={dataSource} />
     </div>
   );
 };
