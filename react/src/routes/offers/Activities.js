@@ -130,10 +130,10 @@ const Activities = props => {
                   <div key={num} className={classes.article}>
                     <div>
                       <Button value={num} className={classes.slidesBtn} onClick={prevPhoto}>
-                        <FontAwesomeIcon value={num} onClick={prevPhoto} icon={faChevronLeft} />
+                        <FontAwesomeIcon icon={faChevronLeft} />
                       </Button>
                       <Button value={num} className={classes.slidesBtn} onClick={nextPhoto}>
-                        <FontAwesomeIcon value={num} onClick={nextPhoto} icon={faChevronRight} />
+                        <FontAwesomeIcon icon={faChevronRight} />
                       </Button>
                     </div>
                     {activities[1][Number(counter) + Number(num)][photoCounter[num]] ? 
