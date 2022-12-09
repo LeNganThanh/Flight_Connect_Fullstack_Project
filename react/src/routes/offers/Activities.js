@@ -128,7 +128,7 @@ const Activities = props => {
               {[0, 1, 2].map(num => {
                 return (
                   <div key={num} className={classes.article}>
-                    <div>
+                    <div className={classes.picBtn}>
                       <Button value={num} className={classes.slidesBtn} onClick={prevPhoto}>
                         <FontAwesomeIcon icon={faChevronLeft} />
                       </Button>

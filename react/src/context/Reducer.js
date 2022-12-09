@@ -7,9 +7,7 @@ export const initialGeoState = {
   deals: false,
   user: null,
   bookmarks: [],
-  flight: null, 
   login: false,
-  scrollToggle: false
 }
 
 export const geoReducer = function(state, action) {

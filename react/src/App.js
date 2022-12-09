@@ -12,7 +12,7 @@ function App() {
   const [scrollToggle, setScrollToggle] = useState(false)
   
   const changeCss = () => {
-    if(window.scrollY >= 350) {
+    if(window.scrollY >= 320) {
       setScrollToggle(true)
     } else {
       setScrollToggle(false)
