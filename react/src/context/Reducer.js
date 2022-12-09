@@ -9,6 +9,7 @@ export const initialGeoState = {
   bookmarks: [],
   flight: null, 
   login: false,
+  toggleHeader: false,
 
   
   
@@ -60,6 +61,11 @@ export const geoReducer = function(state, action) {
       return{
         ...state,
         login: action.login,
+      }
+    }case 'setHeader':{
+      return{
+        ...state,
+        toggleHeader: !state.toggleHeader
       }
     }
 
