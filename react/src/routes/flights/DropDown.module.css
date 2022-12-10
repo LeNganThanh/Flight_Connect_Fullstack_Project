@@ -6,7 +6,8 @@
     color: #354259;
     border: 1px solid  #ece5c7;
     border-radius: 10px;
-    z-index: 100; 
+    z-index: 500; 
+    
 }
 .list:hover{
     background-color: #ece5c7;

@@ -50,6 +50,18 @@
   height: 45px;
 }
 
+div .passengers{
+  padding:0;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  width: 12.5vw;
+}
+
+.form div  .passengersInput{
+  width: 6vw;  
+}
+
 .form div .info {
   width: 13vw;
 }
