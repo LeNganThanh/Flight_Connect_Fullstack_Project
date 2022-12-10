@@ -94,7 +94,7 @@ const Offers = (props) => {
 
                         <div className={classes.duration}>
                           <p>
-                            {duration.slice(2, 4)}h{" "}
+                            {duration.slice(2, duration.split('').indexOf('H'))}h{" "}
                             {duration.slice(5, 7)
                               ? `${duration.slice(5, 7)}m`
                               : ""}
