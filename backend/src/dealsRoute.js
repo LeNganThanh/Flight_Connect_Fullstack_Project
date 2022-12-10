@@ -9,7 +9,8 @@ const API = `api`;
 
 router.get(`/${API}/deals/info`, async(req, res) => {
   try {
-    const { dest } = req.query
+    const dest = JSON.parse(req.query.dest)
+    console.log(dest)
       const getDestinationInfo = async() => {
       let gotDestinations = []
       let count = 0;

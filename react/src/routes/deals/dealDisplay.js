@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getDeals } from "../../api/deals.api.js";
+import { getInfo } from '../../api/deals.info.api.js'
 import classes from './Deals.module.css'
 
 const DealDisplay = props => {
@@ -67,6 +68,16 @@ const DealDisplay = props => {
 
   const TopDeals = () => {
     const moreDeals = () => {
+      if (dealInfo.length === dealCounter) {
+        getInfo({
+          destinations: deals.FareInfo.slice(dealCounter, Number(dealCounter) + 10).map(fare => fare.DestinationLocation)
+        }).then(res => {
+          console.log(res)
+          const currInfo = [...dealInfo]
+          res.data.map(data => currInfo.push(data))
+          setDealInfo(currInfo)
+        })
+      }
       if(dealCounter <= 40) {
         setDealCounter(dealCounter + 10)
       }
