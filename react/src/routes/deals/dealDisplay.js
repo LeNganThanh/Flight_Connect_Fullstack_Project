@@ -96,13 +96,14 @@ const DealDisplay = props => {
             const terms = dealInfo[i][0].terms
             let countryName = terms[terms.length - 1].value
             
-            if(countryName.split(' ').length > 1) {
+            if(countryName === 'UK'){
+              countryName = 'england'
+            } else if(countryName.split(' ').length > 1) {
               countryName = countryName.split(' ').map(st => st.toLowerCase()).join(' ')
             } else {
               countryName = countryName.toLowerCase()
             }
-            
-            if(countryName === 'uk'){countryName = 'england'}
+            console.log(countryName)
 
             if(countryName.split(' ').length === 1) {
               return (
