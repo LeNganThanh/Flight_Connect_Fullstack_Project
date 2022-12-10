@@ -107,7 +107,7 @@ const DealDisplay = props => {
             if(countryName.split(' ').length === 1) {
               return (
                 <div key={i}>
-                {dealInfo[i] ? <img width={'70px'} height='40px' src={`https://countryflagsapi.com/png/${countryName}`} alt='country flag'></img> : null}
+                {countryName ? <img width={'70px'} height='40px' src={`https://countryflagsapi.com/png/${countryName}`} alt='country flag'></img> : null}
                   <p>
                     Price: {deal.LowestFare.Fare} {deal.CurrencyCode}
                   </p>
@@ -138,7 +138,7 @@ const DealDisplay = props => {
       {topDestinations ? <TopDestinations /> : null}
       {deals ? <TopDeals /> : null}
     </div>
-    <button onClick={goToTop}>UP</button>
+    {dealInfo ? <button onClick={goToTop}>UP</button> : null}
     </div>
   );
 };
