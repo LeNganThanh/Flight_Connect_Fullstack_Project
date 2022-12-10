@@ -7,11 +7,7 @@ export const initialGeoState = {
   deals: false,
   user: null,
   bookmarks: [],
-  flight: null, 
   login: false,
-
-  
-  
 }
 
 export const geoReducer = function(state, action) {
@@ -61,8 +57,8 @@ export const geoReducer = function(state, action) {
         ...state,
         login: action.login,
       }
-    }
 
+    }
 
     default: {
       return {

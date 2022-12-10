@@ -6,12 +6,13 @@ import button from './Button.module.css';
 import Button from './Button.js';
 import Signup from './Signup.js'
 import Login from './Login.js';
-import logo from '../media/logo-5.png';
+import logoBlue from '../media/logo-5.png';
+import logoWhite from '../media/logo-white.png';
 import BurgerMenu from './BurgerMenu';
 import Settings from './Settings';
 import { FlightsContext } from '../context/FlightsContext';
 
-const Header = () => {
+const Header = (props) => {
   const [register, setRegister] = useState(false);
  // const [login, setLogin] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
@@ -47,7 +48,7 @@ const Header = () => {
       <div className={classes.main}>
         <div className={classes.headerText}>
           <span>
-            <img className={classes['logo-img']} src={logo} alt="logo" />
+            <img className={classes['logo-img']} src={props.scrollToggle ? logoWhite : logoBlue} alt="logo" />
           </span>
         </div>
 
