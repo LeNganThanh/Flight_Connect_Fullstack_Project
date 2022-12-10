@@ -62,7 +62,6 @@ const Activities = props => {
     }
   };
   const next = () => {
-
     if ((Number(counter) + 3) < details.length && photos[Number(counter) + 3]) {
       setCounter(Number(counter) + 3)
       setPhotoCounter([0, 0, 0])
@@ -102,6 +101,7 @@ const Activities = props => {
     console.log(num)
     const count = Number(counter)
     const photoCount = Number(photoCounter[num])
+
     if (
       undefined ===
       photos[Number(count) + Number(num)][Number(photoCount) + 1]
@@ -115,6 +115,7 @@ const Activities = props => {
         console.log(res.data)
         const currPhotos = [...photos]
         currPhotos[Number(count) + Number(num)].push(res.data)
+        setPhotos(currPhotos)
       })
       if (num === 0) {
         setPhotoCounter([
@@ -183,11 +184,11 @@ const Activities = props => {
               {[0, 1, 2].map(num => {
                 return (
                   <div key={num} className={classes.article}>
-                    <div className={classes.picBtn}>
-                      <Button value={num} className={classes.slidesBtn} onClick={prevPhoto}>
-                        <FontAwesomeIcon icon={faChevronLeft} />
+                    <div className={classes.photoControl}>
+                      <Button value={num} className={classes.picBtn} onClick={prevPhoto}>
+                        <FontAwesomeIcon  icon={faChevronLeft} />
                       </Button>
-                      <Button value={num} className={classes.slidesBtn} onClick={nextPhoto}>
+                      <Button value={num} className={classes.picBtn} onClick={nextPhoto}>
                         <FontAwesomeIcon icon={faChevronRight} />
                       </Button>
                     </div>
@@ -197,9 +198,7 @@ const Activities = props => {
                       </a> 
                     : null}
                     <h3>{activities[0][Number(counter) + Number(num)].name}</h3>
-                    <div className={classes.para}>
-                      <p>{activities[0][Number(counter) + Number(num)].types.join(' | ')}</p>
-                    </div>
+                    
                   </div>
                 )
               }) }  

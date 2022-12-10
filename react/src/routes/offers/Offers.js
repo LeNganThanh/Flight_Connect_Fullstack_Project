@@ -46,7 +46,7 @@ const Offers = (props) => {
     }
   }
 
-  if (offers.length > 0) {
+  if (offers && offers !== undefined) {
     return (
       <div className={classes.offers}>
         {activities.length > 0 ? <Activities /> : null}
