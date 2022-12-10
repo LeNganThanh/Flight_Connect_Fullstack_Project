@@ -92,28 +92,32 @@ const DealDisplay = props => {
       <div>
         <p>Top Deals from {props.geoInfo[0].cityName}</p>
         {deals.FareInfo.slice(0, dealCounter).map((deal, i) => {
-          const terms = dealInfo[i][0].terms
-          let countryName = terms[terms.length - 1].value
-          if(countryName.split(' ').length > 1) {
-            countryName = countryName.split(' ').map(st => st.toLowerCase()).join(' ')
-          } else {
-            countryName = countryName.toLowerCase()
-          }
-          if(countryName === 'uk'){countryName = 'england'}
-          console.log(countryName)
-          if(countryName.split(' ').length === 1) {
-            return (
-              <div key={i}>
-              {dealInfo[i] ? <img width={'100px'} height='70px' src={`https://countryflagsapi.com/png/${countryName}`} alt='country flag'></img> : null}
-                <p>
-                  Price: {deal.LowestFare.Fare} {deal.CurrencyCode}
-                </p>
-              </div>
-            );
-          } else {
-            return (
-              <div></div>
-            )
+          if(dealInfo[i]) {
+            const terms = dealInfo[i][0].terms
+            let countryName = terms[terms.length - 1].value
+            
+            if(countryName.split(' ').length > 1) {
+              countryName = countryName.split(' ').map(st => st.toLowerCase()).join(' ')
+            } else {
+              countryName = countryName.toLowerCase()
+            }
+            
+            if(countryName === 'uk'){countryName = 'england'}
+
+            if(countryName.split(' ').length === 1) {
+              return (
+                <div key={i}>
+                {dealInfo[i] ? <img width={'70px'} height='40px' src={`https://countryflagsapi.com/png/${countryName}`} alt='country flag'></img> : null}
+                  <p>
+                    Price: {deal.LowestFare.Fare} {deal.CurrencyCode}
+                  </p>
+                </div>
+              );
+            } else {
+              return (
+                <div key={i}></div>
+              )
+            }
           }
         })}
       {dealCounter < 50 ? <button onClick={moreDeals}>more</button> : null}
