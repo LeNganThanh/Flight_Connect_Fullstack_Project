@@ -125,12 +125,20 @@ const DealDisplay = props => {
       </div>
     );
   };
-
+  const goToTop = () => {
+      window.scrollTo({
+          top: 0,
+          behavior: 'smooth',
+      });
+  };
 
   return (
-    <div className= {classes.dealsDisplay}>
+    <div>
+    <div className={classes.dealsDisplay}>
       {topDestinations ? <TopDestinations /> : null}
       {deals ? <TopDeals /> : null}
+    </div>
+    <button onClick={goToTop}>UP</button>
     </div>
   );
 };
