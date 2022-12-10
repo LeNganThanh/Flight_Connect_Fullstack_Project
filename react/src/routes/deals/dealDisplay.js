@@ -7,8 +7,10 @@ const DealDisplay = props => {
   const [topDestinations, setTopDestinations] = useState(false)
   const [deals, setDeals] = useState(false)
   const [dealInfo, setDealInfo] = useState(false)
-  const geoInfo = props.geoInfo
-
+  let cityName = props.geoInfo[0].cityName.toLowerCase().split('')
+  cityName[0] = cityName[0].toUpperCase()
+  let originCountry = props.geoInfo[0].countryName.toLowerCase().split('')
+  originCountry[0] = originCountry[0].toUpperCase()
   const dateOfDeparture = document.getElementById("departureDate");
   const dateOfReturn = document.getElementById("returnDate");
 
@@ -41,7 +43,7 @@ const DealDisplay = props => {
   const TopDestinations = () => {
     return (
       <div>
-        <p>Top 15 Destinations from {props.geoInfo[0].countryName}</p>
+        <p>Top 10 Destinations from {originCountry}</p>
         {topDestinations.Destinations.map((dest, i) => {
           // AirportName: "Lisboa"
           // CityName: "Lisbon"
@@ -84,7 +86,6 @@ const DealDisplay = props => {
             } else {
               countryName = countryName.toLowerCase()
             }
-            console.log(countryName)
 
             if(countryName.split(' ').length === 1) {
               return (
@@ -141,7 +142,7 @@ const DealDisplay = props => {
     <div className={classes.dealsDisplay}>
       {topDestinations ? <TopDestinations /> : null}
       <div>
-        <p>Top Deals from {geoInfo[0].cityName}</p>
+        <p>Top Deals from {cityName}</p>
         {dealInfo[9] ? <TopDeals range={0} /> : null}
         {dealInfo[19] ? <TopDeals range={10} /> : null}
         {dealInfo[29] ? <TopDeals range={20} /> : null}
