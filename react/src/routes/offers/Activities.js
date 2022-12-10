@@ -20,7 +20,7 @@ const Activities = props => {
   const [divider, setDivider] = useState(0);
 
   useEffect(() => {
-    if (!localStorage.getItem('activities')) {
+    
       if (activities[0].length >= divider + 2) {
         console.log(activities);
         console.log(divider);
@@ -47,20 +47,10 @@ const Activities = props => {
           }
         });
         setDivider(divider + 3);
-        if (activities[0].length === activities[1].length) {
-          localStorage.setItem('activities', JSON.stringify(activities));
-        }
+        
       }
-    } else if (
-      localStorage.getItem('activities') &&
-      activities[0].length !== activities[1].length
-    ) {
-      console.log('localStorage');
-      dispatch({
-        type: 'setActivities',
-        activities: JSON.parse(localStorage.getItem('activities')),
-      });
-    }
+   
+  
   }, [activities]);
 
   const previous = () => {
@@ -165,23 +155,21 @@ const Activities = props => {
               {[0, 1, 2].map(num => {
                 return (
                   <div key={num} className={classes.article}>
-                    <div className={classes.picBtn}>
-                      <Button value={num} className={classes.slidesBtn} onClick={prevPhoto}>
-                        <FontAwesomeIcon icon={faChevronLeft} />
+                    <div className={classes.photoControl}>
+                      <Button value={num} className={classes.picBtn} onClick={prevPhoto}>
+                        <FontAwesomeIcon  icon={faChevronLeft} />
                       </Button>
-                      <Button value={num} className={classes.slidesBtn} onClick={nextPhoto}>
+                      <Button value={num} className={classes.picBtn} onClick={nextPhoto}>
                         <FontAwesomeIcon icon={faChevronRight} />
                       </Button>
                     </div>
                     {activities[1][Number(counter) + Number(num)][photoCounter[num]] ? 
                       <a href={imageRef(num)} target='_blank'>
-                        <img src={activities[1][Number(counter) + Number(num)][photoCounter[num]]}></img>
+                        <img src={activities[1][Number(counter) + Number(num)][photoCounter[num]]} alt='activities photos'></img>
                       </a> 
                     : null}
                     <h3>{activities[0][Number(counter) + Number(num)].name}</h3>
-                    <div className={classes.para}>
-                      <p>{activities[0][Number(counter) + Number(num)].types.join(' | ')}</p>
-                    </div>
+                    
                   </div>
                 )
               }) }  
