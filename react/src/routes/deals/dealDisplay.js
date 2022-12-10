@@ -7,10 +7,12 @@ const DealDisplay = props => {
   const [topDestinations, setTopDestinations] = useState(false)
   const [deals, setDeals] = useState(false)
   const [dealInfo, setDealInfo] = useState(false)
+
   let cityName = props.geoInfo[0].cityName.toLowerCase().split('')
   cityName[0] = cityName[0].toUpperCase()
   let originCountry = props.geoInfo[0].countryName.toLowerCase().split('')
   originCountry[0] = originCountry[0].toUpperCase()
+  
   const dateOfDeparture = document.getElementById("departureDate");
   const dateOfReturn = document.getElementById("returnDate");
 
@@ -67,15 +69,14 @@ const DealDisplay = props => {
     );
   };
 
-  const [dealCounter, setDealCounter] = useState(10)
+  const [dealCounter, setDealCounter] = useState(5)
 
   const TopDeals = (props) => {
-    const range = props.range
 
     return (
       <div>
-        {deals.FareInfo.slice(range, Number(range) + 10).map((deal, i) => {
-          if(dealInfo[i] && dealCounter > range) {
+        {deals.FareInfo.slice(0, dealCounter).map((deal, i) => {
+          if(dealInfo[i]) {
             const terms = dealInfo[i][0].terms
             let countryName = terms[terms.length - 1].value
             
@@ -90,7 +91,7 @@ const DealDisplay = props => {
             if(countryName.split(' ').length === 1) {
               return (
                 <div key={i}>
-                {countryName ? <img width={'70px'} height='40px' src={`https://countryflagsapi.com/png/${countryName}`} alt='country flag'></img> : null}
+                {countryName ? <img width={'40px'} height='25px' src={`https://countryflagsapi.com/png/${countryName}`} alt='country flag'></img> : null}
                   <p>
                     Price: {deal.LowestFare.Fare} {deal.CurrencyCode}
                   </p>
@@ -111,21 +112,20 @@ const DealDisplay = props => {
   const moreDeals = () => {
     if (dealInfo.length === dealCounter) {
       getInfo({
-        destinations: deals.FareInfo.slice(dealCounter, Number(dealCounter) + 10).map(fare => fare.DestinationLocation)
+        destinations: deals.FareInfo.slice(dealCounter, Number(dealCounter) + 5).map(fare => fare.DestinationLocation)
       }).then(res => {
-        console.log(res)
         const currInfo = [...dealInfo]
         res.data.map(data => currInfo.push(data))
         setDealInfo(currInfo)
       })
     }
-    if(dealCounter <= 40) {
-      setDealCounter(dealCounter + 10)
+    if(dealCounter <= 45) {
+      setDealCounter(dealCounter + 5)
     }
   }
   const lessDeals = () => {
-    if(dealCounter >= 20) {
-      setDealCounter(dealCounter - 10)
+    if(dealCounter >= 10) {
+      setDealCounter(dealCounter - 5)
     }
   }
 
@@ -143,16 +143,12 @@ const DealDisplay = props => {
       {topDestinations ? <TopDestinations /> : null}
       <div>
         <p>Top Deals from {cityName}</p>
-        {dealInfo[9] ? <TopDeals range={0} /> : null}
-        {dealInfo[19] ? <TopDeals range={10} /> : null}
-        {dealInfo[29] ? <TopDeals range={20} /> : null}
-        {dealInfo[39] ? <TopDeals range={30} /> : null}
-        {dealInfo[49] ? <TopDeals range={40} /> : null}
+        {dealInfo ? <TopDeals /> : null}
       </div>
     </div>
     <div>
     {dealInfo && dealCounter < 50 ? <button onClick={moreDeals}>more</button> : null}
-    {dealInfo && dealCounter >= 20 ? <button onClick={lessDeals} >less</button> : null}
+    {dealInfo && dealCounter >= 10 ? <button onClick={lessDeals} >less</button> : null}
     </div>
     {dealInfo ? <button onClick={goToTop}>UP</button> : null}
     </div>
