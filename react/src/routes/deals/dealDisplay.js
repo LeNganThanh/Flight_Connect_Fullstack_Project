@@ -7,6 +7,7 @@ const DealDisplay = props => {
   const [topDestinations, setTopDestinations] = useState(false)
   const [deals, setDeals] = useState(false)
   const [dealInfo, setDealInfo] = useState(false)
+  const geoInfo = props.geoInfo
 
   const dateOfDeparture = document.getElementById("departureDate");
   const dateOfReturn = document.getElementById("returnDate");
@@ -66,33 +67,13 @@ const DealDisplay = props => {
 
   const [dealCounter, setDealCounter] = useState(10)
 
-  const TopDeals = () => {
-    const moreDeals = () => {
-      if (dealInfo.length === dealCounter) {
-        getInfo({
-          destinations: deals.FareInfo.slice(dealCounter, Number(dealCounter) + 10).map(fare => fare.DestinationLocation)
-        }).then(res => {
-          console.log(res)
-          const currInfo = [...dealInfo]
-          res.data.map(data => currInfo.push(data))
-          setDealInfo(currInfo)
-        })
-      }
-      if(dealCounter <= 40) {
-        setDealCounter(dealCounter + 10)
-      }
-    }
-    const lessDeals = () => {
-      if(dealCounter >= 20) {
-        setDealCounter(dealCounter - 10)
-      }
-    }
+  const TopDeals = (props) => {
+    const range = props.range
 
     return (
       <div>
-        <p>Top Deals from {props.geoInfo[0].cityName}</p>
-        {deals.FareInfo.slice(0, dealCounter).map((deal, i) => {
-          if(dealInfo[i]) {
+        {deals.FareInfo.slice(range, Number(range) + 10).map((deal, i) => {
+          if(dealInfo[i] && dealCounter > range) {
             const terms = dealInfo[i][0].terms
             let countryName = terms[terms.length - 1].value
             
@@ -121,11 +102,32 @@ const DealDisplay = props => {
             }
           }
         })}
-      {dealCounter < 50 ? <button onClick={moreDeals}>more</button> : null}
-      {dealCounter >= 20 ? <button onClick={lessDeals} >less</button> : null}
       </div>
     );
   };
+
+
+  const moreDeals = () => {
+    if (dealInfo.length === dealCounter) {
+      getInfo({
+        destinations: deals.FareInfo.slice(dealCounter, Number(dealCounter) + 10).map(fare => fare.DestinationLocation)
+      }).then(res => {
+        console.log(res)
+        const currInfo = [...dealInfo]
+        res.data.map(data => currInfo.push(data))
+        setDealInfo(currInfo)
+      })
+    }
+    if(dealCounter <= 40) {
+      setDealCounter(dealCounter + 10)
+    }
+  }
+  const lessDeals = () => {
+    if(dealCounter >= 20) {
+      setDealCounter(dealCounter - 10)
+    }
+  }
+
   const goToTop = () => {
       window.scrollTo({
           top: 0,
@@ -135,9 +137,21 @@ const DealDisplay = props => {
 
   return (
     <div>
+
     <div className={classes.dealsDisplay}>
       {topDestinations ? <TopDestinations /> : null}
-      {deals ? <TopDeals /> : null}
+      <div>
+        <p>Top Deals from {geoInfo[0].cityName}</p>
+        {dealInfo[9] ? <TopDeals range={0} /> : null}
+        {dealInfo[19] ? <TopDeals range={10} /> : null}
+        {dealInfo[29] ? <TopDeals range={20} /> : null}
+        {dealInfo[39] ? <TopDeals range={30} /> : null}
+        {dealInfo[49] ? <TopDeals range={40} /> : null}
+      </div>
+    </div>
+    <div>
+    {dealInfo && dealCounter < 50 ? <button onClick={moreDeals}>more</button> : null}
+    {dealInfo && dealCounter >= 20 ? <button onClick={lessDeals} >less</button> : null}
     </div>
     {dealInfo ? <button onClick={goToTop}>UP</button> : null}
     </div>
