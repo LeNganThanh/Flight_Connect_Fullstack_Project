@@ -63,11 +63,24 @@ const DealDisplay = props => {
     );
   };
 
+  const [dealCounter, setDealCounter] = useState(10)
+
   const TopDeals = () => {
+    const moreDeals = () => {
+      if(dealCounter <= 40) {
+        setDealCounter(dealCounter + 10)
+      }
+    }
+    const lessDeals = () => {
+      if(dealCounter >= 20) {
+        setDealCounter(dealCounter - 10)
+      }
+    }
+
     return (
       <div>
         <p>Top Deals from {props.geoInfo[0].cityName}</p>
-        {deals.FareInfo.slice(0, 20).map((deal, i) => {
+        {deals.FareInfo.slice(0, dealCounter).map((deal, i) => {
           return (
             <div key={i}>
               <p>
@@ -76,6 +89,8 @@ const DealDisplay = props => {
             </div>
           );
         })}
+      {dealCounter < 50 ? <button onClick={moreDeals}>more</button> : null}
+      {dealCounter >= 20 ? <button onClick={lessDeals} >less</button> : null}
       </div>
     );
   };
