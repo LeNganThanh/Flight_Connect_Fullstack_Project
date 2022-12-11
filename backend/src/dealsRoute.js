@@ -95,7 +95,7 @@ router.get(`/${API}/deals/offers`, async(req, res) => {
     const getDestinationInfo = async() => {
     let gotDestinations = []
     let count = 0;
-    const input = flightInspiration.FareInfo.slice(0, 10)
+    const input = flightInspiration.FareInfo.slice(0, 5)
     while(count < input.length) {
       const config = {
         method: 'get',
