@@ -5,32 +5,26 @@ import { FlightsContext } from "../../context/FlightsContext";
 const DropDown = props => {
   const [state, dispatch] = useContext(FlightsContext);
 
-  const passInfo = async e => {
+  const passInfo = e => {
     e.preventDefault();
 
     const geo = JSON.parse(e.target.value);
     const lat = geo.latitude.toFixed(6);
     const long = geo.longitude.toFixed(6);
 
-    await props.fillInput(e);
+    props.fillInput(e);
 
-    setGeo({
-      latitude: lat,
-      longitude: long,
-    });
-  };
-
-  const setGeo = async value => {
-    await dispatch({
-      type: "setLocation",
-      latitude: value.latitude,
-      longitude: value.longitude,
-    });
+    if (props.id === 'destination') {
+      dispatch({
+        type: "setLocation",
+        latitude: lat,
+        longitude: long,
+      });
+    }
   };
 
   return (
     <div>
-      <div>
         {props.dataSource
           ? props.dataSource.data.map(city => {
               //console.log(city);
@@ -46,8 +40,7 @@ const DropDown = props => {
                 </button>
               );
             })
-          : "hi"}
-      </div>
+          : null}
     </div>
   );
 };
