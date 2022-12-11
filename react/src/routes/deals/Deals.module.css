@@ -17,9 +17,112 @@
 }
 
 /* this is for deals display */
-.dealsDisplay{
-
-  display: flex;
-  justify-content: space-between;
+.dealsDisplayParent {
   width: 100%;
 }
+.dealsDisplay {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.topDestinations {
+  display: flex;
+  position: absolute;
+  right: 3rem;
+  flex-direction: column;
+  border-radius: 3px;
+  background-color: #f8f8f8;
+  box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.2);
+  height: 25.5rem;
+  font-size: 1.2rem;
+  margin: 3rem 3rem 0 0;
+}
+
+.topDestinations > p,
+.topDestinations span {
+  font-weight: bold;
+  color: #354259;
+  text-shadow: none;
+  font-size: 1.1rem;
+}
+
+.topDestinations div p {
+  color: #ece5c7;
+  text-shadow: 1px 1px 1px #354259;
+  font-size: 1rem;
+}
+
+.topDestinations .rank:first-of-type span {
+  color: transparent;
+  background: linear-gradient(
+    45deg,
+    rgba(242, 215, 12, 1) 0%,
+    rgb(218, 209, 209) 56%,
+    rgba(252, 235, 0, 1) 96%
+  );
+  -webkit-background-clip: text;
+}
+
+.topDestinations .rank:nth-of-type(2) span {
+  color: transparent;
+  background: linear-gradient(
+    45deg,
+    rgba(181, 181, 181, 1) 0%,
+    rgba(218, 209, 209, 1) 38%,
+    rgba(222, 222, 222, 1) 96%
+  );
+  -webkit-background-clip: text;
+}
+.topDestinations .rank:nth-of-type(3) span {
+  color: transparent;
+  background: linear-gradient(
+    45deg,
+    rgba(223, 182, 103, 1) 0%,
+    rgb(200, 195, 184) 56%,
+    rgba(231, 192, 116, 1) 96%
+  );
+
+  -webkit-background-clip: text;
+}
+
+.topDeals {
+ 
+  justify-content: center;
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+}
+
+.topDealsHeader p{
+  font-weight: bolder;
+  color: #354259;
+}
+
+.topDealsHeader p:first-child{
+  font-size: 1.2rem;
+}
+
+.dealBox {
+  box-shadow: 3px 3px 3px 3px rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+margin: .5rem;
+font-weight: bold;
+line-height: 1;
+color: #354259;
+}
+
+
+ div .price{
+  text-align: right;
+  justify-content:flex-end
+}
+
+.cityInfo{
+  display: flex;
+  
+  align-items: center;
+  justify-content:space-between
+}
+
+
