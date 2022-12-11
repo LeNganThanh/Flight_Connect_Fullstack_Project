@@ -17,7 +17,7 @@ const Flights = (props) => {
         <FlightsForm scrollToggle={scrollToggle} search={props.search} setSearch={props.setSearch} dataSource={props.dataSource}  />
         </header>
         <video className={scrollToggle ? classes.scrollVideo : ''} autoPlay muted>
-          <source src={video} type="video/mp4" />
+          <source  src={video} type="video/mp4" />
         </video>
       </div>
     </Fragment>

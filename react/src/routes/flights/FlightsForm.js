@@ -245,7 +245,7 @@ const FlightsForm = props => {
               placeholder="City / Airport"
             />
             {open1 ? (
-              <DropDown fillInput={fillInput} dataSource={props.dataSource} />
+               <DropDown fillInput={fillInput} dataSource={props.dataSource} />
             ) : null}
           </div>
           <div>
@@ -260,7 +260,7 @@ const FlightsForm = props => {
               placeholder="City / Airport"
             />
             {open2 ? (
-              <DropDown fillInput={fillInput} dataSource={props.dataSource} />
+              <DropDown id='destination' fillInput={fillInput} dataSource={props.dataSource} />
             ) : null}
           </div>
           <div>
