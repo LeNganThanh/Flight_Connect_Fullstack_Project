@@ -48,9 +48,69 @@ import Button from '../../components/Button'
     e.preventDefault()
     const adultForms = document.querySelectorAll('.adultForm')
     const childForms = document.querySelectorAll('.childForm')
-    console.log(adultForms)
-    console.log(childForms)
+
+    const travelerArr = []
+    adultForms.forEach((form, i) => {
+      travelerArr.push({
+        id: (Number(i) + 1),
+        dateOfBirth: form.birthDay.value,
+        name: {
+          firstName: form.firstName.value,
+          lastName: form.lastName.value
+        },
+        gender: form.gender.value,
+        contact: {
+          emailAddress: form.email.value,
+          phones: [
+            {
+              deviceType: 'MOBILE',
+              countryCallingCode: form.tel1.value,
+              number: form.tel2.value
+            }
+          ]
+        },
+        documents: [
+          {
+            documentType: 'PASSPORT',
+            birthPlace: form.birthPlace.value,
+            issuanceLocation: form.city.value,
+            issuanceDate: form.issueDate.value,
+            number: form.passport.value,
+            expiryDate: form.expiryDate.value,
+            issuanceCountry: form.nationality.value,
+            issuanceValidity: form.nationality.value,
+            nationality: form.nationality.value,
+            holder: true
+          }
+        ]
+      })
+    })
+
+    childForms.forEach((form, i) => {
+      travelerArr.push({
+        id: (Number(i) + Number(adults) + 1),
+        dateOfBirth: form.birthDay.value,
+        name: {
+          firstName: form.firstName.value,
+          lastName: form.lastName.value
+        },
+        gender: form.gender.value,
+        contact: {
+          emailAddress: travelerArr[0].contact.emailAddress,
+          phones: [
+            {
+              deviceType: 'MOBILE',
+              countryCallingCode: travelerArr[0].contact.phones[0].countryCallingCode,
+              number: travelerArr[0].contact.phones[0].number
+            }
+          ]
+        },
+
+      })
+    })
+    console.log(travelerArr)
   }
+
 
   return (
     <div className={classes.bookingForm}>
@@ -80,10 +140,10 @@ import Button from '../../components/Button'
             
             <div>
               <label>Contact Information</label>
-              <input type='email' name='email' placeholder='Email adress:'></input>
+              <input type='email' name='email' placeholder='Email address:'></input>
               <div>
-                <input type='tel1' pattern='[0-9]{2,3}' name='tel' placeholder='Country Code:'></input>
-                <input type='tel2' pattern='[0-9]{4,8}' name='tel' placeholder='Phonenumber:'></input>
+                <input type='tel' pattern='[0-9]{2,3}' name='tel1' placeholder='Country Code:'></input>
+                <input type='tel' pattern='[0-9]{4,8}' name='tel2' placeholder='Phonenumber:'></input>
               </div>
             </div>
         
@@ -92,7 +152,7 @@ import Button from '../../components/Button'
               <input type='text' name='birthPlace' placeholder='Place of birth:'></input>
               <input type='text' name='city' placeholder='City:'></input>
               <input type='text' name='nationality' placeholder='Nationality:'></input>
-              <input type='text' name='nationality' placeholder='Passport Number:'></input>
+              <input type='number' name='passport' placeholder='Passport Number:'></input>
               <input type='date' name='issueDate' placeholder='Issuance Date:'></input>
               <input type='date' name='expiryDate' placeholder='Expiry Date:'></input>
             </div>
