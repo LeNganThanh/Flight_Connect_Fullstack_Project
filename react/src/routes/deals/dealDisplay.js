@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { getDeals } from '../../api/deals.api.js';
 import { getInfo } from '../../api/deals.info.api.js';
 import classes from './Deals.module.css';
+import Button from '../../components/Button'
 
 const DealDisplay = props => {
   const [topDestinations, setTopDestinations] = useState(false);
@@ -172,15 +173,15 @@ const DealDisplay = props => {
         <div>{dealInfo ? <TopDeals /> : null}</div>
         {topDestinations ? <TopDestinations /> : null}
       </div>
-      <div>
+      <div className={classes.buttons}>
         {dealInfo && dealCounter < 50 ? (
-          <button onClick={moreDeals}>more</button>
+          <Button onClick={moreDeals}>more</Button>
         ) : null}
         {dealInfo && dealCounter >= 10 ? (
-          <button onClick={lessDeals}>less</button>
+          <Button onClick={lessDeals}>less</Button>
         ) : null}
       </div>
-      {dealInfo ? <button onClick={goToTop}>UP</button> : null}
+      {dealInfo ? <Button onClick={goToTop}>UP</Button> : null}
     </div>
   );
 };

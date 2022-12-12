@@ -1,5 +1,6 @@
 import React, { useEffect, useLayoutEffect, useState } from 'react'
 import classes from './Booking.module.css'
+import Button from '../../components/Button'
 
   const BookingForm = (props) => {
     const adults = document.getElementById('adults').value || 1
