@@ -5,6 +5,7 @@ import { FlightsContext } from "../../context/FlightsContext";
 import airPlane from "../../media/Airplane-logo.png";
 import classes from "./Offers.module.css";
 import Activities from "./Activities";
+import Booking from './Booking.js'
 import { useNavigate } from "react-router";
 
 
@@ -22,7 +23,7 @@ const Offers = (props) => {
     }
   }, []);
 
-  const bookFlight = (e) => {
+  const bookmarkFlight = (e) => {
     e.preventDefault()
    
     if(!state.user){
@@ -183,7 +184,8 @@ const Offers = (props) => {
               </div>
               <div className={classes.price} key={offer.id}>
                 <h2> {offer.price.total}€</h2>
-              <button value={offer.id} onClick={ bookFlight }>Select</button> 
+              <button value={offer.id} onClick={ bookmarkFlight }>Bookmark</button> 
+              <Booking index={iOffer} value={offer} />
               </div>
             </div>
           );
