@@ -119,6 +119,15 @@ const FlightsForm = props => {
     const dateOfReturn = document.getElementById('returnDate');
 
     navigate('/flights');
+
+    await getActivities({
+      latitude: state.latitude,
+      longitude: state.longitude,
+    }).then(result => {
+      console.log(result.data);
+      setActivities(result.data);
+    });
+
     await getSearchData({
       originCode: inputFrom.name,
       destinationCode: inputTo.name,
@@ -137,13 +146,6 @@ const FlightsForm = props => {
       setOffers(result.data.data);
     });
 
-    await getActivities({
-      latitude: state.latitude,
-      longitude: state.longitude,
-    }).then(result => {
-      console.log(result.data);
-      setActivities(result.data);
-    });
   };
 
   const setOffers = async value => {
@@ -245,7 +247,7 @@ const FlightsForm = props => {
               placeholder="City / Airport"
             />
             {open1 ? (
-              <DropDown fillInput={fillInput} dataSource={props.dataSource} />
+               <DropDown fillInput={fillInput} dataSource={props.dataSource} />
             ) : null}
           </div>
           <div>
@@ -260,7 +262,7 @@ const FlightsForm = props => {
               placeholder="City / Airport"
             />
             {open2 ? (
-              <DropDown fillInput={fillInput} dataSource={props.dataSource} />
+              <DropDown id='destination' fillInput={fillInput} dataSource={props.dataSource} />
             ) : null}
           </div>
           <div>

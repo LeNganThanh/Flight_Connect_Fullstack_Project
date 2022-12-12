@@ -5,6 +5,18 @@ const router = express.Router();
 const API = `api`;
 
 
+router.get(`/${API}/google/photos`, async(req, res) => {
+  try{
+    const {photoId} = req.query
+    const photo = await googleapi.runPlacePhotos(photoId)
+    res.send(photo)
+  } catch(err) {
+    console.log(err)
+    res.json(err)
+  }
+})
+
+
 router.get(`/${API}/google/details`, async(req, res) => {
   try{
     const {placeIds} = req.query
@@ -43,7 +55,7 @@ router.get(`/${API}/google/details`, async(req, res) => {
 
     const photos = await getPhotos()
 
-    res.json(photos)
+    res.json([details, photos])
   }catch(err){
     console.log(err.description)
     res.json(err)

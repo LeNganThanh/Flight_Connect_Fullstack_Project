@@ -103,6 +103,10 @@ button:hover{
   margin-right: 1rem;
   z-index: 200;
 }
+
+.bookmark{
+  width: 8.6rem;
+}
  
 @keyframes moveInBottom {
   0% {
@@ -115,3 +119,4 @@ button:hover{
       transform: translate(0);
   }
 }
+

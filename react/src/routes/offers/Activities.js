@@ -2,6 +2,7 @@ import React, { useState, useContext, useLayoutEffect, useEffect } from 'react';
 import classes from './Activities.module.css';
 import { FlightsContext } from '../../context/FlightsContext';
 import { getDetails } from '../../api/details.api.js';
+import { getPhotos } from '../../api/photos.api.js';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faChevronRight,
@@ -18,40 +19,41 @@ const Activities = props => {
   const [counter, setCounter] = useState(0);
   const [photoCounter, setPhotoCounter] = useState([0, 0, 0]);
   const [divider, setDivider] = useState(0);
+  const [details, setDetails] = useState(false)
+  const [photos, setPhotos] = useState(false)
 
   useEffect(() => {
-    
+      if (photos === false) {
+        setPhotos(activities[1])
+      }
+  }, [activities]);
+
+   useEffect(() => {
+    if (photos){
+      console.log(photos)
       if (activities[0].length >= divider + 2) {
-        console.log(activities);
-        console.log(divider);
         const places = activities[0]
           .slice(divider, divider + 3)
           .map(act => act.place_id);
 
         getDetails({ placeIds: places }).then(res => {
           console.log(res);
-          const info = [...activities[0]];
-          if (activities[1][0].length === 1) {
-            dispatch({
-              type: 'setActivities',
-              activities: [info, res.data],
-            });
+          if (photos[0].length === 1) {
+            setDetails(res.data[0])
+            setPhotos(res.data[1])
           } else {
-            const curr = activities[1];
-            res.data.map(pic => curr.push(pic));
-            console.log('spreadphotos', curr);
-            dispatch({
-              type: 'setActivities',
-              activities: [info, curr],
-            });
+            const currDetails = [...details];
+            const currPhotos = [...photos];
+            res.data[0].map(data => currDetails.push(data));
+            res.data[1].map(data => currPhotos.push(data));
+            setDetails(currDetails)
+            setPhotos(currPhotos)
           }
         });
         setDivider(divider + 3);
-        
       }
-   
-  
-  }, [activities]);
+    }
+  }, [photos]) 
 
   const previous = () => {
     if (counter > 2) {
@@ -60,8 +62,7 @@ const Activities = props => {
     }
   };
   const next = () => {
-
-    if ((Number(counter) + 3) < activities[0].length && activities[1][Number(counter) + 3]) {
+    if ((Number(counter) + 3) < details.length && photos[Number(counter) + 3]) {
       setCounter(Number(counter) + 3)
       setPhotoCounter([0, 0, 0])
     }
@@ -101,12 +102,40 @@ const Activities = props => {
     const count = Number(counter)
     const photoCount = Number(photoCounter[num])
 
-
     if (
       undefined ===
-      activities[1][Number(count) + Number(num)][Number(photoCount) + 1]
+      photos[Number(count) + Number(num)][Number(photoCount) + 1]
+      && details[Number(count) + Number(num)].photos[Number(photoCount) + 1].photo_reference
     ) {
-      console.log('no more pictures');
+      console.log(details[Number(count) + Number(num)].photos[Number(photoCount) + 1].photo_reference);
+      getPhotos({
+        photoId: details[Number(count) + Number(num)].photos[Number(photoCount) + 1].photo_reference
+      })
+      .then(res => {
+        console.log(res.data)
+        const currPhotos = [...photos]
+        currPhotos[Number(count) + Number(num)].push(res.data)
+        setPhotos(currPhotos)
+      })
+      if (num === 0) {
+        setPhotoCounter([
+          Number(Number(photoCount) + 1),
+          Number(photoCounter[1]),
+          Number(photoCounter[2]),
+        ]);
+      } else if (num === 1) {
+        setPhotoCounter([
+          Number(photoCounter[0]),
+          Number(Number(photoCount) + 1),
+          Number(photoCounter[2]),
+        ]);
+      } else if (num === 2) {
+        setPhotoCounter([
+          Number(photoCounter[0]),
+          Number(photoCounter[1]),
+          Number(Number(photoCount) + 1),
+        ]);
+      }
     } else {
       if (num === 0) {
         setPhotoCounter([
@@ -143,7 +172,7 @@ const Activities = props => {
 
   return (
     <div>
-      {activities.length > 0 ? (
+      {photos && photos !== undefined ? (
         <div>
           <h2 className={classes.topTitle}>Attractions in {inputTo.value}</h2>
           <div className={classes.activBox}>
@@ -163,9 +192,9 @@ const Activities = props => {
                         <FontAwesomeIcon icon={faChevronRight} />
                       </Button>
                     </div>
-                    {activities[1][Number(counter) + Number(num)][photoCounter[num]] ? 
+                    {photos[Number(counter) + Number(num)][photoCounter[num]] ? 
                       <a href={imageRef(num)} target='_blank'>
-                        <img src={activities[1][Number(counter) + Number(num)][photoCounter[num]]} alt='activities photos'></img>
+                        <img src={photos[Number(counter) + Number(num)][photoCounter[num]]}></img>
                       </a> 
                     : null}
                     <h3>{activities[0][Number(counter) + Number(num)].name}</h3>

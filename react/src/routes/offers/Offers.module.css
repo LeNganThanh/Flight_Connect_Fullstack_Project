@@ -32,22 +32,57 @@ h2 {
   margin: 1rem;
   border: 1px solid rgba(0, 0, 0, 0.205);
   border-radius: 5px;
-  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
+  box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2);
   color: #354259;
 }
+.bookmarkIcon {
+  align-self: flex-start;
+  color: gray;
+  margin-top: 1.2rem;
+  width: 1.3rem;
+  height: 1.3rem;
+  background-color: transparent;
+  pointer-events: none;
+}
+
+button:has(.bookmarkIcon) {
+  background-color: transparent;
+  align-self: flex-start;
+}
+
+button:has(.bookmarkIcon):hover::after {
+  transform: scaleX(1.2) scaleY(1.4);
+  background-color: #35425900;
+  opacity: 0;
+}
+
+button:has(.bookmarkIcon):hover {
+  transform: translateY(-0.2rem);
+  box-shadow: none;
+}
+
+.bookMarked > .bookmarkIcon {
+  color: gold;
+}
+
 .price {
   font-size: 1rem;
   display: flex;
   flex-direction: column;
   margin: 1rem;
-  width: 10rem;
-  height: 6rem;
+  width: 12rem;
+  height: 12.5rem;
   justify-content: space-evenly;
   align-items: center;
-
   border-radius: 5px;
-
+  border: 1px solid rgba(0, 0, 0, 0.205);
+  box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2);
   color: #354259;
+}
+
+.price h2 {
+  font-weight: bold;
+  font-size: 1.7rem;
 }
 
 .singleOffer > :first-child {
@@ -149,4 +184,22 @@ h2 {
   margin-top: 0.277rem;
   margin-left: 0.2rem;
   color: #354259;
+}
+
+.change {
+  animation: moveInBottom 2s ease-out;
+}
+
+@keyframes moveInBottom {
+  0% {
+    opacity: 0;
+    transform: translateY(3rem);
+    background-color: yellow;
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(0);
+    background-color: #354259;
+  }
 }
