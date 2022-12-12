@@ -10,7 +10,6 @@ const Booking = (props) => {
 
 
   const bookFlight = () => {
-    const scrollY = window.scrollY
     getPrice({
       offer: props.value
     }).then(res => {
@@ -19,14 +18,9 @@ const Booking = (props) => {
     })
   }
 
-  useEffect(() => {
-    console.log(pricing)
-    console.log(toggle)
-  }, [toggle])
-
   return (
     <div>
-      {toggle ? <BookingForm setToggle={setToggle} /> : null}
+      {toggle ? <BookingForm toggle={toggle} setToggle={setToggle} /> : null}
       <button onClick={bookFlight}>Book Flight</button>
     </div>
   )

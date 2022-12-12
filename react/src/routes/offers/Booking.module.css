@@ -9,15 +9,25 @@
   z-index: 2000;
   background-color: #f3f3f3cc;
 
+  flex-direction: column;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.bookingForm form {
+.bookingForm > div {
   display: flex;
   flex-direction: column;
-  width: 50%;
+  justify-content: center;
+}
+
+.bookingForm form.invis {
+  display: none;
+}
+
+
+.bookingform from.visible {
+  height: flex;
 }
 
 .bookingForm form > div {

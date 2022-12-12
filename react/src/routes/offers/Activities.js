@@ -28,32 +28,32 @@ const Activities = props => {
       }
   }, [activities]);
 
-  useEffect(() => {
-    if (photos){
-      console.log(photos)
-      if (activities[0].length >= divider + 2) {
-        const places = activities[0]
-          .slice(divider, divider + 3)
-          .map(act => act.place_id);
+  // useEffect(() => {
+  //   if (photos){
+  //     console.log(photos)
+  //     if (activities[0].length >= divider + 2) {
+  //       const places = activities[0]
+  //         .slice(divider, divider + 3)
+  //         .map(act => act.place_id);
 
-        getDetails({ placeIds: places }).then(res => {
-          console.log(res);
-          if (photos[0].length === 1) {
-            setDetails(res.data[0])
-            setPhotos(res.data[1])
-          } else {
-            const currDetails = [...details];
-            const currPhotos = [...photos];
-            res.data[0].map(data => currDetails.push(data));
-            res.data[1].map(data => currPhotos.push(data));
-            setDetails(currDetails)
-            setPhotos(currPhotos)
-          }
-        });
-        setDivider(divider + 3);
-      }
-    }
-  }, [photos])
+  //       getDetails({ placeIds: places }).then(res => {
+  //         console.log(res);
+  //         if (photos[0].length === 1) {
+  //           setDetails(res.data[0])
+  //           setPhotos(res.data[1])
+  //         } else {
+  //           const currDetails = [...details];
+  //           const currPhotos = [...photos];
+  //           res.data[0].map(data => currDetails.push(data));
+  //           res.data[1].map(data => currPhotos.push(data));
+  //           setDetails(currDetails)
+  //           setPhotos(currPhotos)
+  //         }
+  //       });
+  //       setDivider(divider + 3);
+  //     }
+  //   }
+  // }, [photos])
 
   const previous = () => {
     if (counter > 2) {
