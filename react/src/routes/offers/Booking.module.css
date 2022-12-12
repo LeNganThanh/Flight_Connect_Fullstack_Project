@@ -1,0 +1,48 @@
+.bookingForm {
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2000;
+  background-color: #f3f3f3cc;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bookingForm form {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+}
+
+.bookingForm form > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 2rem;
+}
+
+.bookingForm input {
+  width: 15rem;
+  height: 2rem;
+  font-size: 1rem;
+}
+
+.bookingForm input:invalid {
+  border: 1px solid red;
+}
+
+.bookingForm input::placeholder  {
+  color: #354259;
+  font-weight: bold;
+}
+
+.bookingForm label {
+  color: #354259;
+  font-weight: bold;
+}

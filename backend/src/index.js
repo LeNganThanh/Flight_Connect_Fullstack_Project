@@ -11,6 +11,7 @@ import airportRoute from "./airportRoute.js";
 import dealsRoute from "./dealsRoute.js";
 import activityRoute from "./activityRoute.js";
 import googleRoute from './googleRoute.js'
+import bookingRoute from './bookingRoute.js'
 
 //===> flights routes
 import flightRoute from '../routes/flightsRoute.js'
@@ -63,6 +64,7 @@ app.use("/", airportRoute);
 app.use("/", dealsRoute);
 app.use("/", activityRoute);
 app.use("/", googleRoute);
+app.use("/", bookingRoute);
 
 //===> Static files
 app.use(express.static('upload'))
