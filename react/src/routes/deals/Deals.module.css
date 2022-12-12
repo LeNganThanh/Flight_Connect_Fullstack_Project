@@ -114,6 +114,8 @@ color: #354259;
 
 
  div .price{
+  color: #9c8d45;
+  font-weight: bold;
   text-align: right;
   justify-content:flex-end
 }
@@ -125,4 +127,8 @@ color: #354259;
   justify-content:space-between
 }
 
+.buttons{
+  display: flex;
+  justify-content: center;
+}
 

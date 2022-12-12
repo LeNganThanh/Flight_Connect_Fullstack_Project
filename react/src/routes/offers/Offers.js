@@ -1,51 +1,80 @@
-import React, { Fragment, useContext, useEffect } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
-import { FlightsContext } from "../../context/FlightsContext";
-import airPlane from "../../media/Airplane-logo.png";
-import classes from "./Offers.module.css";
-import Activities from "./Activities";
-import Booking from './Booking.js'
-import { useNavigate } from "react-router";
+import React, { Fragment, useContext, useEffect } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAngleDown, faBookmark } from '@fortawesome/free-solid-svg-icons';
 
+import { FlightsContext } from '../../context/FlightsContext';
+import airPlane from '../../media/Airplane-logo.png';
+import classes from './Offers.module.css';
+import Activities from './Activities';
+import Booking from './Booking.js';
+import Button from '../../components/Button';
 
-const Offers = (props) => {
+import { useNavigate } from 'react-router';
+
+const Offers = props => {
   const [state, dispatch] = useContext(FlightsContext);
   const { offers, activities } = state;
-  
+
   const navigate = useNavigate();
-  const inputFrom = document.getElementById("from");
-  const inputTo = document.getElementById("to");
+  const inputFrom = document.getElementById('from');
+  const inputTo = document.getElementById('to');
 
   useEffect(() => {
     if (!offers && state.latitude === '') {
-      navigate("/");
+      navigate('/');
     }
   }, []);
 
-  const bookmarkFlight = (e) => {
-    e.preventDefault()
-   
-    if(!state.user){
-     dispatch({
-      type: 'setLogin',
-      login: true
-     })
-    }else{
-
-      fetch('http://localhost:1338/flights', {method: 'POST', headers: {token: localStorage.getItem('token'), 'Content-Type': 'application/json'}, body: JSON.stringify({flight: JSON.stringify(offers[e.target.value]) , userId: state.user._id})})
-      .then(res => res.json())
-      .then(result => {
-        console.log(result);
-        if(result.success){
-          dispatch({
-            type: 'setUser',
-            user: result.data
-          })
-        }
+  const bookmarkFlight = e => {
+    e.preventDefault();
+    let offerId = e.target.value || e.target.parentElement.value;
+    console.log(offerId);
+    console.log(e);
+    if (!state.user) {
+      dispatch({
+        type: 'setLogin',
+        login: true,
+      });
+    } else {
+      fetch('http://localhost:1338/flights', {
+        method: 'POST',
+        headers: {
+          token: localStorage.getItem('token'),
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          flight: JSON.stringify(offers[offerId]),
+          userId: state.user._id,
+        }),
       })
+        .then(res => res.json())
+        .then(result => {
+          console.log(result);
+          if (result.success) {
+            if (e.target.name === 'icon') {
+              e.target.classList.add(`${classes.bookMarked}`);
+              document.getElementById('change').classList.add(`${classes.change}`)
+              setTimeout(() =>{
+
+                document.getElementById('change').classList.remove(`${classes.change}`)
+              }, 2000)
+            } else {
+              e.target.classList.add(`${classes.bookMarked}`);
+              document.getElementById('change').classList.add(`${classes.change}`)
+               setTimeout(() =>{
+
+                document.getElementById('change').classList.remove(`${classes.change}`)
+              }, 2000)
+            }
+
+            dispatch({
+              type: 'setUser',
+              user: result.data,
+            });
+          }
+        });
     }
-  }
+  };
 
   if (offers && offers !== undefined) {
     return (
@@ -60,6 +89,13 @@ const Offers = (props) => {
         {offers.map((offer, iOffer) => {
           return (
             <div key={iOffer} className={classes.mainBox}>
+              <Button name="icon" onClick={bookmarkFlight} value={iOffer}>
+                <FontAwesomeIcon
+                  className={classes.bookmarkIcon}
+                  icon={faBookmark}
+                />
+              </Button>
+
               <div className={classes.singleOffer}>
                 {offer.itineraries.map((iti, itiIndex) => {
                   const segments = iti.segments;
@@ -95,10 +131,11 @@ const Offers = (props) => {
 
                         <div className={classes.duration}>
                           <p>
-                            {duration.slice(2, duration.split('').indexOf('H'))}h{" "}
+                            {duration.slice(2, duration.split('').indexOf('H'))}
+                            h{' '}
                             {duration.slice(5, 7)
                               ? `${duration.slice(5, 7)}m`
-                              : ""}
+                              : ''}
                           </p>
 
                           <div className={classes.timeBox}>
@@ -120,13 +157,13 @@ const Offers = (props) => {
                           </div>
 
                           {segments.length === 1 ? (
-                            <p style={{ color: "green" }}>Non-stop</p>
+                            <p style={{ color: 'green' }}>Non-stop</p>
                           ) : segments.length === 2 ? (
-                            <p style={{ color: "blue" }}>
+                            <p style={{ color: 'blue' }}>
                               1 stop <span>{segments[0].arrival.iataCode}</span>
                             </p>
                           ) : (
-                            <p style={{ color: "red" }}>
+                            <p style={{ color: 'red' }}>
                               {segments.length - 1} stops
                               {segments.map((stop, stopIndex) => {
                                 if (stopIndex !== 0) {
@@ -184,8 +221,8 @@ const Offers = (props) => {
               </div>
               <div className={classes.price} key={offer.id}>
                 <h2> {offer.price.total}€</h2>
-              <button value={offer.id} onClick={ bookmarkFlight }>Bookmark</button> 
-              <Booking index={iOffer} value={offer} />
+
+                <Booking index={iOffer} value={offer} />
               </div>
             </div>
           );
@@ -197,7 +234,7 @@ const Offers = (props) => {
       <div>
         <h2>Loading Results</h2>
       </div>
-    )
+    );
   } else if (offers.length === 0) {
     return (
       <div>

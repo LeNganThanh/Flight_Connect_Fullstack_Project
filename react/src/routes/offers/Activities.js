@@ -28,7 +28,7 @@ const Activities = props => {
       }
   }, [activities]);
 
-  useEffect(() => {
+   useEffect(() => {
     if (photos){
       console.log(photos)
       if (activities[0].length >= divider + 2) {
@@ -53,7 +53,7 @@ const Activities = props => {
         setDivider(divider + 3);
       }
     }
-  }, [photos])
+  }, [photos]) 
 
   const previous = () => {
     if (counter > 2) {

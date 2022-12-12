@@ -19,10 +19,6 @@ const Booking = (props) => {
     })
   }
 
-  useEffect(() => {
-    console.log(pricing)
-    console.log(toggle)
-  }, [toggle])
 
   return (
     <div>

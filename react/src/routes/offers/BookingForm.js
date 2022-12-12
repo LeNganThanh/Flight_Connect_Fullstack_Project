@@ -1,5 +1,6 @@
 import React, { useEffect, useLayoutEffect, useState } from 'react'
 import classes from './Booking.module.css'
+import Button from '../../components/Button'
 
 
 
@@ -29,7 +30,7 @@ import classes from './Booking.module.css'
   return (
     <div className={classes.bookingForm}>
       <form>
-        <button onClick={toggleForm} ></button>
+        <Button onClick={toggleForm} >Back</Button>
         
         <div>
           <label>Personal Information</label>
@@ -43,6 +44,7 @@ import classes from './Booking.module.css'
           <select name='gender'>
             <option value="MALE">Male</option>
             <option value="FEMALE">Female</option>
+            <option value="other">Other</option>
           </select>
         </div>
         

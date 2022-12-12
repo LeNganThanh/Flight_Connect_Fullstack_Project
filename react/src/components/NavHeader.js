@@ -27,7 +27,7 @@ const Nav = (props) => {
           About
         </NavLink>
         {state.user && state.user !== undefined ? (
-          <NavLink
+          <NavLink id='change'
             className={({ isActive }) =>
               isActive ? `${classes.active}` : `${classes.anchor}`
             }
