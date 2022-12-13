@@ -5,6 +5,11 @@ export default function BookedFlight({ bookedFlight }) {
   console.log(bookedFlight);
   const flight = bookedFlight.flightOffers[0];
   const departure = flight.itineraries[0].segments[0].departure.at.split('');
+  const countryCallingNumber =
+    bookedFlight.travelers[0].contact.phones[0].countryCallingCode;
+  const phoneNumber = bookedFlight.travelers[0].contact.phones[0].number;
+  const concat = '+' + countryCallingNumber + ' ' + phoneNumber;
+  console.log(concat);
   console.log(departure);
 
   const arrival = flight.itineraries[0].segments.at(-1).arrival.at.split('');
@@ -18,7 +23,6 @@ export default function BookedFlight({ bookedFlight }) {
           <div className={classes.infoContainer}>
             <div className={classes.ticketInfo}>
               <h2> Your Ticket Information</h2>
-
               <h3>Order Id:</h3>
               <p>#{bookedFlight.id}</p>
               <h3>Price:</h3>
@@ -47,18 +51,16 @@ export default function BookedFlight({ bookedFlight }) {
               <p>{bookedFlight.travelers[0].dateOfBirth}</p>
               <h3>Gender:</h3>
               <p>{bookedFlight.travelers[0].gender}</p>
-              
               <h3>Nationality:</h3>
               <p>{bookedFlight.travelers[0].documents[0].nationality}</p>{' '}
-              
-            </div>
-            <div className={classes.contact}>
-            <h2>Contact:</h2>
-              <p>{bookedFlight.travelers[0].documents[0].documentType}</p>{' '}
             </div>
           </div>
-          <div className={classes.footer}>
-
+          <div className={classes.contact}>
+            <h2>Contact:</h2>
+            <h3>Email:</h3>
+            <p>{bookedFlight.travelers[0].contact.emailAddress}</p>{' '}
+            <h3>Phone Number</h3>
+            <p>{concat}</p>
           </div>
         </div>
       ) : null}

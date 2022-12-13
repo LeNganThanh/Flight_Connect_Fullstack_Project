@@ -1,0 +1,23 @@
+.main{
+    width: 100%;
+}
+
+
+.infoContainer{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.personalInfo,
+.ticketInfo{
+    text-align: left;
+    width: 40rem;
+    margin-bottom: 10rem;
+   
+}
+
+.personalInfo h2 h3,
+.ticketInfo h2 h3{
+    text-align: left;
+}
