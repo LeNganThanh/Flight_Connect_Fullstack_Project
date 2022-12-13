@@ -8,4 +8,14 @@ const getPrice = (props) => {
   return out
 }
 
-export default getPrice
+const placeOrder = (props) => {
+  console.log(props.order, props.travelers)
+  const out = axios.post(`http://localhost:1338/api/booking/order`, {
+    order: props.order,
+    travelers: props.travelers
+  })
+  
+  return out
+}
+
+export {getPrice, placeOrder}

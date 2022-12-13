@@ -1,6 +1,7 @@
 import React, { useEffect, useLayoutEffect, useState } from 'react'
 import classes from './Booking.module.css'
 import Button from '../../components/Button'
+import {placeOrder} from '../../api/booking.price.api.js'
 
   const BookingForm = (props) => {
     const adults = document.getElementById('adults').value || 1
@@ -108,7 +109,10 @@ import Button from '../../components/Button'
 
       })
     })
-    console.log(travelerArr)
+    placeOrder({
+      order: props.offer,
+      travelers: travelerArr
+    })
   }
 
 
