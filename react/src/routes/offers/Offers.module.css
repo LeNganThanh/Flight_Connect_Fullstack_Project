@@ -187,19 +187,20 @@ button:has(.bookmarkIcon):hover {
 }
 
 .change {
-  animation: moveInBottom 2s ease-out;
+  animation: moveInBottom 1.5s ease-out;
+  
 }
 
 @keyframes moveInBottom {
   0% {
     opacity: 0;
-    transform: translateY(3rem);
-    background-color: yellow;
+   
+    background-color: #ece5c7;
   }
 
   100% {
     opacity: 1;
-    transform: translate(0);
+    
     background-color: #354259;
   }
 }
