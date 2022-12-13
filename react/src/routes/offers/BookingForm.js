@@ -1,8 +1,9 @@
 
 import React, { useEffect, useLayoutEffect, useState } from 'react'
 import classes from './Booking.module.css'
-import Button from '../../components/Button'
+import BookedFlight from './BookedFlight';
 import {placeOrder} from '../../api/booking.price.api.js'
+
 
   const BookingForm = (props) => {
     const adults = document.getElementById('adults').value || 1
@@ -10,6 +11,7 @@ import {placeOrder} from '../../api/booking.price.api.js'
     const [adultsArr, setAdultsArr] = useState(false)
     const [childrenArr, setChildrenArr] = useState(false)
     const [akkordeon, setAkkordeon] = useState(0)
+    const [bookedFlight, setBookedFlight] = useState(false)
 
 
     function preventScroll(e) {
@@ -118,10 +120,14 @@ import {placeOrder} from '../../api/booking.price.api.js'
 
       })
     })
-    placeOrder({
+   placeOrder({
       order: props.offer,
       travelers: travelerArr
+    }).then(result => {
+      console.log(result);
+      setBookedFlight(result.data.data);
     })
+    
   }
 
 
@@ -129,9 +135,9 @@ import {placeOrder} from '../../api/booking.price.api.js'
   return (
     <div className={classes.bookingForm}>
 
-    <button onClick={toggleForm} ></button>
+    <button onClick={toggleForm} >Back</button>
       {
-      adultsArr ? adultsArr.map((traveler, i) => {
+      adultsArr && !bookedFlight ? adultsArr.map((traveler, i) => {
 
         return (
           <div  key={i}>
@@ -178,7 +184,7 @@ import {placeOrder} from '../../api/booking.price.api.js'
       }) : null
       }
       {
-      childrenArr ? childrenArr.map((child, i) => {
+      childrenArr && !bookedFlight ? childrenArr.map((child, i) => {
 
         const open = () => {
           console.log(Number(i) + Number(adults))
@@ -210,8 +216,8 @@ import {placeOrder} from '../../api/booking.price.api.js'
 
       }) : null
       }
-    <button onClick={submitOrder}>Submit</button>
-
+   {!bookedFlight ? <button onClick={submitOrder}>Submit</button> : null} 
+        {bookedFlight? <BookedFlight bookedFlight= {bookedFlight}/> : null}
     </div>
   );
 };
