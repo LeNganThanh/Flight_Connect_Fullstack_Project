@@ -196,11 +196,27 @@ const FlightsForm = props => {
   const inputChildren = document.getElementById('children');
 
   const babySitter = e => {
-    if (e.target.value > 4 && e.target.id === 'adults') {
-      inputAdult.value = 4;
+    if (e.target.id === 'adults') {
+      if (Number(inputAdult.value) + Number(inputChildren.value) > 9 && inputAdult.value <= 9) {
+        inputChildren.value = 9 - Number(inputAdult.value);
+      }
+      if (inputAdult.value > 9) {
+        inputAdult.value = 9
+      }
+      if (e.target.value <= 0) {
+        inputAdult.value = 1
+      }
     }
-    if (e.target.value > 4 && e.target.id === 'children') {
-      inputChildren.value = 4;
+    if (e.target.id === 'children') {
+      if (Number(inputChildren.value) + Number(inputAdult.value) > 9 && inputChildren.value < 9) {
+        inputAdult.value = 9 - Number(inputChildren.value)
+      }
+      if (inputChildren.value > 8) {
+        inputChildren.value = 8
+      }
+      if (e.target.value < 0) {
+        inputChildren.value = 0
+      }
     }
   };
 
@@ -291,6 +307,7 @@ const FlightsForm = props => {
             <div className={classes.passengers}>
               <input
                 id="adults"
+                defaultValue={1}
                 className={classes.passengersInput}
                 type="number"
                 placeholder="adults"
@@ -298,6 +315,7 @@ const FlightsForm = props => {
               />
               <input
                 id="children"
+                defaultValue={0}
                 className={classes.passengersInput}
                 type="number"
                 placeholder="children"
