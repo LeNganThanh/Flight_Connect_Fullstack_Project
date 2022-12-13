@@ -12,8 +12,8 @@ const Nav = (props) => {
       <nav>
         <NavLink
           className={({ isActive }) =>
-            isActive ? `${classes.active}` : `${classes.anchor}`
-          }
+            isActive ? `${classes.active}` : `${classes.anchor} `
+          } 
           to="/"
         >
           Deals
