@@ -5,22 +5,17 @@
   position: fixed;
   top: 27.5rem;
   width: 100%;
-
   transition: 0.2s linear;
-
   z-index: 40;
-
- /*   background-color: #ece5c77b; */ 
 }
 
 .scrollNav {
   top: 7.5rem;
   transition: 0.2s linear;
+  
 }
 
- /* .nav{
-    background-color: #ece5c77b;
-}  */
+
 
 .anchor,
 .active {
@@ -39,10 +34,12 @@
 .anchor:active {
    background-color: #ece5c7; 
   color: #354259;
+ 
 }
 
 .active {
   background-color: #ece5c7;
   color: #354259;
+  
 }
 
