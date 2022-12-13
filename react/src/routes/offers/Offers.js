@@ -222,7 +222,7 @@ const Offers = props => {
               <div className={classes.price} key={offer.id}>
                 <h2> {offer.price.total}€</h2>
 
-                <Booking index={iOffer} value={offer} />
+                <Booking value={offer} />
               </div>
             </div>
           );
