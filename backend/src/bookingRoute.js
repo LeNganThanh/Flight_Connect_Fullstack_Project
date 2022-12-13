@@ -31,55 +31,69 @@ router.get(`/${API}/booking/price`, async(req, res) =>{
 
 })
 
-router.post(`${API}/booking/order`, async(req, res) => {
+router.post(`/${API}/booking/order`, async(req, res) => {
 
   try {
-    const flight = req.body.flight;
-    const name = req.body.name
+    console.log(req)
+    const flight = req.body.order
+    const travelers = req.body.travelers
+    console.log('1', flight)
+    console.log('2', travelers)
+    
     const response = await amadeus.booking.flightOrders.post(
       JSON.stringify({
-        'data': {
-          'type': 'flight-order',
-          'flightOffers': [flight],
-          'travelers': [{
-            "id": "1",
-            "dateOfBirth": "1982-01-16",
-            "name": {
-              "firstName": name.first,
-              "lastName": name.last
-            },
-            "gender": "MALE",
-            "contact": {
-              "emailAddress": "jorge.gonzales833@telefonica.es",
-              "phones": [{
-                "deviceType": "MOBILE",
-                "countryCallingCode": "34",
-                "number": "480080076"
-              }]
-            },
-            "documents": [{
-              "documentType": "PASSPORT",
-              "birthPlace": "Madrid",
-              "issuanceLocation": "Madrid",
-              "issuanceDate": "2015-04-14",
-              "number": "00000000",
-              "expiryDate": "2025-04-14",
-              "issuanceCountry": "ES",
-              "validityCountry": "ES",
-              "nationality": "ES",
-              "holder": true
-            }]
-          }]
+        data: {
+          type: 'flight-order',
+          flightOffers: [flight],
+          'travelers': travelers,
+          remarks: {
+            general: [
+              {
+                subType: "GENERAL_MISCELLANEOUS",
+                text: "Flight Connect"
+              }
+            ]
+          },
+          ticketingAgreement: {
+            option: "DELAY_TO_CANCEL",
+            delay: "6D"
+          },
+          contacts: [
+            {
+              addresseeName: {
+                firstName: "Flight",
+                lastName: "Connect"
+              },
+              companyName: "Flight Connect",
+              purpose: "STANDARD",
+              phones: [
+                {
+                  deviceType: "MOBILE",
+                  countryCallingCode: "49",
+                  number: "480080072"
+                }
+              ],
+              emailAddress: "support@flight-connect.com",
+              address: {
+                lines: [
+                  'Yorckstr, 1'
+                ],
+                postalCode: "40476",
+                cityName: "Desseldorf",
+                countryCode: "DE"
+              }
+            }
+          ]
         }
       })
     )
+    console.log(response)
     res.json(response)
 
   } catch(err) {
-    console.log(err.description)
+    console.log(err)
     res.json(err)
   }
-
 })
 
 export default router

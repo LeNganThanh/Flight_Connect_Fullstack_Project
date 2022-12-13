@@ -21,7 +21,7 @@ function App() {
   window.addEventListener('scroll', changeCss)
 
   return (
-    <div className="App">
+    <div id="app" className="App">
       <div>
         <FlightsContextProvider>
           <SearchRoot scrollToggle={scrollToggle} />

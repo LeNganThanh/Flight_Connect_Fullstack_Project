@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import getPrice from '../../api/booking.price.api.js'
+import {getPrice} from '../../api/booking.price.api.js'
 import classes from './Booking.module.css'
 import BookingForm from './BookingForm.js'
 
@@ -10,7 +10,6 @@ const Booking = (props) => {
 
 
   const bookFlight = () => {
-    const scrollY = window.scrollY
     getPrice({
       offer: props.value
     }).then(res => {
@@ -19,10 +18,9 @@ const Booking = (props) => {
     })
   }
 
-
   return (
     <div>
-      {toggle ? <BookingForm setToggle={setToggle} /> : null}
+      {toggle ? <BookingForm offer={props.value} setToggle={setToggle} /> : null}
       <button onClick={bookFlight}>Book Flight</button>
     </div>
   )

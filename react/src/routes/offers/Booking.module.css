@@ -1,3 +1,5 @@
+
+
 .bookingForm {
   height: 100vh;
   width: 100vw;
@@ -8,16 +10,27 @@
   bottom: 0;
   z-index: 2000;
   background-color: #f7ededee;
-
+  flex-direction: row;
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
 }
 
-.bookingForm form {
+.bookingForm > div {
   display: flex;
   flex-direction: column;
-  width: 50%;
+  justify-content: center;
+  
+}
+
+.bookingForm form.invis {
+  display: none;
+}
+
+
+.bookingform from.visible {
+  height: flex;
 }
 
 .bookingForm form > div {
@@ -29,14 +42,16 @@
 }
 
 .bookingForm button{
-  width: 5rem;
+  width: 6.5rem;
   
   text-align:center;
 }
 
+
+
 .bookingForm input,
 .bookingForm select{
-  width: 15rem;
+  width: 12rem;
   height: 2rem;
   font-size: 1rem;
   border-radius: 5px;
@@ -61,4 +76,12 @@
 .bookingForm label {
   color: #354259;
   font-weight: bold;
+}
+
+.AdultContainer,
+.childContainer{
+  display: flex;
+  justify-content: flex-end;
+  margin-left: 1rem;
+  padding: 1rem;
 }

@@ -203,3 +203,13 @@ button:has(.bookmarkIcon):hover {
     background-color: #354259;
   }
 }
+
+.noBookmarks{
+  text-align: center;
+  font-size: 4rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: transparent;
+  background-image: linear-gradient(to left, #B1B2FF, #AAC4FF, #D2DAFF, #EEF1FF);
+  -webkit-background-clip: text;
+}

@@ -1,6 +1,7 @@
 import React from 'react';
 import classes from './About.module.css';
 import logo from '../../media/logo-5.png';
+import Footer from '../../components/Footer';
 
 const About = () => {
   return (
@@ -162,9 +163,10 @@ const About = () => {
           </div>
         </div>
       </div>
-      <div className={classes.footer}>
+      
+      <Footer />
         
-      </div>
+     
     </div>
   );
 };

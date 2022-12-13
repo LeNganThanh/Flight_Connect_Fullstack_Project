@@ -130,5 +130,6 @@ color: #354259;
 .buttons{
   display: flex;
   justify-content: center;
+  margin-right: 4rem;
 }
 
