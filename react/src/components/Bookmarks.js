@@ -4,6 +4,7 @@ import classes from '../routes/offers/Offers.module.css';
 import airPlane from '../media/Airplane-logo.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
+import Booking from '../routes/offers/Booking.js'
 
 const Bookmarks = () => {
   const [state, dispatch] = useContext(FlightsContext);
@@ -187,6 +188,7 @@ const Bookmarks = () => {
               </div>
               <div className={classes.price} key={flight_data.id}>
                 <h2> {flight_data.price.total}€</h2>
+                <Booking value={flight} />
                 <button value={flight_id} onClick={deleteBookmark}>
                   Delete
                 </button>
