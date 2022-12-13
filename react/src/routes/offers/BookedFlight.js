@@ -7,6 +7,15 @@ export default function BookedFlight({ bookedFlight }) {
 
   const flight = bookedFlight.flightOffers[0];
   const departure = flight.itineraries[0].segments[0].departure.at.split('');
+
+  const countryCallingNumber =
+    bookedFlight.travelers[0].contact.phones[0].countryCallingCode;
+  const phoneNumber = bookedFlight.travelers[0].contact.phones[0].number;
+  const concat = '+' + countryCallingNumber + ' ' + phoneNumber;
+  console.log(concat);
+  console.log(departure);
+
+
   const arrival = flight.itineraries[0].segments.at(-1).arrival.at.split('');
   const carrierCode = flight.itineraries[0].segments[0].carrierCode;
 
@@ -29,7 +38,6 @@ export default function BookedFlight({ bookedFlight }) {
           <div className={classes.infoContainer}>
             <div className={classes.ticketInfo}>
               <h2> Your Ticket Information</h2>
-
               <h3>Order Id:</h3>
               <p>#{bookedFlight.id}</p>
               <h3>Price:</h3>
@@ -57,6 +65,7 @@ export default function BookedFlight({ bookedFlight }) {
               <h3>Date Of Birth:</h3>
               <p>{bookedFlight.travelers[currentTrav].dateOfBirth}</p>
               <h3>Gender:</h3>
+
               <p>{bookedFlight.travelers[currentTrav].gender}</p>
               <h3>Nationality:</h3>
               <p>{bookedFlight.travelers[currentTrav].documents[0].nationality}</p>{' '}
@@ -64,18 +73,20 @@ export default function BookedFlight({ bookedFlight }) {
             </div>
             { bookedFlight.travelers[currentTrav].documents ?
               <div className={classes.contact}>
-              <h2>Contact:</h2>
-              <p>{bookedFlight.travelers[currentTrav].contact.emailAddress}</p>{' '}
-            </div>
+            <h2>Contact:</h2>
+            <h3>Email:</h3>
+            <p>{bookedFlight.travelers[0].contact.emailAddress}</p>{' '}
+            <h3>Phone Number</h3>
+            <p>{concat}</p>
+          </div>
             : null}
             <div>
               <Button onClick={previous}>{'<'}</Button>
               <Button onClick={next}>{'>'}</Button>
+
             </div>
           </div>
-          <div className={classes.footer}>
-
-          </div>
+         
         </div>
       ) : null}
     </div>
