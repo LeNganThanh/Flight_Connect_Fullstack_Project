@@ -12,7 +12,6 @@ export default function Settings(props) {
   const navigate = useNavigate();
 
   const updateUser = e => {
-    console.log(e.target);
     e.preventDefault();
 
     const data = new FormData(e.target);
@@ -24,7 +23,6 @@ export default function Settings(props) {
     })
       .then(res => res.json())
       .then(result => {
-        console.log(result);
         if (result.success) {
           toast.success('Successfully Updated!');
           dispatch({
@@ -55,7 +53,6 @@ export default function Settings(props) {
   };
 
   const deleteUserAccount = () => {
-    console.log(' hey delete!!!!');
     fetch(`http://localhost:1338/users/${user._id}`, {
       method: 'DELETE',
       headers: { token: localStorage.getItem('token') },
