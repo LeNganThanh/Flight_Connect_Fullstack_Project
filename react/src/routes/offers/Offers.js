@@ -8,6 +8,7 @@ import classes from './Offers.module.css';
 import Activities from './Activities';
 import Booking from './Booking.js';
 import Button from '../../components/Button';
+import ScrollTop from '../../components/ScrollTop.js'
 
 import { useNavigate } from 'react-router';
 
@@ -28,8 +29,6 @@ const Offers = props => {
   const bookmarkFlight = e => {
     e.preventDefault();
     let offerId = e.target.value || e.target.parentElement.value;
-    console.log(offerId);
-    console.log(e);
     if (!state.user) {
       dispatch({
         type: 'setLogin',
@@ -49,7 +48,6 @@ const Offers = props => {
       })
         .then(res => res.json())
         .then(result => {
-          console.log(result);
           if (result.success) {
             if (e.target.name === 'icon') {
               e.target.classList.add(`${classes.bookMarked}`);
@@ -108,9 +106,6 @@ const Offers = props => {
                     );
                     e.target.parentElement.nextElementSibling.classList.toggle(
                       classes.segments
-                    );
-                    console.log(
-                      e.target.parentElement.nextElementSibling.classList
                     );
                   };
 
@@ -227,6 +222,7 @@ const Offers = props => {
             </div>
           );
         })}
+      <ScrollTop />
       </div>
     );
   } else if (!offers && state.latitude !== '') {

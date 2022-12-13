@@ -5,6 +5,7 @@ import airPlane from '../media/Airplane-logo.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
 import Booking from '../routes/offers/Booking.js'
+import ScrollTop from './ScrollTop.js'
 
 const Bookmarks = () => {
   const [state, dispatch] = useContext(FlightsContext);
@@ -14,14 +15,12 @@ const Bookmarks = () => {
   const deleteBookmark = (e) => {
     e.preventDefault();
     const id = e.target.value;
-    console.log(id);
     fetch(`http://localhost:1338/flights/${id}`, {
       method: 'DELETE',
       headers: { token: localStorage.getItem('token') },
     })
       .then(res =>  res.json(), ) 
       .then(result => {
-        console.log('updateResult', result);
         if (result.success) {
           dispatch({
             type: 'setUser',
@@ -76,9 +75,6 @@ const Bookmarks = () => {
                     );
                     e.target.parentElement.nextElementSibling.classList.toggle(
                       classes.segments
-                    );
-                    console.log(
-                      e.target.parentElement.nextElementSibling.classList
                     );
                   };
 
@@ -196,6 +192,7 @@ const Bookmarks = () => {
             </div>
           );
         })}
+        {user.flights.length > 2 ? <ScrollTop /> : null}
       </div>
     );
   } else {
