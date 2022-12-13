@@ -12,7 +12,6 @@ import {placeOrder} from '../../api/booking.price.api.js'
     const [bookedFlight, setBookedFlight] = useState(false)
 
 
-    console.log(props)
     function preventScroll(e) {
       e.preventDefault();
       e.stopPropagation();
@@ -126,7 +125,7 @@ import {placeOrder} from '../../api/booking.price.api.js'
       order: props.offer,
       travelers: travelerArr
     }).then(result => {
-      console.log(result);
+      console.log(result.data);
       setBookedFlight(result.data.data);
     })
     

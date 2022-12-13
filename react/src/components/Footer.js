@@ -1,6 +1,7 @@
 import React from 'react';
 import classes from './Footer.module.css';
 import logo from '../media/logo-white.png';
+
 export default function Footer() {
   return (
     <div className={classes.footer}>

@@ -30,14 +30,12 @@ const Activities = props => {
 
   // useEffect(() => {
   //   if (photos){
-  //     console.log(photos)
   //     if (activities[0].length >= divider + 2) {
   //       const places = activities[0]
   //         .slice(divider, divider + 3)
   //         .map(act => act.place_id);
 
   //       getDetails({ placeIds: places }).then(res => {
-  //         console.log(res);
   //         if (photos[0].length === 1) {
   //           setDetails(res.data[0])
   //           setPhotos(res.data[1])
@@ -70,7 +68,6 @@ const Activities = props => {
 
   const prevPhoto = (e) => {
     const num = Number(e.target.value || e.target.parentElement.value)
-    console.log(num)
     const photoCount = Number(photoCounter[num])
 
     if (photoCount > 0) {
@@ -98,7 +95,6 @@ const Activities = props => {
 
   const nextPhoto = (e) => {
     const num = Number(e.target.value || e.target.parentElement.value)
-    console.log(num)
     const count = Number(counter)
     const photoCount = Number(photoCounter[num])
 
@@ -107,12 +103,10 @@ const Activities = props => {
       photos[Number(count) + Number(num)][Number(photoCount) + 1]
       && details[Number(count) + Number(num)].photos[Number(photoCount) + 1].photo_reference
     ) {
-      console.log(details[Number(count) + Number(num)].photos[Number(photoCount) + 1].photo_reference);
       getPhotos({
         photoId: details[Number(count) + Number(num)].photos[Number(photoCount) + 1].photo_reference
       })
       .then(res => {
-        console.log(res.data)
         const currPhotos = [...photos]
         currPhotos[Number(count) + Number(num)].push(res.data)
         setPhotos(currPhotos)

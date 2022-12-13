@@ -66,17 +66,6 @@ const FlightsForm = props => {
     };
   }, [keyword]);
 
-  // testing the api
-  // const { city, airport } = props.search;
-
-  // const label =
-  //    city && airport
-  //      ? "City and Airports"
-  //      : city
-  //      ? "City"
-  //      : airport
-  //      ? "Airports"
-  //      : "";
 
   const inputHandler = e => {
     e.preventDefault();
@@ -124,7 +113,6 @@ const FlightsForm = props => {
       latitude: state.latitude,
       longitude: state.longitude,
     }).then(result => {
-      console.log(result.data);
       setActivities(result.data);
     });
 
@@ -142,7 +130,6 @@ const FlightsForm = props => {
           ? inputChildren.value
           : 0,
     }).then(result => {
-      console.log(result);
       setOffers(result.data.data);
     });
 

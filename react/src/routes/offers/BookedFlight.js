@@ -6,18 +6,18 @@ export default function BookedFlight({ bookedFlight }) {
   const [currentTrav, setCurrentTrav] = useState(0)
 
   const flight = bookedFlight.flightOffers[0];
+
   const departure = flight.itineraries[0].segments[0].departure.at.split('');
+  const arrival = flight.itineraries[0].segments.at(-1).arrival.at.split('');
+  const carrierCode = flight.itineraries[0].segments[0].carrierCode;
 
   const countryCallingNumber =
     bookedFlight.travelers[0].contact.phones[0].countryCallingCode;
   const phoneNumber = bookedFlight.travelers[0].contact.phones[0].number;
   const concat = '+' + countryCallingNumber + ' ' + phoneNumber;
-  console.log(concat);
-  console.log(departure);
 
 
-  const arrival = flight.itineraries[0].segments.at(-1).arrival.at.split('');
-  const carrierCode = flight.itineraries[0].segments[0].carrierCode;
+  console.log(bookedFlight)
 
   const previous = () => {
     if (currentTrav > 0) {
