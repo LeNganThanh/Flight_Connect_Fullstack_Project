@@ -188,7 +188,7 @@ const Bookmarks = () => {
               </div>
               <div className={classes.price} key={flight_data.id}>
                 <h2> {flight_data.price.total}€</h2>
-                <Booking value={flight} />
+                <Booking value={JSON.parse(flight[0])} />
                 <button value={flight_id} onClick={deleteBookmark}>
                   Delete
                 </button>

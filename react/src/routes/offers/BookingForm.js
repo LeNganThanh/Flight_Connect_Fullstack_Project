@@ -6,14 +6,13 @@ import {placeOrder} from '../../api/booking.price.api.js'
 
 
   const BookingForm = (props) => {
-    const adults = document.getElementById('adults').value || 1
-    const children = document.getElementById('children').value || 0
     const [adultsArr, setAdultsArr] = useState(false)
     const [childrenArr, setChildrenArr] = useState(false)
     const [akkordeon, setAkkordeon] = useState(0)
     const [bookedFlight, setBookedFlight] = useState(false)
 
 
+    console.log(props)
     function preventScroll(e) {
       e.preventDefault();
       e.stopPropagation();
@@ -38,17 +37,20 @@ import {placeOrder} from '../../api/booking.price.api.js'
   });
 
   useLayoutEffect(() => {
-    let arr1 = [];
-    for (let i = 0; i < adults; i++) {
-      arr1.push([]);
-    }
-    setAdultsArr(arr1);
-
+    let arr1 = []
     let arr2 = [];
-    for (let i = 0; i < children; i++) {
-      arr2.push([]);
-    }
+
+    props.offer.travelerPricings.map(trav => {
+      if (trav.travelerType === 'ADULT') {
+        arr1.push([])
+      } else {
+        arr2.push([])
+      }
+    })
+    
+    setAdultsArr(arr1);
     setChildrenArr(arr2);
+
   }, []);
 
   const toggleForm = () => {
@@ -100,7 +102,7 @@ import {placeOrder} from '../../api/booking.price.api.js'
 
     childForms.forEach((form, i) => {
       travelerArr.push({
-        id: (Number(i) + Number(adults) + 1),
+        id: (Number(i) + Number(adultsArr.length) + 1),
         dateOfBirth: form.birthDay.value,
         name: {
           firstName: form.firstName.value,
@@ -187,14 +189,13 @@ import {placeOrder} from '../../api/booking.price.api.js'
       childrenArr && !bookedFlight ? childrenArr.map((child, i) => {
 
         const open = () => {
-          console.log(Number(i) + Number(adults))
-          setAkkordeon(Number(i) + Number(adults))
+          setAkkordeon(Number(i) + Number(adultsArr.length))
         }
 
         return (
           <div key={i}>
           <button onClick={open}>Child {i + 1}</button>
-          <form className={`childForm ${Number(i) + Number(adults) === Number(akkordeon) ? classes.visible : classes.invis}`}>
+          <form className={`childForm ${Number(i) + Number(adultsArr.length) === Number(akkordeon) ? classes.visible : classes.invis}`}>
             <div>
               <label>Personal Information</label>
               <input type='text' name='firstName' placeholder='First Name:'></input>
