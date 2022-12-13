@@ -199,7 +199,7 @@ const Bookmarks = () => {
       </div>
     );
   } else {
-    return <div>No bookmarks</div>;
+    return <div className={classes.noBookmarks}>No bookmarks</div>;
   }
 };
 

@@ -1,3 +1,4 @@
+
 import React, { useEffect, useLayoutEffect, useState } from 'react'
 import classes from './Booking.module.css'
 import Button from '../../components/Button'
@@ -25,25 +26,33 @@ import {placeOrder} from '../../api/booking.price.api.js'
       }
     })
 
-    useLayoutEffect(() => {
-      let arr1 = []
-      for (let i = 0; i < adults; i++) {
-        arr1.push([])
-      }
-      setAdultsArr(arr1)
 
-      let arr2 = []
-      for (let i = 0; i < children; i++) {
-        arr2.push([])
-      }
-      setChildrenArr(arr2)
-    }, [])
+  useEffect(() => {
+    window.addEventListener('wheel', preventScroll, { passive: false });
 
+    return () => {
+      window.removeEventListener('wheel', preventScroll, false);
+    };
+  });
 
+  useLayoutEffect(() => {
+    let arr1 = [];
+    for (let i = 0; i < adults; i++) {
+      arr1.push([]);
+    }
+    setAdultsArr(arr1);
 
-  const toggleForm = () => {  
-    props.setToggle(false)
-  }
+    let arr2 = [];
+    for (let i = 0; i < children; i++) {
+      arr2.push([]);
+    }
+    setChildrenArr(arr2);
+  }, []);
+
+  const toggleForm = () => {
+    props.setToggle(false);
+  };
+
 
   const submitOrder = (e) => {
     e.preventDefault()
@@ -116,8 +125,10 @@ import {placeOrder} from '../../api/booking.price.api.js'
   }
 
 
+
   return (
     <div className={classes.bookingForm}>
+
     <button onClick={toggleForm} ></button>
       {
       adultsArr ? adultsArr.map((traveler, i) => {
@@ -200,8 +211,9 @@ import {placeOrder} from '../../api/booking.price.api.js'
       }) : null
       }
     <button onClick={submitOrder}>Submit</button>
-    </div>
-  )
-}
 
-export default BookingForm
+    </div>
+  );
+};
+
+export default BookingForm;
