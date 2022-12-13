@@ -1,15 +1,26 @@
-import React from 'react';
+import React, {useState} from 'react';
 import classes from './BookedFlight.module.css';
+import Button from '../../components/Button.js'
 
 export default function BookedFlight({ bookedFlight }) {
-  console.log(bookedFlight);
+  const [currentTrav, setCurrentTrav] = useState(0)
+
   const flight = bookedFlight.flightOffers[0];
   const departure = flight.itineraries[0].segments[0].departure.at.split('');
-  console.log(departure);
-
   const arrival = flight.itineraries[0].segments.at(-1).arrival.at.split('');
-
   const carrierCode = flight.itineraries[0].segments[0].carrierCode;
+
+  const previous = () => {
+    if (currentTrav > 0) {
+      setCurrentTrav(Number(currentTrav) - 1)
+    }
+  }
+
+  const next = () => {
+    if (Number(currentTrav) < bookedFlight.travelers.length - 1) {
+      setCurrentTrav(Number(currentTrav) + 1)
+    }
+  }
 
   return (
     <div>
@@ -40,21 +51,26 @@ export default function BookedFlight({ bookedFlight }) {
             <div className={classes.personalInfo}>
               <h2>Your Personal Information</h2>
               <h3>First Name:</h3>
-              <p>{bookedFlight.travelers[0].name.firstName}</p>
+              <p>{bookedFlight.travelers[currentTrav].name.firstName}</p>
               <h3>Last Name:</h3>
-              <p>{bookedFlight.travelers[0].name.lastName}</p>
+              <p>{bookedFlight.travelers[currentTrav].name.lastName}</p>
               <h3>Date Of Birth:</h3>
-              <p>{bookedFlight.travelers[0].dateOfBirth}</p>
+              <p>{bookedFlight.travelers[currentTrav].dateOfBirth}</p>
               <h3>Gender:</h3>
-              <p>{bookedFlight.travelers[0].gender}</p>
-              
+              <p>{bookedFlight.travelers[currentTrav].gender}</p>
               <h3>Nationality:</h3>
-              <p>{bookedFlight.travelers[0].documents[0].nationality}</p>{' '}
+              <p>{bookedFlight.travelers[currentTrav].documents[0].nationality}</p>{' '}
               
             </div>
-            <div className={classes.contact}>
-            <h2>Contact:</h2>
-              <p>{bookedFlight.travelers[0].documents[0].documentType}</p>{' '}
+            { bookedFlight.travelers[currentTrav].documents ?
+              <div className={classes.contact}>
+              <h2>Contact:</h2>
+              <p>{bookedFlight.travelers[currentTrav].contact.emailAddress}</p>{' '}
+            </div>
+            : null}
+            <div>
+              <Button onClick={previous}>{'<'}</Button>
+              <Button onClick={next}>{'>'}</Button>
             </div>
           </div>
           <div className={classes.footer}>
