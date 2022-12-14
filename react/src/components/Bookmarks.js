@@ -27,34 +27,26 @@ const Bookmarks = () => {
             user: result.data,
           });
 
-          if (state.bookmarks.includes(id)) {
+          
+          const check = state.bookmarks.map(mark => {
+            if (mark.includes(id)) {
+              return true
+            } else {
+              return false
+            }
+          }) 
+          if (check.includes(true)){
             dispatch({
-              type: "deleteBookmark",
-              bookmark: id,
-            });
+              type: 'deleteBookmark',
+              bookmark: check.indexOf(true)
+            })
+
           }
         }
       });
   };
 
-  // useEffect(() => {
-  //   if(user.flights.length > 0){
-  //       console.log('useEffect', user)
-  //     const bookmarks = user.flights.map(flight => {
-  //     console.log(user.flights);
-  //     return [JSON.parse(flight.flight), flight._id];
-  //   });
-  //   dispatch({
-  //     type: 'setBookmarks',
-  //     bookmarks: bookmarks,
-  //   })};
-  // }, [user]);
 
-  /*  return (
-    <div className={classes.offers}>
-      <div className={classes.offersHeader}>
-        <h2>Bookmarks</h2>
-      </div> */
   if (user.flights.length > 0) {
     const bookmarks = user.flights.map(flight => {
       return [flight.flight, flight._id];

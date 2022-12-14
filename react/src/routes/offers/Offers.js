@@ -38,7 +38,7 @@ const Offers = props => {
         {offers.map((offer, iOffer) => {
           return (
             <div key={iOffer} className={classes.mainBox}>
-              <BookmarkIcon offer={offer} iOffer={iOffer}/>
+              <BookmarkIcon offer={offer} value={iOffer}/>
 
               <div className={classes.singleOffer}>
                 {offer.itineraries.map((iti, itiIndex) => {

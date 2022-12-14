@@ -14,8 +14,15 @@ const BookmarkIcon = props => {
 //===> bookmark class handler
  
 useEffect(() => {
-  console.log(state.bookmarks.includes(index), index)
-  if(state.bookmarks.includes(index)){
+  const check = state.bookmarks.map(mark => {
+    if (mark.includes(props.value)) {
+      return true
+    } else {
+      return false
+    }
+  }, []) 
+  console.log(check)
+  if(check.includes(true)){
     setActive(true)
   }else{
     setActive(false)
@@ -67,12 +74,9 @@ useEffect(() => {
               }, 2000);
             }
 
-            console.log(result.data.flights.at(-1)._id)
-            setIndex(result.data.flights.at(-1)._id);
-
             dispatch({
               type: 'setBookmarks',
-              bookmark: [...state.bookmarks, result.data.flights.at(-1)._id]
+              bookmark: [...state.bookmarks, [result.data.flights.at(-1)._id, props.value]]
             })
 
             dispatch({
@@ -86,17 +90,24 @@ useEffect(() => {
 
   const deleteBookmark = e => {
     e.preventDefault();
-
-    fetch(`http://localhost:1338/flights/${index}`, {
+    const check = state.bookmarks.map(mark => {
+      if (mark.includes(props.value)) {
+        return true
+      } else {
+        return false
+      }
+    }) 
+    fetch(`http://localhost:1338/flights/${state.bookmarks[check.indexOf(true)][0]}`, {
       method: 'DELETE',
       headers: { token: localStorage.getItem('token') },
     })
       .then(res => res.json())
       .then(result => {
         if (result.success) {
+
           dispatch({
             type: 'deleteBookmark',
-            bookmark: index
+            bookmark: check.indexOf(true)
           })
           dispatch({
             type: 'setUser',
@@ -111,7 +122,6 @@ useEffect(() => {
       deleteBookmark(e);
     } else {
       bookmarkFlight(e);
-      
     }
   };
 
