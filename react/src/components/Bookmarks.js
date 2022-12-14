@@ -27,10 +27,17 @@ const Bookmarks = () => {
             user: result.data,
           });
           
-          if (state.bookmarks.includes(id)){
+          const check = state.bookmarks.map(mark => {
+            if (mark.includes(id)) {
+              return true
+            } else {
+              return false
+            }
+          }) 
+          if (check.includes(true)){
             dispatch({
               type: 'deleteBookmark',
-              bookmark: id
+              bookmark: check.indexOf(true)
             })
           }
         }
