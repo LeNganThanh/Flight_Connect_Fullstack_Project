@@ -25,7 +25,6 @@ export default function Login(props) {
         return res.json();
       })
       .then(result => {
-        console.log(result);
         if (result.success) {
           toast.success("Successfully Logged In!");
           dispatch({
@@ -53,13 +52,7 @@ export default function Login(props) {
         </div>
         <div>
           <label>Password:</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            required
-            minLength="8"
-          ></input>
+          <input type="password" name="password" required minLength="8"></input>
         </div>
 
         <Button>Log In</Button>

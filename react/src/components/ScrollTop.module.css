@@ -1,0 +1,30 @@
+.scrollTop {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.scrollTop > button {
+  background-color: transparent;
+  border-color: transparent;
+  color: #354259;
+  box-shadow: none;
+  border: none;
+  border-radius: 0;
+  border-bottom-color: transparent;
+  font-size: 2rem;
+}
+
+.scrollTop > button:hover {
+  background-color: transparent;
+  box-shadow: none;
+}
+.scrollTop button:hover::after {
+  transform: scaleX(1.2) scaleY(1.4);
+  background-color: transparent;
+  opacity: 0;
+}
+
+.scrollTop button:focus-visible {
+  border: none
+}

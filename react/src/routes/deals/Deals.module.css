@@ -87,49 +87,51 @@
 }
 
 .topDeals {
- 
   justify-content: center;
-  width: 90%;
+  width: 100%;
   display: flex;
   flex-direction: column;
 }
 
-.topDealsHeader p{
+.topDealsHeader p {
   font-weight: bolder;
   color: #354259;
 }
 
-.topDealsHeader p:first-child{
+.topDealsHeader p:first-child {
   font-size: 1.2rem;
 }
 
 .dealBox {
   box-shadow: 3px 3px 3px 3px rgba(0, 0, 0, 0.2);
   border-radius: 3px;
-margin: .5rem;
-font-weight: bold;
-line-height: 1;
-color: #354259;
+  margin: 0.5rem;
+  font-weight: bold;
+  line-height: 1;
+  color: #354259;
 }
 
-
- div .price{
+div .price {
   color: #9c8d45;
   font-weight: bold;
   text-align: right;
-  justify-content:flex-end
+  justify-content: flex-end;
 }
 
-.cityInfo{
+.cityInfo {
   display: flex;
-  
+
   align-items: center;
-  justify-content:space-between
+  justify-content: space-between;
 }
 
-.buttons{
+.buttons {
   display: flex;
   justify-content: center;
-  margin-right: 4rem;
+  width: 100%;
+  margin-bottom: 1rem;
 }
 
+.buttons button {
+  width: 7rem;
+}

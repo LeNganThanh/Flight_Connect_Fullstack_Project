@@ -4,6 +4,7 @@ import morgan from "morgan";
 import cors from "cors";
 import multer from "multer";
 import mongoose from "mongoose";
+
 //===> API routes
 import autocompRoute from "./autocompRoute.js";
 import searchRoute from "./searchRoute.js";
@@ -13,10 +14,13 @@ import activityRoute from "./activityRoute.js";
 import googleRoute from './googleRoute.js'
 import bookingRoute from './bookingRoute.js'
 
+//===> orders route
+import ordersRoute from '../routes/ordersRoute.js'
+
 //===> flights routes
 import flightRoute from '../routes/flightsRoute.js'
 
-// ===> Backend local routes
+// ===>  user routes
 import userRoute from "../routes/userRoute.js";
 
 // ===> Mongoose Url
@@ -52,10 +56,14 @@ mongoose.connect(MONGOOSE_URL);
 
 //===> Routes
 app.use("/users", upload.single("image"), userRoute);
-
 //===> flights route
 
 app.use('/flights', flightRoute)
+
+//===> orders route
+
+app.use('/orders', ordersRoute);
+
 //===> Applying handler for API
 
 app.use("/", autocompRoute);
@@ -70,6 +78,7 @@ app.use("/", bookingRoute);
 app.use(express.static('upload'))
 app.use(express.static("../react/build"));
 
+//===> Build 
 app.get("/", (req, res) => {
   res.sendFile("../react/build/index.html", { root: "." });
 });
@@ -78,6 +87,9 @@ app.get("/", (req, res) => {
 app.use((err, req, res, next) => {
   res.status(err.status || 500 ).json({success: false, message: err.message})
 })
+
+
+// ===> listening to the server 
 
 app.listen(PORT, () => {
   console.log("Server is running on port:", PORT);

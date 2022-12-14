@@ -45,9 +45,18 @@ export const geoReducer = function(state, action) {
     }case 'setBookmarks':{
       return{
         ...state,
-        bookmarks: action.bookmarks
+        bookmarks: action.bookmark
       }
-    }case 'setFlights':{
+    }case 'deleteBookmark': {
+      let copy = state.bookmarks
+      copy.splice(copy.indexOf(action.bookmark), 1)
+      return{
+        ...state,
+        bookmarks: copy
+      }
+    }
+    
+    case 'setFlights':{
       return{
         ...state,
         flight: action.flight

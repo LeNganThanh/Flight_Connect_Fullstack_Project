@@ -11,6 +11,7 @@ const userSchema = new Schema({
   token: { type: String },
   password: { type: String, required: true },
   flights: [{ type: Schema.Types.ObjectId, ref: 'flights'}],
+  orders: [{ type: Schema.Types.ObjectId, ref: 'orders'}],
   profileImage: {
     type: String,
     default: function () {

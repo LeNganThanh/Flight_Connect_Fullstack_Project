@@ -3,11 +3,13 @@ import { getDeals } from '../../api/deals.api.js';
 import { getInfo } from '../../api/deals.info.api.js';
 import classes from './Deals.module.css';
 import Button from '../../components/Button'
+import ScrollTop from '../../components/ScrollTop.js'
 
 const DealDisplay = props => {
   const [topDestinations, setTopDestinations] = useState(false);
   const [deals, setDeals] = useState(false);
   const [dealInfo, setDealInfo] = useState(false);
+  const [dealCounter, setDealCounter] = useState(5);
 
   let cityName = props.geoInfo[0].cityName.toLowerCase().split('');
   cityName[0] = cityName[0].toUpperCase();
@@ -25,7 +27,6 @@ const DealDisplay = props => {
           dateOfDeparture: dateOfDeparture.value,
           dateOfReturn: dateOfReturn.value,
         });
-        console.log('deals', deals);
         if (deals.data[0]) {
           console.log('if deals', deals.data);
           localStorage.setItem('deals', JSON.stringify(deals.data));
@@ -48,13 +49,7 @@ const DealDisplay = props => {
       <div className={classes.topDestinations}>
         <p>Top 10 Destinations from {originCountry}</p>
         {topDestinations.Destinations.map((dest, i) => {
-          // AirportName: "Lisboa"
-          // CityName: "Lisbon"
-          // CountryCode: "PT"
-          // CountryName: "Portugal"
-          // DestinationLocation: "LIS"
-          // RegionName: "Europe"
-          // Type: "Airport"
+
           return (
             <div className={classes.rank} key={dest.Destination.DestinationLocation}>
               <p>
@@ -70,7 +65,6 @@ const DealDisplay = props => {
     );
   };
 
-  const [dealCounter, setDealCounter] = useState(5);
 
   const TopDeals = props => {
     let departure = deals.FareInfo[0].DepartureDateTime.split('');
@@ -160,12 +154,6 @@ const DealDisplay = props => {
     }
   };
 
-  const goToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
-  };
 
   return (
     <div className={classes.dealsDisplayParent}>
@@ -181,7 +169,7 @@ const DealDisplay = props => {
           <Button onClick={lessDeals}>less</Button>
         ) : null}
       </div>
-      {dealInfo ? <Button onClick={goToTop}>UP</Button> : null}
+      {dealInfo && dealCounter > 5 ? <ScrollTop /> : null}
     </div>
   );
 };

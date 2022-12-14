@@ -9,14 +9,11 @@ export default function Signup(props) {
   const registerUser = e => {
     e.preventDefault();
  
-    
     const data = new FormData(e.target);
-   
 
     fetch('http://localhost:1338/users', { method: 'POST', body: data })
       .then(res => res.json())
       .then(result => {
-        console.log(result);
          if(result.success){
             toast.success('Successfully Signed Up!')
             props.setRegister(false)
@@ -36,21 +33,20 @@ export default function Signup(props) {
       <form onSubmit={registerUser}>
         <div>
           <label>First Name:</label>
-          <input type="text" id="firstName" name="firstName" required/>
+          <input type="text" name="firstName" required/>
         </div>
         <div>
           <label>Last Name:</label>
-          <input type="text" id="lastName" name="lastName" required/>
+          <input type="text" name="lastName" required/>
         </div>
         <div>
           <label>Email:</label>
-          <input type="email" id="email" name="email" required/>
+          <input type="email" name="email" required/>
         </div>
         <div>
           <label>Password:</label>
           <input
             type="password"
-            id="password"
             name="password"
             required
             minLength="8"
@@ -63,7 +59,6 @@ export default function Signup(props) {
             type="file"
             accept="image/*"
             name="image"
-            id="profileImage"
           />
         </div>
         <Button>SIGN UP</Button>

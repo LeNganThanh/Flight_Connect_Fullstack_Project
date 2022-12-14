@@ -27,7 +27,6 @@ const DropDown = props => {
     <div>
         {props.dataSource
           ? props.dataSource.data.map(city => {
-              //console.log(city);
               return (
                 <button
                   value={JSON.stringify(city.geoCode)}
