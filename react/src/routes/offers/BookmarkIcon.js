@@ -20,7 +20,7 @@ useEffect(() => {
     } else {
       return false
     }
-  }) 
+  }, []) 
   console.log(check)
   if(check.includes(true)){
     setActive(true)
