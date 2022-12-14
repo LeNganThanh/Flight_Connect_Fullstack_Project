@@ -146,61 +146,63 @@ const BookingForm = props => {
               });
             }
           });
-      }else if(result.data.data){
+      } else if (result.data.data) {
         setBookedFlight(result.data.data);
-      }else{
-        toast.error('Sorry this flight is already full')
+      } else {
+        toast.error('Sorry this flight is already full');
       }
     });
   };
 
   return (
-    <div className={classes.bookingForm}>
-      <button onClick={toggleForm}>Back</button>
-      {adultsArr && !bookedFlight
-        ? adultsArr.map((traveler, i) => {
-            return (
-              <div key={i}>
-                <button onClick={() => setAkkordeon(i)}>Adult {i + 1}</button>
-                <form
-                  className={`adultForm ${
-                    i === Number(akkordeon) ? classes.visible : classes.invis
-                  }`}
-                >
-                  <div>
-                    <label>Personal Information</label>
-                    <input
-                      type="text"
-                      name="firstName"
-                      placeholder="First Name:"
-                    ></input>
-
-                    <input
-                      type="text"
-                      name="lastName"
-                      placeholder="Last Name:"
-                    ></input>
-
-                    <input
-                      type="date"
-                      name="birthDay"
-                      placeholder="Date of birth:"
-                    ></input>
-
-                    <select name="gender">
-                      <option value="MALE">Male</option>
-                      <option value="FEMALE">Female</option>
-                    </select>
-                  </div>
-
-                  <div>
-                    <label>Contact Information</label>
-                    <input
-                      type="email"
-                      name="email"
-                      placeholder="Email address:"
-                    ></input>
+    <div className={classes.main}>
+      <button className={classes.backBtn} onClick={toggleForm}>Back</button>
+      <div className={classes.bookingForm}>
+        {adultsArr && !bookedFlight
+          ? adultsArr.map((traveler, i) => {
+              return (
+                <div key={i}>
+            
+                  <button onClick={() => setAkkordeon(i)}>Adult {i + 1}</button>
+                  <form
+                    className={`adultForm ${
+                      i === Number(akkordeon) ? classes.visible : classes.invis
+                    }`}
+                  >
                     <div>
+                      <label>Personal Information</label>
+                      <input
+                        type="text"
+                        name="firstName"
+                        placeholder="First Name:"
+                      ></input>
+
+                      <input
+                        type="text"
+                        name="lastName"
+                        placeholder="Last Name:"
+                      ></input>
+
+                      <input
+                        type="date"
+                        name="birthDay"
+                        placeholder="Date of birth:"
+                      ></input>
+
+                      <select name="gender">
+                        <option value="MALE">Male</option>
+                        <option value="FEMALE">Female</option>
+                      </select>
+                    </div>
+
+                    <div>
+                      <label>Contact Information</label>
+                      <input
+                        type="email"
+                        name="email"
+                        placeholder="Email address:"
+                      ></input>
+
                       <input
                         type="tel"
                         pattern="[0-9]{2,3}"
@@ -214,91 +216,102 @@ const BookingForm = props => {
                         placeholder="Phonenumber:"
                       ></input>
                     </div>
-                  </div>
 
-                  <div>
-                    <label>Documents</label>
-                    <input
-                      type="text"
-                      name="birthPlace"
-                      placeholder="Place of birth:"
-                    ></input>
-                    <input type="text" name="city" placeholder="City:"></input>
-                    <input
-                      type="text"
-                      name="nationality"
-                      placeholder="Nationality:"
-                    ></input>
-                    <input
-                      type="number"
-                      name="passport"
-                      placeholder="Passport Number:"
-                    ></input>
-                    <input
-                      type="date"
-                      name="issueDate"
-                      placeholder="Issuance Date:"
-                    ></input>
-                    <input
-                      type="date"
-                      name="expiryDate"
-                      placeholder="Expiry Date:"
-                    ></input>
-                  </div>
-                </form>
-              </div>
-            );
-          })
-        : null}
-      {childrenArr && !bookedFlight
-        ? childrenArr.map((child, i) => {
-            const open = () => {
-              setAkkordeon(Number(i) + Number(adultsArr.length));
-            };
+                    <div>
+                      <label>Documents</label>
+                      <input
+                        type="text"
+                        name="birthPlace"
+                        placeholder="Place of birth:"
+                      ></input>
+                      <input
+                        type="text"
+                        name="city"
+                        placeholder="City:"
+                      ></input>
+                      <input
+                        type="text"
+                        name="nationality"
+                        placeholder="Nationality:"
+                      ></input>
+                      <input
+                        type="number"
+                        name="passport"
+                        placeholder="Passport Number:"
+                      ></input>
+                      <input
+                        type="date"
+                        name="issueDate"
+                        placeholder="Issuance Date:"
+                      ></input>
+                      <input
+                        type="date"
+                        name="expiryDate"
+                        placeholder="Expiry Date:"
+                      ></input>
+                    </div>
+                  </form>
+                </div>
+              );
+            })
+          : null}
+        {childrenArr && !bookedFlight
+          ? childrenArr.map((child, i) => {
+              const open = () => {
+                setAkkordeon(Number(i) + Number(adultsArr.length));
+              };
 
-            return (
-              <div key={i}>
-                <button onClick={open}>Child {i + 1}</button>
-                <form
-                  className={`childForm ${
-                    Number(i) + Number(adultsArr.length) === Number(akkordeon)
-                      ? classes.visible
-                      : classes.invis
-                  }`}
-                >
-                  <div>
-                    <label>Personal Information</label>
-                    <input
-                      type="text"
-                      name="firstName"
-                      placeholder="First Name:"
-                    ></input>
+              return (
+                <div key={i}>
+                  <button onClick={open}>Child {i + 1}</button>
+                  <form
+                    className={`childForm ${
+                      Number(i) + Number(adultsArr.length) === Number(akkordeon)
+                        ? classes.visible
+                        : classes.invis
+                    }`}
+                  >
+                    <div>
+                      <label>Personal Information</label>
+                      <input
+                        type="text"
+                        name="firstName"
+                        placeholder="First Name:"
+                      ></input>
 
-                    <input
-                      type="text"
-                      name="lastName"
-                      placeholder="Last Name:"
-                    ></input>
+                      <input
+                        type="text"
+                        name="lastName"
+                        placeholder="Last Name:"
+                      ></input>
 
-                    <input
-                      type="date"
-                      name="birthDay"
-                      placeholder="Date of birth:"
-                    ></input>
+                      <input
+                        type="date"
+                        name="birthDay"
+                        placeholder="Date of birth:"
+                      ></input>
 
-                    <select name="gender">
-                      <option value="MALE">Male</option>
-                      <option value="FEMALE">Female</option>
-                    </select>
-                  </div>
-                </form>
-              </div>
-            );
-          })
-        : null}
-      {!bookedFlight ? <button onClick={submitOrder}>Submit</button> : null}
+                      <select name="gender">
+                        <option value="MALE">Male</option>
+                        <option value="FEMALE">Female</option>
+                      </select>
+                    </div>
+                  </form>
+                </div>
+              );
+            })
+          : null}
+      </div>
+      <div className={classes.submitBtn}>
+
+      {!bookedFlight ? (
+        <button  onClick={submitOrder}>
+          Submit
+        </button>
+      ) : null}
+      </div>
       {bookedFlight ? <BookedFlight bookedFlight={bookedFlight} /> : null}
-      <Toaster position= 'bottom-center'/>
+      <Toaster position="top-center" />
     </div>
   );
 };
