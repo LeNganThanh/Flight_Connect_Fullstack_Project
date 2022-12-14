@@ -1,4 +1,4 @@
-import React, { Fragment, useContext, useEffect } from "react";
+import React, { Fragment, useContext } from "react";
 import { FlightsContext } from "../context/FlightsContext";
 import classes from "../routes/offers/Offers.module.css";
 import airPlane from "../media/Airplane-logo.png";
