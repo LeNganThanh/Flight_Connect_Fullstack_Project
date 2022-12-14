@@ -26,6 +26,13 @@ const Bookmarks = () => {
             type: 'setUser',
             user: result.data,
           });
+          
+          if (state.bookmarks.includes(id)){
+            dispatch({
+              type: 'deleteBookmark',
+              bookmark: id
+            })
+          }
         }
       });
   };

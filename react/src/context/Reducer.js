@@ -45,7 +45,7 @@ export const geoReducer = function(state, action) {
     }case 'setBookmarks':{
       return{
         ...state,
-        bookmarks: [...state.bookmarks, action.bookmark]
+        bookmarks: action.bookmark
       }
     }case 'deleteBookmark': {
       let copy = state.bookmarks
