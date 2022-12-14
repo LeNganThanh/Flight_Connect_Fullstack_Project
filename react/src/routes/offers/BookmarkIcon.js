@@ -9,17 +9,18 @@ const BookmarkIcon = props => {
   const [state, dispatch] = useContext(FlightsContext);
   const [active, setActive] = useState(false)
   const { offer } = props;
-  const [id, setId] = useState(false);
+  const [index, setIndex] = useState(false);
 
 //===> bookmark class handler
  
 useEffect(() => {
-  if(state.bookmarks.includes(props.iOffer)){
+  console.log(state.bookmarks.includes(index), index)
+  if(state.bookmarks.includes(index)){
     setActive(true)
   }else{
     setActive(false)
   }
-}, [])
+})
 
   const bookmarkFlight = e => {
     e.preventDefault();
@@ -66,7 +67,13 @@ useEffect(() => {
               }, 2000);
             }
 
-            setId(result.data.flights.at(-1)._id);
+            console.log(result.data.flights.at(-1)._id)
+            setIndex(result.data.flights.at(-1)._id);
+
+            dispatch({
+              type: 'setBookmarks',
+              bookmark: [...state.bookmarks, result.data.flights.at(-1)._id]
+            })
 
             dispatch({
               type: 'setUser',
@@ -80,13 +87,17 @@ useEffect(() => {
   const deleteBookmark = e => {
     e.preventDefault();
 
-    fetch(`http://localhost:1338/flights/${id}`, {
+    fetch(`http://localhost:1338/flights/${index}`, {
       method: 'DELETE',
       headers: { token: localStorage.getItem('token') },
     })
       .then(res => res.json())
       .then(result => {
         if (result.success) {
+          dispatch({
+            type: 'deleteBookmark',
+            bookmark: index
+          })
           dispatch({
             type: 'setUser',
             user: result.data,
@@ -98,18 +109,8 @@ useEffect(() => {
   const toggleBookmark = e => {
     if (e.target.classList.contains(classes.bookMarked)) {
       deleteBookmark(e);
-      setActive(false)
-      dispatch({
-        type: 'deleteBookmark',
-        bookmark: props.iOffer
-      })
     } else {
       bookmarkFlight(e);
-      setActive(true)
-      dispatch({
-        type: 'setBookmarks',
-        bookmark: props.iOffer
-      })
       
     }
   };

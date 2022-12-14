@@ -133,6 +133,11 @@ const FlightsForm = props => {
       setOffers(result.data.data);
     });
 
+    dispatch({
+      type: 'setBookmarks',
+      bookmark: []
+    })
+
   };
 
   const setOffers = async value => {
