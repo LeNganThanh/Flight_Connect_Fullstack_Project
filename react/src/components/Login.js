@@ -13,8 +13,7 @@ export default function Login(props) {
       email: e.target.email.value,
       password: e.target.password.value,
     });
-    console.log(data);
-    fetch("http://localhost:1338/users/login", {
+    fetch("/users/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: data,

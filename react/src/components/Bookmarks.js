@@ -1,11 +1,11 @@
-import React, { Fragment, useContext, useEffect } from 'react';
-import { FlightsContext } from '../context/FlightsContext';
-import classes from '../routes/offers/Offers.module.css';
-import airPlane from '../media/Airplane-logo.png';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
-import Booking from '../routes/offers/Booking.js';
-import ScrollTop from './ScrollTop.js';
+import React, { Fragment, useContext, useEffect } from "react";
+import { FlightsContext } from "../context/FlightsContext";
+import classes from "../routes/offers/Offers.module.css";
+import airPlane from "../media/Airplane-logo.png";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
+import Booking from "../routes/offers/Booking.js";
+import ScrollTop from "./ScrollTop.js";
 
 const Bookmarks = () => {
   const [state, dispatch] = useContext(FlightsContext);
@@ -15,23 +15,23 @@ const Bookmarks = () => {
   const deleteBookmark = e => {
     e.preventDefault();
     const id = e.target.value;
-    fetch(`http://localhost:1338/flights/${id}`, {
-      method: 'DELETE',
-      headers: { token: localStorage.getItem('token') },
+    fetch(`/flights/${id}`, {
+      method: "DELETE",
+      headers: { token: localStorage.getItem("token") },
     })
       .then(res => res.json())
       .then(result => {
         if (result.success) {
           dispatch({
-            type: 'setUser',
+            type: "setUser",
             user: result.data,
           });
-          
-          if (state.bookmarks.includes(id)){
+
+          if (state.bookmarks.includes(id)) {
             dispatch({
-              type: 'deleteBookmark',
-              bookmark: id
-            })
+              type: "deleteBookmark",
+              bookmark: id,
+            });
           }
         }
       });
@@ -49,10 +49,6 @@ const Bookmarks = () => {
   //     bookmarks: bookmarks,
   //   })};
   // }, [user]);
-
-  useEffect(() => {
-    console.log('bookmarks after', user);
-  }, [user]);
 
   /*  return (
     <div className={classes.offers}>
@@ -102,11 +98,11 @@ const Bookmarks = () => {
 
                         <div className={classes.duration}>
                           <p>
-                            {duration.slice(2, duration.split('').indexOf('H'))}
-                            h{' '}
+                            {duration.slice(2, duration.split("").indexOf("H"))}
+                            h{" "}
                             {duration.slice(5, 7)
                               ? `${duration.slice(5, 7)}m`
-                              : ''}
+                              : ""}
                           </p>
 
                           <div className={classes.timeBox}>
@@ -128,13 +124,13 @@ const Bookmarks = () => {
                           </div>
 
                           {segments.length === 1 ? (
-                            <p style={{ color: 'green' }}>Non-stop</p>
+                            <p style={{ color: "green" }}>Non-stop</p>
                           ) : segments.length === 2 ? (
-                            <p style={{ color: 'blue' }}>
+                            <p style={{ color: "blue" }}>
                               1 stop <span>{segments[0].arrival.iataCode}</span>
                             </p>
                           ) : (
-                            <p style={{ color: 'red' }}>
+                            <p style={{ color: "red" }}>
                               {segments.length - 1} stops
                               {segments.map((stop, stopIndex) => {
                                 if (stopIndex !== 0) {

@@ -1,22 +1,20 @@
-import React, { useState } from 'react';
-import classes from './BookedFlight.module.css';
-import Button from '../../components/Button.js';
+import React, { useState } from "react";
+import classes from "./BookedFlight.module.css";
+import Button from "../../components/Button.js";
 
 export default function BookedFlight({ bookedFlight }) {
   const [currentTrav, setCurrentTrav] = useState(0);
 
   const flight = bookedFlight.flightOffers[0];
 
-  const departure = flight.itineraries[0].segments[0].departure.at.split('');
-  const arrival = flight.itineraries[0].segments.at(-1).arrival.at.split('');
+  const departure = flight.itineraries[0].segments[0].departure.at.split("");
+  const arrival = flight.itineraries[0].segments.at(-1).arrival.at.split("");
   const carrierCode = flight.itineraries[0].segments[0].carrierCode;
 
   const countryCallingNumber =
     bookedFlight.travelers[0].contact.phones[0].countryCallingCode;
   const phoneNumber = bookedFlight.travelers[0].contact.phones[0].number;
-  const concat = '+' + countryCallingNumber + ' ' + phoneNumber;
-
-  console.log(bookedFlight);
+  const concat = "+" + countryCallingNumber + " " + phoneNumber;
 
   const previous = () => {
     if (currentTrav > 0) {
@@ -46,9 +44,9 @@ export default function BookedFlight({ bookedFlight }) {
                   {flight.price.currency}
                 </p>
                 <h3>Flight Date:</h3>
-                <p>{departure.slice(0, departure.indexOf('T')).join('')}</p>
+                <p>{departure.slice(0, departure.indexOf("T")).join("")}</p>
                 <h3>Arrival Date:</h3>
-                <p>{arrival.slice(0, arrival.indexOf('T')).join('')}</p>
+                <p>{arrival.slice(0, arrival.indexOf("T")).join("")}</p>
                 <div>
                   <img
                     src={`https://www.skyscanner.net/images/airlines/${carrierCode}.png`}
@@ -73,14 +71,14 @@ export default function BookedFlight({ bookedFlight }) {
                       bookedFlight.travelers[currentTrav].documents[0]
                         .nationality
                     }
-                  </p>{' '}
+                  </p>{" "}
                 </div>
 
                 {bookedFlight.travelers[currentTrav].documents ? (
                   <div className={classes.contact}>
                     <h2>Contact:</h2>
                     <h3>Email:</h3>
-                    <p>{bookedFlight.travelers[0].contact.emailAddress}</p>{' '}
+                    <p>{bookedFlight.travelers[0].contact.emailAddress}</p>{" "}
                     <h3>Phone Number</h3>
                     <p>{concat}</p>
                   </div>
@@ -91,8 +89,8 @@ export default function BookedFlight({ bookedFlight }) {
         ) : null}
       </div>
       <div className={classes.btn}>
-        <Button onClick={previous}>{'<'}</Button>
-        <Button onClick={next}>{'>'}</Button>
+        <Button onClick={previous}>{"<"}</Button>
+        <Button onClick={next}>{">"}</Button>
       </div>
     </div>
   );
