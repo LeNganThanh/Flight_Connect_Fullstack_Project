@@ -1,68 +1,58 @@
-import amadeus from './amadeus.js';
-import express from 'express';
-
-
+import amadeus from "./amadeus.js";
+import express from "express";
 
 const router = express.Router();
 
 const API = `api`;
 
-
-router.get(`/${API}/booking/price`, async(req, res) =>{
-  
+router.get(`/${API}/booking/price`, async (req, res) => {
   try {
-    const offer = JSON.parse(req.query.offer)
-    
+    const offer = JSON.parse(req.query.offer);
+
     const response = await amadeus.shopping.flightOffers.pricing.post(
       JSON.stringify({
-        'data': {
-          'type': 'flight-offers-pricing',
-          'flightOffers': [offer]
-        }
+        data: {
+          type: "flight-offers-pricing",
+          flightOffers: [offer],
+        },
       })
-    )   
+    );
 
-    console.log(JSON.parse(response.body).data)
-    res.json(JSON.parse(response.body))
-  } catch(err) {
-    console.log(err.description)
-    res.json(err)
+    res.json(JSON.parse(response.body));
+  } catch (err) {
+    console.log(err.description);
+    res.json(err);
   }
+});
 
-})
-
-router.post(`/${API}/booking/order`, async(req, res) => {
-
+router.post(`/${API}/booking/order`, async (req, res) => {
   try {
-    console.log(req)
-    const flight = req.body.order
-    const travelers = req.body.travelers
-    console.log('1', flight)
-    console.log('2', travelers)
-    
+    const flight = req.body.order;
+    const travelers = req.body.travelers;
+
     const response = await amadeus.booking.flightOrders.post(
       JSON.stringify({
         data: {
-          type: 'flight-order',
+          type: "flight-order",
           flightOffers: [flight],
-          'travelers': travelers,
+          travelers: travelers,
           remarks: {
             general: [
               {
                 subType: "GENERAL_MISCELLANEOUS",
-                text: "Flight Connect"
-              }
-            ]
+                text: "Flight Connect",
+              },
+            ],
           },
           ticketingAgreement: {
             option: "DELAY_TO_CANCEL",
-            delay: "6D"
+            delay: "6D",
           },
           contacts: [
             {
               addresseeName: {
                 firstName: "Flight",
-                lastName: "Connect"
+                lastName: "Connect",
               },
               companyName: "Flight Connect",
               purpose: "STANDARD",
@@ -70,30 +60,26 @@ router.post(`/${API}/booking/order`, async(req, res) => {
                 {
                   deviceType: "MOBILE",
                   countryCallingCode: "49",
-                  number: "480080072"
-                }
+                  number: "480080072",
+                },
               ],
               emailAddress: "support@flight-connect.com",
               address: {
-                lines: [
-                  'Yorckstr, 1'
-                ],
+                lines: ["Yorckstr, 1"],
                 postalCode: "40476",
                 cityName: "Desseldorf",
-                countryCode: "DE"
-              }
-            }
-          ]
-        }
+                countryCode: "DE",
+              },
+            },
+          ],
+        },
       })
-    )
-    console.log(response)
-    res.json(response)
-
-  } catch(err) {
-    console.log(err)
-    res.json(err)
+    );
+    res.json(response);
+  } catch (err) {
+    console.log(err);
+    res.json(err);
   }
-})
+});
 
-export default router
+export default router;
