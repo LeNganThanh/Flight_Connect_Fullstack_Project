@@ -3,9 +3,9 @@ import { NavLink, Outlet } from 'react-router-dom';
 import classes from './Nav.module.css';
 import { FlightsContext } from '../context/FlightsContext';
 
-const Nav = (props) => {
+const Nav = props => {
   const [state] = useContext(FlightsContext);
-  const {scrollToggle} = props
+  const { scrollToggle } = props;
 
   return (
     <div className={`${classes.nav} ${scrollToggle ? classes.scrollNav : ''}`}>
@@ -13,7 +13,7 @@ const Nav = (props) => {
         <NavLink
           className={({ isActive }) =>
             isActive ? `${classes.active}` : `${classes.anchor} `
-          } 
+          }
           to="/"
         >
           Deals
@@ -27,7 +27,8 @@ const Nav = (props) => {
           About
         </NavLink>
         {state.user && state.user !== undefined ? (
-          <NavLink id='change'
+          <NavLink
+            id="change"
             className={({ isActive }) =>
               isActive ? `${classes.active}` : `${classes.anchor}`
             }

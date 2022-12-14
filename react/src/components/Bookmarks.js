@@ -4,22 +4,22 @@ import classes from '../routes/offers/Offers.module.css';
 import airPlane from '../media/Airplane-logo.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
-import Booking from '../routes/offers/Booking.js'
-import ScrollTop from './ScrollTop.js'
+import Booking from '../routes/offers/Booking.js';
+import ScrollTop from './ScrollTop.js';
 
 const Bookmarks = () => {
   const [state, dispatch] = useContext(FlightsContext);
 
   const user = state.user;
 
-  const deleteBookmark = (e) => {
+  const deleteBookmark = e => {
     e.preventDefault();
     const id = e.target.value;
     fetch(`http://localhost:1338/flights/${id}`, {
       method: 'DELETE',
       headers: { token: localStorage.getItem('token') },
     })
-      .then(res =>  res.json(), ) 
+      .then(res => res.json())
       .then(result => {
         if (result.success) {
           dispatch({
@@ -45,7 +45,7 @@ const Bookmarks = () => {
 
   useEffect(() => {
     console.log('bookmarks after', user);
-  }, [user])
+  }, [user]);
 
   /*  return (
     <div className={classes.offers}>
@@ -54,13 +54,13 @@ const Bookmarks = () => {
       </div> */
   if (user.flights.length > 0) {
     const bookmarks = user.flights.map(flight => {
-      return [flight.flight, flight._id]
-    })
+      return [flight.flight, flight._id];
+    });
     return (
       <div className={classes.offers}>
         {bookmarks.map((flight, iFlight) => {
-          const flight_data = JSON.parse(flight[0])
-          const flight_id = flight[1]
+          const flight_data = JSON.parse(flight[0]);
+          const flight_id = flight[1];
           return (
             <div key={iFlight} className={classes.mainBox}>
               <div className={classes.singleOffer}>
@@ -95,7 +95,8 @@ const Bookmarks = () => {
 
                         <div className={classes.duration}>
                           <p>
-                            {duration.slice(2, duration.split('').indexOf('H'))}h{' '}
+                            {duration.slice(2, duration.split('').indexOf('H'))}
+                            h{' '}
                             {duration.slice(5, 7)
                               ? `${duration.slice(5, 7)}m`
                               : ''}

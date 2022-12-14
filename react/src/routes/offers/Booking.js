@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import {getPrice} from '../../api/booking.price.api.js'
 import BookingForm from './BookingForm.js'
 
@@ -14,7 +14,7 @@ const Booking = (props) => {
     }).then(res => {
       setPricing(res.data)
       setToggle(true)
-    })
+    }).then()
   }
 
   return (

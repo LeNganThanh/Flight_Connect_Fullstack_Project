@@ -1,19 +1,18 @@
 import React, { Fragment, useContext, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAngleDown, faBookmark } from '@fortawesome/free-solid-svg-icons';
-
+import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
 import { FlightsContext } from '../../context/FlightsContext';
 import airPlane from '../../media/Airplane-logo.png';
 import classes from './Offers.module.css';
 import Activities from './Activities';
 import Booking from './Booking.js';
-import Button from '../../components/Button';
-import ScrollTop from '../../components/ScrollTop.js'
+import BookmarkIcon from './BookmarkIcon';
+import ScrollTop from '../../components/ScrollTop.js';
 
 import { useNavigate } from 'react-router';
 
 const Offers = props => {
-  const [state, dispatch] = useContext(FlightsContext);
+  const [state] = useContext(FlightsContext);
   const { offers, activities } = state;
 
   const navigate = useNavigate();
@@ -25,54 +24,6 @@ const Offers = props => {
       navigate('/');
     }
   }, []);
-
-  const bookmarkFlight = e => {
-    e.preventDefault();
-    let offerId = e.target.value || e.target.parentElement.value;
-    if (!state.user) {
-      dispatch({
-        type: 'setLogin',
-        login: true,
-      });
-    } else {
-      fetch('http://localhost:1338/flights', {
-        method: 'POST',
-        headers: {
-          token: localStorage.getItem('token'),
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          flight: JSON.stringify(offers[offerId]),
-          userId: state.user._id,
-        }),
-      })
-        .then(res => res.json())
-        .then(result => {
-          if (result.success) {
-            if (e.target.name === 'icon') {
-              e.target.classList.add(`${classes.bookMarked}`);
-              document.getElementById('change').classList.add(`${classes.change}`)
-              setTimeout(() =>{
-
-                document.getElementById('change').classList.remove(`${classes.change}`)
-              }, 2000)
-            } else {
-              e.target.classList.add(`${classes.bookMarked}`);
-              document.getElementById('change').classList.add(`${classes.change}`)
-               setTimeout(() =>{
-
-                document.getElementById('change').classList.remove(`${classes.change}`)
-              }, 2000)
-            }
-
-            dispatch({
-              type: 'setUser',
-              user: result.data,
-            });
-          }
-        });
-    }
-  };
 
   if (offers && offers !== undefined) {
     return (
@@ -87,12 +38,7 @@ const Offers = props => {
         {offers.map((offer, iOffer) => {
           return (
             <div key={iOffer} className={classes.mainBox}>
-              <Button name="icon" onClick={bookmarkFlight} value={iOffer}>
-                <FontAwesomeIcon
-                  className={classes.bookmarkIcon}
-                  icon={faBookmark}
-                />
-              </Button>
+              <BookmarkIcon offer={offer}  iOffer={iOffer}/>
 
               <div className={classes.singleOffer}>
                 {offer.itineraries.map((iti, itiIndex) => {
@@ -222,7 +168,7 @@ const Offers = props => {
             </div>
           );
         })}
-      <ScrollTop />
+        <ScrollTop />
       </div>
     );
   } else if (!offers && state.latitude !== '') {
