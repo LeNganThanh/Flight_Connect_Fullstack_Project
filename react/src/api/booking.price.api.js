@@ -1,19 +1,20 @@
-import axios from 'axios'
+import axios from "axios";
 
-const getPrice = (props) => {
+const getPrice = props => {
+  const out = axios.get(
+    `/api/booking/price?offer=${JSON.stringify(props.offer)}`
+  );
 
-  const out = axios.get(`http://localhost:1338/api/booking/price?offer=${JSON.stringify(props.offer)}`)
+  return out;
+};
 
-  return out
-}
-
-const placeOrder = (props) => {
-  const out = axios.post(`http://localhost:1338/api/booking/order`, {
+const placeOrder = props => {
+  const out = axios.post(`/api/booking/order`, {
     order: props.order,
-    travelers: props.travelers
-  })
-  
-  return out
-}
+    travelers: props.travelers,
+  });
 
-export {getPrice, placeOrder}
+  return out;
+};
+
+export { getPrice, placeOrder };

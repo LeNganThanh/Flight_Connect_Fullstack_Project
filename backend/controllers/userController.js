@@ -33,18 +33,15 @@ export const createUser = async (req, res, next) => {
   try {
     const user = new UserCollection(req.body);
     if (req.file) {
-      user.profileImage = `http://localhost:1338/${req.file.filename}`;
+      user.profileImage = `/${req.file.filename}`;
     }
     await user.save();
-    console.log(user);
     res.json({
       success: true,
       user,
     });
   } catch (err) {
-    
     next(err);
-
   }
 };
 
@@ -52,7 +49,7 @@ export const updateUser = async (req, res, next) => {
   try {
     let user = await UserCollection.findById(req.params.id);
     if (req.file) {
-      user.profileImage = `http://localhost:1338/${req.file.filename}`;
+      user.profileImage = `/${req.file.filename}`;
     }
     if (req.body.password) {
       user.password = req.body.password;
@@ -69,7 +66,7 @@ export const updateUser = async (req, res, next) => {
       req.params.id,
       newBody,
       { new: true }
-    ).populate('flights')
+    ).populate("flights");
     res.json({
       success: true,
       data: updateUser,
@@ -108,16 +105,16 @@ export const loginUser = async (req, res, next) => {
           user._id,
           { token: token },
           { new: true }
-        ).populate('flights') 
+        ).populate("flights");
         res.header("token", token);
         res.json({
           success: true,
           data: updateUser,
         });
       } else {
-        const error = new Error("Password does not match")
+        const error = new Error("Password does not match");
         console.log(error);
-        throw error
+        throw error;
       }
     } else {
       throw new Error("Email does not match");
@@ -132,9 +129,7 @@ export const checkUserToken = async (req, res, next) => {
     const token = req.headers.token;
     const payload = jwt.verify(token, process.env.TOKEN_SECRET_KEY);
 
-    const user = await UserCollection.findById(
-      payload._id
-    ).populate('flights') 
+    const user = await UserCollection.findById(payload._id).populate("flights");
     res.json({
       success: true,
       data: user,

@@ -1,10 +1,10 @@
-import Button from './Button.js';
-import toast, { Toaster } from 'react-hot-toast';
-import { FlightsContext } from '../context/FlightsContext.js';
-import React, { useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
+import Button from "./Button.js";
+import toast, { Toaster } from "react-hot-toast";
+import { FlightsContext } from "../context/FlightsContext.js";
+import React, { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 
-import classes from './Settings.module.css';
+import classes from "./Settings.module.css";
 
 export default function Settings(props) {
   const [state, dispatch] = useContext(FlightsContext);
@@ -16,17 +16,17 @@ export default function Settings(props) {
 
     const data = new FormData(e.target);
 
-    fetch(`http://localhost:1338/users/${user._id}`, {
-      method: 'PATCH',
-      headers: { token: localStorage.getItem('token') },
+    fetch(`/users/${user._id}`, {
+      method: "PATCH",
+      headers: { token: localStorage.getItem("token") },
       body: data,
     })
       .then(res => res.json())
       .then(result => {
         if (result.success) {
-          toast.success('Successfully Updated!');
+          toast.success("Successfully Updated!");
           dispatch({
-            type: 'setUser',
+            type: "setUser",
             user: result.data,
           });
           setTimeout(() => {
@@ -39,12 +39,12 @@ export default function Settings(props) {
   };
 
   const logout = () => {
-    localStorage.removeItem('token');
+    localStorage.removeItem("token");
     dispatch({
-      type: 'setUser',
+      type: "setUser",
       user: null,
     });
-    navigate('/');
+    navigate("/");
     props.setSettings(false);
 
     setTimeout(() => {
@@ -53,20 +53,20 @@ export default function Settings(props) {
   };
 
   const deleteUserAccount = () => {
-    fetch(`http://localhost:1338/users/${user._id}`, {
-      method: 'DELETE',
-      headers: { token: localStorage.getItem('token') },
+    fetch(`/users/${user._id}`, {
+      method: "DELETE",
+      headers: { token: localStorage.getItem("token") },
     })
       .then(res => res.json())
       .then(result => {
         if (result.success) {
-          toast.success('The account is deleted');
+          toast.success("The account is deleted");
           setTimeout(() => {
             dispatch({
-              type: 'setUser',
+              type: "setUser",
               user: null,
             });
-            localStorage.removeItem('token');
+            localStorage.removeItem("token");
             props.setSettings(false);
             props.setLoggedIn(false);
           }, 1000);
@@ -102,7 +102,7 @@ export default function Settings(props) {
         <Button>Update Account</Button>
         {user && (
           <>
-            {' '}
+            {" "}
             <img src={user.profileImage} alt="profileImage" />
             <h3 className={classes.userName}>{user.fullName}</h3>
           </>
