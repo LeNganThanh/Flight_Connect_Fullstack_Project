@@ -15,7 +15,7 @@ const Deals = () => {
           .then(res => res.data.split(",")[6].slice(8, -1));
         localStorage.setItem("ip", ip);
         await axios
-          .get(`http://www.geoplugin.net/json.gp?ip=${ip}`)
+          .get(`//www.geoplugin.net/json.gp?ip=${ip}`)
           .then(res => {
             const lat = (
               Number(res.data.geoplugin_latitude) + 0.000069
