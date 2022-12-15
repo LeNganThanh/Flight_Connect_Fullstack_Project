@@ -52,7 +52,7 @@ const upload = multer({ storage: storage });
 
 //===> Mongoose connection
 /* mongoose.set('strictQuery', true) */
- mongoose.connect(MONGOOSE_URL); 
+mongoose.connect(MONGOOSE_URL); 
 /* mongoose.connect(
   process.env.URL,
   { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true },
