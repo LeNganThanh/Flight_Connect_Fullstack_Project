@@ -114,8 +114,16 @@ app.use((err, req, res, next) => {
 }); */
  
 
+
+
+const server = https.createServer(httpsOptions, app);
+
+server.listen(PORT, () => {
+  console.log("server starting on port : " + PORT)
+});
+
  //===> https server listen
-app.listen = function(){
+/* app.listen = function(){
   const server = https.createServer(httpsOptions, this);
   return server.listen.apply(server);
-} 
+}  */
