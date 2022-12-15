@@ -3,9 +3,9 @@ export const initialGeoState = {
   latitude: '41.296950',
   longitude: '2.078340',
   offers: false,
-  activities: {},
+  activities: [],
   deals: false,
-  user: null,
+  user: false,
   bookmarks: [],
   login: false,
 }

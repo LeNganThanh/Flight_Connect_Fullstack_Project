@@ -76,13 +76,18 @@ app.use("/", bookingRoute);
 
 //===> Static files
 app.use(express.static('upload'))
-app.use(express.static("../react/build"));
+
+//===> deployment serving front end (client)
+app.use(express.static("view/build"));
+app.get('/', (req, res) => {
+  res.sendFile('./view/build/index.html', {root: '.'})
+})
 
 //===> Build 
-app.get("/", (req, res) => {
+/* app.get("/", (req, res) => {
   res.sendFile("../react/build/index.html", { root: "." });
 });
-
+ */
 //===> Error handler
 app.use((err, req, res, next) => {
   res.status(err.status || 500 ).json({success: false, message: err.message})

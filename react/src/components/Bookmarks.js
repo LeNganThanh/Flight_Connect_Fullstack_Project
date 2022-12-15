@@ -1,16 +1,27 @@
-import React, { Fragment, useContext } from "react";
+import React, { Fragment, useContext, useEffect} from "react";
 import { FlightsContext } from "../context/FlightsContext";
 import classes from "../routes/offers/Offers.module.css";
 import airPlane from "../media/Airplane-logo.png";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import Booking from "../routes/offers/Booking.js";
 import ScrollTop from "./ScrollTop.js";
+import { useNavigate } from "react-router-dom";
+
 
 const Bookmarks = () => {
   const [state, dispatch] = useContext(FlightsContext);
-
+  
+  const navigate = useNavigate()
   const user = state.user;
+
+  useEffect(() => {
+    if ( !user ) {
+      navigate('/');
+    }
+  }, [user]);
+
 
   const deleteBookmark = e => {
     e.preventDefault();
@@ -47,7 +58,7 @@ const Bookmarks = () => {
   };
 
 
-  if (user.flights.length > 0) {
+  if (user && user.flights.length > 0) {
     const bookmarks = user.flights.map(flight => {
       return [flight.flight, flight._id];
     });

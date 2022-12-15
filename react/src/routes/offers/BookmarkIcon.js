@@ -7,27 +7,27 @@ import { faBookmark } from '@fortawesome/free-solid-svg-icons';
 
 const BookmarkIcon = props => {
   const [state, dispatch] = useContext(FlightsContext);
-  const [active, setActive] = useState(false)
+  const [active, setActive] = useState(false);
   const { offer } = props;
   const [index, setIndex] = useState(false);
 
-//===> bookmark class handler
- 
-useEffect(() => {
-  const check = state.bookmarks.map(mark => {
-    if (mark.includes(props.value)) {
-      return true
+  //===> bookmark class handler
+
+  useEffect(() => {
+    const check = state.bookmarks.map(mark => {
+      if (mark.includes(props.value)) {
+        return true;
+      } else {
+        return false;
+      }
+    }, []);
+
+    if (check.includes(true)) {
+      setActive(true);
     } else {
-      return false
+      setActive(false);
     }
-  }, []) 
-  console.log(check)
-  if(check.includes(true)){
-    setActive(true)
-  }else{
-    setActive(false)
-  }
-})
+  });
 
   const bookmarkFlight = e => {
     e.preventDefault();
@@ -53,7 +53,6 @@ useEffect(() => {
         .then(result => {
           if (result.success) {
             if (e.target.name === 'icon') {
-            
               document
                 .getElementById('change')
                 .classList.add(`${classes.change}`);
@@ -76,8 +75,11 @@ useEffect(() => {
 
             dispatch({
               type: 'setBookmarks',
-              bookmark: [...state.bookmarks, [result.data.flights.at(-1)._id, props.value]]
-            })
+              bookmark: [
+                ...state.bookmarks,
+                [result.data.flights.at(-1)._id, props.value],
+              ],
+            });
 
             dispatch({
               type: 'setUser',
@@ -92,23 +94,27 @@ useEffect(() => {
     e.preventDefault();
     const check = state.bookmarks.map(mark => {
       if (mark.includes(props.value)) {
-        return true
+        return true;
       } else {
-        return false
+        return false;
       }
-    }) 
-    fetch(`http://localhost:1338/flights/${state.bookmarks[check.indexOf(true)][0]}`, {
-      method: 'DELETE',
-      headers: { token: localStorage.getItem('token') },
-    })
+    });
+    fetch(
+      `http://localhost:1338/flights/${
+        state.bookmarks[check.indexOf(true)][0]
+      }`,
+      {
+        method: 'DELETE',
+        headers: { token: localStorage.getItem('token') },
+      }
+    )
       .then(res => res.json())
       .then(result => {
         if (result.success) {
-
           dispatch({
             type: 'deleteBookmark',
-            bookmark: check.indexOf(true)
-          })
+            bookmark: check.indexOf(true),
+          });
           dispatch({
             type: 'setUser',
             user: result.data,
@@ -127,7 +133,11 @@ useEffect(() => {
 
   return (
     <div>
-      <Button name="icon" onClick={toggleBookmark} className={active && state.user ? classes.bookMarked : ''}>
+      <Button
+        name="icon"
+        onClick={toggleBookmark}
+        className={active && state.user ? classes.bookMarked : ''}
+      >
         <FontAwesomeIcon className={classes.bookmarkIcon} icon={faBookmark} />
       </Button>
     </div>
