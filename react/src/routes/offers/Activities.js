@@ -14,8 +14,6 @@ const Activities = props => {
   const [state, dispatch] = useContext(FlightsContext);
   const { activities, offers } = state;
 
-  const inputTo = document.getElementById('to');
-
   const [counter, setCounter] = useState(0);
   const [photoCounter, setPhotoCounter] = useState([0, 0, 0]);
   const [divider, setDivider] = useState(0);
@@ -172,7 +170,7 @@ const Activities = props => {
     <div>
       {photos && photos !== undefined ? (
         <div>
-          <h2 className={classes.topTitle}>Attractions in {inputTo.value}</h2>
+          <h2 className={classes.topTitle}>Attractions in {state.cities[1]}</h2>
           <div className={classes.activBox}>
             <Button className={classes.slidesBtn} onClick={previous}>
               <FontAwesomeIcon onClick={previous} icon={faChevronLeft} />

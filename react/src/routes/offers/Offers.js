@@ -16,8 +16,6 @@ const Offers = props => {
   const { offers, activities } = state;
 
   const navigate = useNavigate();
-  const inputFrom = document.getElementById('from');
-  const inputTo = document.getElementById('to');
 
   useEffect(() => {
     if (!offers && state.latitude === '') {
@@ -32,7 +30,7 @@ const Offers = props => {
 
         <div className={classes.offersHeader}>
           <h2>
-            {inputFrom.value} | {inputTo.value}
+            {state.cities[0]} | {state.cities[1]}
           </h2>
         </div>
         {offers.map((offer, iOffer) => {

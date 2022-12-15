@@ -125,7 +125,7 @@ const BookingForm = props => {
       if (result.data.data && state.user) {
         console.log(result.data.data);
         setBookedFlight(result.data.data);
-        fetch('http://localhost:1338/orders', {
+        fetch('/orders', {
           method: 'POST',
           headers: {
             token: localStorage.getItem('token'),

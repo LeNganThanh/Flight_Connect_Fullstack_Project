@@ -38,7 +38,7 @@ const BookmarkIcon = props => {
         login: true,
       });
     } else {
-      fetch('http://localhost:1338/flights', {
+      fetch('/flights', {
         method: 'POST',
         headers: {
           token: localStorage.getItem('token'),
