@@ -33,7 +33,7 @@ const PORT = process.env.PORT || 1338;
 //===> Using the packages
 app.use(morgan("dev"));
 app.use(express.json());
-/* app.use(cors({ origin: "*", exposedHeaders: ['token'] })); */
+ app.use(cors({ origin: "*", exposedHeaders: ['token'] })); 
 
 //===> Multer
 
@@ -52,14 +52,14 @@ const upload = multer({ storage: storage });
 
 //===> Mongoose connection
 mongoose.set('strictQuery', true)
-/* mongoose.connect(MONGOOSE_URL); */
-mongoose.connect(
+ mongoose.connect(MONGOOSE_URL); 
+/* mongoose.connect(
   process.env.URL,
   { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true },
   () => {
     console.log('Connected to MongoDB');
   }
-);
+); */
 
 //===> Routes
 app.use("/users", upload.single("image"), userRoute);
