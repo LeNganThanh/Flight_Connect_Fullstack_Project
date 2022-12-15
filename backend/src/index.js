@@ -51,7 +51,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 //===> Mongoose connection
-
+mongoose.set('strictQuery', true)
 mongoose.connect(MONGOOSE_URL);
 
 //===> Routes
