@@ -28,7 +28,7 @@ import { MONGOOSE_URL } from "./config.js";
 
 // ===> Setting the server
 const app = express();
-const PORT = 1338;
+const PORT = process.env.PORT || 1338;
 
 //===> Using the packages
 app.use(morgan("dev"));
