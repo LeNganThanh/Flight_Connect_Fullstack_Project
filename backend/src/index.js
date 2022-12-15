@@ -104,8 +104,8 @@ app.use((err, req, res, next) => {
 
 
   const httpsOptions = {
-  cert:'./secrets/SSL_CERT' || './secret-files/flightconnect.dev_ssl_certificate.cer' ,
-  key: './secrets/SSL_KEY' || './secret-files/_.flightconnect.dev_private_key.key'
+  cert: process.SSL_CERT|| './secret-files/flightconnect.dev_ssl_certificate.cer' ,
+  key: process.SSL_KEY || './secret-files/_.flightconnect.dev_private_key.key'
  } 
 // ===> listening to the server 
 
