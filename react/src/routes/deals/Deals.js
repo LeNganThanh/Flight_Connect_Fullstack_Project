@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import classes from './Deals.module.css';
 import DealDisplay from './dealDisplay.js';
 import { getAirport } from '../../api/airport.api.js';
-import {Ip4Dev} from "./src";
+import axios from 'axios'
 
 const Deals = () => {
   const [geoInfo, setGeoInfo] = useState(false);
@@ -11,30 +10,19 @@ const Deals = () => {
   useEffect(() => {
     if (!geoInfo) {
       const getData = async () => {
-        // const ip = await axios
-        //   .get(`https://geolocation-db.com/jsonp/`)
-        //   .then(res => res.data.split(',')[6].slice(8, -1));
-        // let lat;
-        // let long;
-        // await axios.get(`http://www.geoplugin.net/json.gp?ip=${ip}`).then(res => {
-        //   lat = (Number(res.data.geoplugin_latitude) + 0.000069).toFixed(6);
-        //   long = (Number(res.data.geoplugin_longitude) + 0.000069).toFixed(6);
-        // });
-        //
-          let localInfo;
+         const ip = await axios
+           .get(`https://geolocation-db.com/jsonp/`)
+           .then(res => res.data.split(',')[6].slice(8, -1));
+         let lat;
+         let long;
+         await axios.get(`https://ipwho.is/${ip}`).then(res => {
+           lat = res.data.latitude
+           long = res.data.longitude
+         });
         
-          let ip4dev = new Ip4Dev()
-          ip4dev.myIp().then((ip)=>{
-              console.log(ip);
-          });
-          ip4dev.ipInfo("").then((info)=>{
-              console.log(info);
-              localInfo = info
-          });
-
         const airport = await getAirport({
-          latitude: localInfo.Ip4DevResponse.latitude.toFixed(6),
-          longitude: localInfo.Ip4DevResponse.longitude.toFixed(6),
+          latitude: lat.toFixed(6),
+          longitude: long.toFixed(6),
           radius: 100,
           sort: 'distance',
         });
