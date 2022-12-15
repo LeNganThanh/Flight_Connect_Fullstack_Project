@@ -15,7 +15,7 @@ const Deals = () => {
           .then(res => res.data.split(',')[6].slice(8, -1));
         let lat;
         let long;
-        await axios.get(`//www.geoplugin.net/json.gp?ip=${ip}`).then(res => {
+        await axios.get(`http://www.geoplugin.net/json.gp?ip=${ip}`).then(res => {
           lat = (Number(res.data.geoplugin_latitude) + 0.000069).toFixed(6);
           long = (Number(res.data.geoplugin_longitude) + 0.000069).toFixed(6);
         });
