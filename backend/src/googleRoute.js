@@ -25,7 +25,7 @@ router.get(`/${API}/google/details`, async(req, res) => {
     const getDetails = async() => {
       let details = []
       let count = 0 
-      while (count < places.length) {
+      while ( count < places.length ) {
         const detail = await googleapi.runPlaceDetails(places[count])
         details.push(detail)
         count++

@@ -28,12 +28,12 @@ import { MONGOOSE_URL } from "./config.js";
 
 // ===> Setting the server
 const app = express();
-const PORT = 1338;
+const PORT = process.env.PORT || 1338;
 
 //===> Using the packages
 app.use(morgan("dev"));
 app.use(express.json());
-app.use(cors({ origin: "*", exposedHeaders: ['token'] }));
+ app.use(cors({ origin: "*", exposedHeaders: ['token'] })); 
 
 //===> Multer
 
@@ -51,8 +51,15 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 //===> Mongoose connection
-
-mongoose.connect(MONGOOSE_URL);
+mongoose.set('strictQuery', true)
+ mongoose.connect(MONGOOSE_URL); 
+/* mongoose.connect(
+  process.env.URL,
+  { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true },
+  () => {
+    console.log('Connected to MongoDB');
+  }
+); */
 
 //===> Routes
 app.use("/users", upload.single("image"), userRoute);
@@ -76,13 +83,18 @@ app.use("/", bookingRoute);
 
 //===> Static files
 app.use(express.static('upload'))
-app.use(express.static("../react/build"));
+
+//===> deployment serving front end (client)
+app.use(express.static("view/build"));
+app.get('/', (req, res) => {
+  res.sendFile('./view/build/index.html', {root: '.'})
+})
 
 //===> Build 
-app.get("/", (req, res) => {
+/* app.get("/", (req, res) => {
   res.sendFile("../react/build/index.html", { root: "." });
 });
-
+ */
 //===> Error handler
 app.use((err, req, res, next) => {
   res.status(err.status || 500 ).json({success: false, message: err.message})

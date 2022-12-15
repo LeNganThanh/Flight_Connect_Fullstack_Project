@@ -1,36 +1,29 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import classes from "./Deals.module.css";
-import DealDisplay from "./dealDisplay.js";
-import { getAirport } from "../../api/airport.api.js";
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import classes from './Deals.module.css';
+import DealDisplay from './dealDisplay.js';
+import { getAirport } from '../../api/airport.api.js';
 
 const Deals = () => {
   const [geoInfo, setGeoInfo] = useState(false);
 
   useEffect(() => {
-    if (!localStorage.getItem("airportCodes") && !geoInfo) {
+    if (!geoInfo) {
       const getData = async () => {
         const ip = await axios
           .get(`https://geolocation-db.com/jsonp/`)
-          .then(res => res.data.split(",")[6].slice(8, -1));
-        localStorage.setItem("ip", ip);
-        await axios
-          .get(`http://www.geoplugin.net/json.gp?ip=${ip}`)
-          .then(res => {
-            const lat = (
-              Number(res.data.geoplugin_latitude) + 0.000069
-            ).toFixed(6);
-            const long = (
-              Number(res.data.geoplugin_longitude) + 0.000069
-            ).toFixed(6);
-            localStorage.setItem("latitude", lat);
-            localStorage.setItem("longitude", long);
-          });
+          .then(res => res.data.split(',')[6].slice(8, -1));
+        let lat;
+        let long;
+        await axios.get(`//www.geoplugin.net/json.gp?ip=${ip}`).then(res => {
+          lat = (Number(res.data.geoplugin_latitude) + 0.000069).toFixed(6);
+          long = (Number(res.data.geoplugin_longitude) + 0.000069).toFixed(6);
+        });
         const airport = await getAirport({
-          latitude: localStorage.getItem("latitude"),
-          longitude: localStorage.getItem("longitude"),
+          latitude: lat,
+          longitude: long,
           radius: 100,
-          sort: "distance",
+          sort: 'distance',
         });
         const airports = airport.data.data.slice(0, 5);
         let airportCodes = [];
@@ -43,18 +36,16 @@ const Deals = () => {
             geoCode: port.geoCode,
           })
         );
-        localStorage.setItem("airportCodes", JSON.stringify(airportCodes));
+
         setGeoInfo(airportCodes);
       };
       getData();
-    } else if (localStorage.getItem("airportCodes") && !geoInfo) {
-      setGeoInfo(JSON.parse(localStorage.getItem("airportCodes")));
     }
   }, [geoInfo]);
 
   return (
     <React.Fragment>
-      <div className={classes["info-box"]}>
+      <div className={classes['info-box']}>
         <div className={classes.box}>
           <div>
             <img
@@ -93,7 +84,7 @@ const Deals = () => {
         </div>
       </div>
 
-      <div className={classes["info-box"]}>
+      <div className={classes['info-box']}>
         {geoInfo ? <DealDisplay geoInfo={geoInfo} /> : null}
       </div>
     </React.Fragment>

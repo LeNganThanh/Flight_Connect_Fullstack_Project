@@ -4,32 +4,32 @@ import React, {
   useEffect,
   useCallback,
   useContext,
-} from "react";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import { debounce } from "lodash";
-import { getAmadeusData } from "../../api/amadeus.api";
-import DropDown from "./DropDown.js";
-import classes from "./FlightsForm.module.css";
-import button from "../../components/Button.module.css";
-import Button from "../../components/Button.js";
-import { getSearchData } from "../../api/search.api";
-import { getActivities } from "../../api/activities.api";
-import { FlightsContext } from "../../context/FlightsContext";
+} from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { debounce } from 'lodash';
+import { getAmadeusData } from '../../api/amadeus.api';
+import DropDown from './DropDown.js';
+import classes from './FlightsForm.module.css';
+import button from '../../components/Button.module.css';
+import Button from '../../components/Button.js';
+import { getSearchData } from '../../api/search.api';
+import { getActivities } from '../../api/activities.api';
+import { FlightsContext } from '../../context/FlightsContext';
 //import Button from "../../components/Button";
 
 const FlightsForm = props => {
   /*  const [departure, setDeparture] = useState('');
   const [destination, setDestination] = useState(''); */
   const [state, dispatch] = useContext(FlightsContext);
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState('');
   const [options, setOptions] = useState([]);
   const [open1, setOpen1] = useState(false);
   const [open2, setOpen2] = useState(false);
   const [oneWay, setOneWay] = useState(false);
-  const [keyword, setKeyword] = useState("");
+  const [keyword, setKeyword] = useState('');
   // const [loading, setLoading] = useState(false);
-  const returnDate = document.getElementById("returnDate");
+  const returnDate = document.getElementById('returnDate');
   const navigate = useNavigate();
 
   /*   const names = options.map(i => ({ type: i.subType, name: i.name }));
@@ -68,12 +68,12 @@ const FlightsForm = props => {
 
   const inputHandler = e => {
     e.preventDefault();
-    if (e.target.id === "from" && e.target.value.length !== 0) {
+    if (e.target.id === 'from' && e.target.value.length !== 0) {
       setSearch(e.target.value);
       props.setSearch(p => ({ ...p, keyword: `${e.target.value}`, page: 0 }));
       setOpen2(false);
       setOpen1(true);
-    } else if (e.target.id === "to" && e.target.value.length !== 0) {
+    } else if (e.target.id === 'to' && e.target.value.length !== 0) {
       setSearch(e.target.value);
       props.setSearch(p => ({ ...p, keyword: `${e.target.value}`, page: 0 }));
       setOpen1(false);
@@ -85,8 +85,8 @@ const FlightsForm = props => {
   };
 
   const fillInput = e => {
-    const inputFrom = document.getElementById("from");
-    const inputTo = document.getElementById("to");
+    const inputFrom = document.getElementById('from');
+    const inputTo = document.getElementById('to');
     if (open1) {
       inputFrom.value = e.target.innerText;
       inputFrom.name = e.target.name;
@@ -99,21 +99,16 @@ const FlightsForm = props => {
   };
 
   const submitHandler = async () => {
-    const inputFrom = document.getElementById("from");
-    const inputTo = document.getElementById("to");
-    const inputAdult = document.getElementById("adults");
-    const inputChildren = document.getElementById("children");
-    const dateOfDeparture = document.getElementById("departureDate");
-    const dateOfReturn = document.getElementById("returnDate");
+    const inputFrom = document.getElementById('from');
+    const inputTo = document.getElementById('to');
+    const inputAdult = document.getElementById('adults');
+    const inputChildren = document.getElementById('children');
+    const dateOfDeparture = document.getElementById('departureDate');
+    const dateOfReturn = document.getElementById('returnDate');
 
-    navigate("/flights");
+    navigate('/flights');
 
-    await getActivities({
-      latitude: state.latitude,
-      longitude: state.longitude,
-    }).then(result => {
-      setActivities(result.data);
-    });
+   
 
     await getSearchData({
       originCode: inputFrom.name,
@@ -131,23 +126,29 @@ const FlightsForm = props => {
     }).then(result => {
       setOffers(result.data.data);
     });
+    await getActivities({
+      latitude: state.latitude,
+      longitude: state.longitude,
+    }).then(result => {
+      setActivities(result.data);
+    });
 
     dispatch({
-      type: "setBookmarks",
+      type: 'setBookmarks',
       bookmark: [],
     });
   };
 
   const setOffers = async value => {
     await dispatch({
-      type: "setOffers",
+      type: 'setOffers',
       offers: value,
     });
   };
 
   const setActivities = async value => {
     await dispatch({
-      type: "setActivities",
+      type: 'setActivities',
       activities: value,
     });
   };
@@ -161,10 +162,10 @@ const FlightsForm = props => {
     let currYear = d.getFullYear();
     return (
       currYear +
-      "-" +
-      (currMonth < 10 ? "0" + currMonth : currMonth) +
-      "-" +
-      (currDate < 10 ? "0" + currDate : currDate)
+      '-' +
+      (currMonth < 10 ? '0' + currMonth : currMonth) +
+      '-' +
+      (currDate < 10 ? '0' + currDate : currDate)
     );
   }
   function returnD() {
@@ -175,18 +176,18 @@ const FlightsForm = props => {
     let currYear = d.getFullYear();
     return (
       currYear +
-      "-" +
-      (currMonth < 10 ? "0" + currMonth : currMonth) +
-      "-" +
-      (currDate < 10 ? "0" + currDate : currDate)
+      '-' +
+      (currMonth < 10 ? '0' + currMonth : currMonth) +
+      '-' +
+      (currDate < 10 ? '0' + currDate : currDate)
     );
   }
 
-  const inputAdult = document.getElementById("adults");
-  const inputChildren = document.getElementById("children");
+  const inputAdult = document.getElementById('adults');
+  const inputChildren = document.getElementById('children');
 
   const babySitter = e => {
-    if (e.target.id === "adults") {
+    if (e.target.id === 'adults') {
       if (
         Number(inputAdult.value) + Number(inputChildren.value) > 9 &&
         inputAdult.value <= 9
@@ -200,7 +201,7 @@ const FlightsForm = props => {
         inputAdult.value = 1;
       }
     }
-    if (e.target.id === "children") {
+    if (e.target.id === 'children') {
       if (
         Number(inputChildren.value) + Number(inputAdult.value) > 9 &&
         inputChildren.value < 9
@@ -230,7 +231,7 @@ const FlightsForm = props => {
                 setOneWay(false);
                 returnDate.value = returnD();
               }}
-            />{" "}
+            />{' '}
             Roundtrip
           </div>
           <div>
@@ -240,9 +241,9 @@ const FlightsForm = props => {
               name="trip"
               onChange={() => {
                 setOneWay(true);
-                returnDate.value = "";
+                returnDate.value = '';
               }}
-            />{" "}
+            />{' '}
             One way
           </div>
         </div>
@@ -252,9 +253,9 @@ const FlightsForm = props => {
             <input
               autoComplete="off"
               id="from"
+              defaultValue= 'LONDON'
+              name= 'LON'
               onChange={inputHandler}
-              defaultValue="LONDON"
-              name="LON"
               type="text"
               placeholder="City / Airport"
             />
@@ -267,9 +268,9 @@ const FlightsForm = props => {
             <input
               autoComplete="off"
               id="to"
+              defaultValue= 'BARCELONA'
+              name= 'BCN'
               onChange={inputHandler}
-              defaultValue="BARCELONA"
-              name="BCN"
               type="text"
               placeholder="City / Airport"
             />
@@ -299,7 +300,7 @@ const FlightsForm = props => {
               className={classes.info}
               type="date"
               placeholder="Return"
-              disabled={oneWay && "disabled"}
+              disabled={oneWay && 'disabled'}
             />
           </div>
           <div>

@@ -3,9 +3,9 @@ export const initialGeoState = {
   latitude: '41.296950',
   longitude: '2.078340',
   offers: false,
-  activities: {},
+  activities: [],
   deals: false,
-  user: null,
+  user: false,
   bookmarks: [],
   login: false,
 }
@@ -49,14 +49,12 @@ export const geoReducer = function(state, action) {
       }
     }case 'deleteBookmark': {
       let copy = state.bookmarks
-      copy.splice(copy.indexOf(action.bookmark), 1)
+      copy.splice(action.bookmark, 1)
       return{
         ...state,
         bookmarks: copy
       }
-    }
-    
-    case 'setFlights':{
+    }case 'setFlights':{
       return{
         ...state,
         flight: action.flight

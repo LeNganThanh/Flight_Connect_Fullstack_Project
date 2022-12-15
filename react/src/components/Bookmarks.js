@@ -1,16 +1,27 @@
-import React, { Fragment, useContext } from "react";
+import React, { Fragment, useContext, useEffect} from "react";
 import { FlightsContext } from "../context/FlightsContext";
 import classes from "../routes/offers/Offers.module.css";
 import airPlane from "../media/Airplane-logo.png";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import Booking from "../routes/offers/Booking.js";
 import ScrollTop from "./ScrollTop.js";
+import { useNavigate } from "react-router-dom";
+
 
 const Bookmarks = () => {
   const [state, dispatch] = useContext(FlightsContext);
-
+  
+  const navigate = useNavigate()
   const user = state.user;
+
+  useEffect(() => {
+    if ( !user ) {
+      navigate('/');
+    }
+  }, [user]);
+
 
   const deleteBookmark = e => {
     e.preventDefault();
@@ -27,35 +38,27 @@ const Bookmarks = () => {
             user: result.data,
           });
 
-          if (state.bookmarks.includes(id)) {
+          
+          const check = state.bookmarks.map(mark => {
+            if (mark.includes(id)) {
+              return true
+            } else {
+              return false
+            }
+          }) 
+          if (check.includes(true)){
             dispatch({
-              type: "deleteBookmark",
-              bookmark: id,
-            });
+              type: 'deleteBookmark',
+              bookmark: check.indexOf(true)
+            })
+
           }
         }
       });
   };
 
-  // useEffect(() => {
-  //   if(user.flights.length > 0){
-  //       console.log('useEffect', user)
-  //     const bookmarks = user.flights.map(flight => {
-  //     console.log(user.flights);
-  //     return [JSON.parse(flight.flight), flight._id];
-  //   });
-  //   dispatch({
-  //     type: 'setBookmarks',
-  //     bookmarks: bookmarks,
-  //   })};
-  // }, [user]);
 
-  /*  return (
-    <div className={classes.offers}>
-      <div className={classes.offersHeader}>
-        <h2>Bookmarks</h2>
-      </div> */
-  if (user.flights.length > 0) {
+  if (user && user.flights.length > 0) {
     const bookmarks = user.flights.map(flight => {
       return [flight.flight, flight._id];
     });

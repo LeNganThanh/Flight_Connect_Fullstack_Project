@@ -20,7 +20,7 @@ const DealDisplay = props => {
   const dateOfReturn = document.getElementById("returnDate");
 
   useEffect(() => {
-    if (!localStorage.getItem("deals")) {
+    if (!deals) {
       const getData = async () => {
         const deals = await getDeals({
           geoInfo: props.geoInfo,
@@ -28,20 +28,15 @@ const DealDisplay = props => {
           dateOfReturn: dateOfReturn.value,
         });
         if (deals.data[0]) {
-          localStorage.setItem("deals", JSON.stringify(deals.data));
+          
           setTopDestinations(deals.data[0]);
           setDeals(deals.data[1]);
           setDealInfo(deals.data[2]);
         }
       };
       getData();
-    } else if (localStorage.getItem("deals") && !deals) {
-      const localDeals = JSON.parse(localStorage.getItem("deals"));
-      setTopDestinations(localDeals[0]);
-      setDeals(localDeals[1]);
-      setDealInfo(localDeals[2]);
     }
-  }, [dateOfDeparture, dateOfReturn, deals, props]);
+  }, []);
 
   const TopDestinations = () => {
     return (
