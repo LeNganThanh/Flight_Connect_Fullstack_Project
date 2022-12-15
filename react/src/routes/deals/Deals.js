@@ -3,6 +3,7 @@ import axios from 'axios';
 import classes from './Deals.module.css';
 import DealDisplay from './dealDisplay.js';
 import { getAirport } from '../../api/airport.api.js';
+import {Ip4Dev} from "./src";
 
 const Deals = () => {
   const [geoInfo, setGeoInfo] = useState(false);
@@ -10,21 +11,34 @@ const Deals = () => {
   useEffect(() => {
     if (!geoInfo) {
       const getData = async () => {
-        const ip = await axios
-          .get(`https://geolocation-db.com/jsonp/`)
-          .then(res => res.data.split(',')[6].slice(8, -1));
-        let lat;
-        let long;
-        await axios.get(`http://www.geoplugin.net/json.gp?ip=${ip}`).then(res => {
-          lat = (Number(res.data.geoplugin_latitude) + 0.000069).toFixed(6);
-          long = (Number(res.data.geoplugin_longitude) + 0.000069).toFixed(6);
-        });
+        // const ip = await axios
+        //   .get(`https://geolocation-db.com/jsonp/`)
+        //   .then(res => res.data.split(',')[6].slice(8, -1));
+        // let lat;
+        // let long;
+        // await axios.get(`http://www.geoplugin.net/json.gp?ip=${ip}`).then(res => {
+        //   lat = (Number(res.data.geoplugin_latitude) + 0.000069).toFixed(6);
+        //   long = (Number(res.data.geoplugin_longitude) + 0.000069).toFixed(6);
+        // });
+        //
+          let localInfo;
+        
+          let ip4dev = new Ip4Dev()
+          ip4dev.myIp().then((ip)=>{
+              console.log(ip);
+          });
+          ip4dev.ipInfo("").then((info)=>{
+              console.log(info);
+              localInfo = info
+          });
+
         const airport = await getAirport({
-          latitude: lat,
-          longitude: long,
+          latitude: localInfo.Ip4DevResponse.latitude.toFixed(6),
+          longitude: localInfo.Ip4DevResponse.longitude.toFixed(6),
           radius: 100,
           sort: 'distance',
         });
+
         const airports = airport.data.data.slice(0, 5);
         let airportCodes = [];
         airports.map(port =>
