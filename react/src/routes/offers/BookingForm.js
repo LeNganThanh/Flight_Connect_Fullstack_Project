@@ -186,6 +186,7 @@ const BookingForm = props => {
                       <input
                         type="date"
                         name="birthDay"
+                        defaultValue='1984-06-06'
                         placeholder="Date of birth:"
                       ></input>
 
@@ -201,12 +202,14 @@ const BookingForm = props => {
                         type="email"
                         name="email"
                         placeholder="Email address:"
+                        defaultValue='example@example.com'
                       ></input>
 
                       <input
                         type="tel"
                         pattern="[0-9]{2,3}"
                         name="tel1"
+                        defaultValue='49'
                         placeholder="Country Code:"
                       ></input>
                       <input
@@ -214,6 +217,7 @@ const BookingForm = props => {
                         pattern="[0-9]{4,8}"
                         name="tel2"
                         placeholder="Phonenumber:"
+                        defaultValue='2346742'
                       ></input>
                     </div>
 
@@ -222,31 +226,34 @@ const BookingForm = props => {
                       <input
                         type="text"
                         name="birthPlace"
-                        placeholder="Place of birth:"
+                        placeholder="Place of birth: (Berlin)"
                       ></input>
                       <input
                         type="text"
                         name="city"
-                        placeholder="City:"
+                        placeholder="City name: (London)"
                       ></input>
                       <input
                         type="text"
                         name="nationality"
-                        placeholder="Nationality:"
+                        placeholder="Nationality: (DE, FR)"
                       ></input>
                       <input
                         type="number"
+                        defaultValue='1234567'
                         name="passport"
                         placeholder="Passport Number:"
                       ></input>
                       <input
                         type="date"
                         name="issueDate"
+                        defaultValue='2022-01-01'
                         placeholder="Issuance Date:"
                       ></input>
                       <input
                         type="date"
                         name="expiryDate"
+                        defaultValue='2026-01-01'
                         placeholder="Expiry Date:"
                       ></input>
                     </div>
