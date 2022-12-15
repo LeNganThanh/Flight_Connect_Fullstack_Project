@@ -1,15 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { getDeals } from "../../api/deals.api.js";
 import { getInfo } from "../../api/deals.info.api.js";
 import classes from "./Deals.module.css";
 import Button from "../../components/Button";
 import ScrollTop from "../../components/ScrollTop.js";
+import {FlightsContext} from '../../context/FlightsContext.js'
 
 const DealDisplay = props => {
   const [topDestinations, setTopDestinations] = useState(false);
   const [deals, setDeals] = useState(false);
   const [dealInfo, setDealInfo] = useState(false);
   const [dealCounter, setDealCounter] = useState(5);
+  const [state, dispatch] = useContext(FlightsContext)
 
   let cityName = props.geoInfo[0].cityName.toLowerCase().split("");
   cityName[0] = cityName[0].toUpperCase();
@@ -20,7 +22,7 @@ const DealDisplay = props => {
   const dateOfReturn = document.getElementById("returnDate");
 
   useEffect(() => {
-    if (!deals) {
+    if (!deals && !state.deals) {
       const getData = async () => {
         const deals = await getDeals({
           geoInfo: props.geoInfo,
@@ -28,14 +30,23 @@ const DealDisplay = props => {
           dateOfReturn: dateOfReturn.value,
         });
         if (deals.data[0]) {
+          console.log(deals.data)
           
           setTopDestinations(deals.data[0]);
           setDeals(deals.data[1]);
           setDealInfo(deals.data[2]);
-        }
-      };
+          dispatch({
+            type: 'setDeals',
+            deals: deals.data
+          })
+        }       };
       getData();
-    }
+    } else if (state.deals) {
+          setTopDestinations(state.deals[0]);
+          setDeals(state.deals[1]);
+          setDealInfo(state.deals[2]);
+        }
+
   }, []);
 
   const TopDestinations = () => {
