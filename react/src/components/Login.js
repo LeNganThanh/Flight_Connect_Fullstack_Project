@@ -1,7 +1,7 @@
 import Button from "./Button.js";
 import toast, { Toaster } from "react-hot-toast";
 import { FlightsContext } from "../context/FlightsContext";
-import { useContext } from "react";
+import React, { useContext } from "react";
 
 export default function Login(props) {
   const [state, dispatch] = useContext(FlightsContext);
@@ -43,6 +43,7 @@ export default function Login(props) {
         }
       });
   };
+
   return (
     <div className={props.className}>
       <form onSubmit={loginUser}>
@@ -56,6 +57,7 @@ export default function Login(props) {
 
         <Button>Log In</Button>
       </form>
+
       <Toaster position="top-center" />
     </div>
   );
