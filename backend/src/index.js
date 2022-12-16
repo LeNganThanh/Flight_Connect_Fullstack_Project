@@ -4,7 +4,7 @@ import morgan from "morgan";
 import cors from "cors";
 import multer from "multer";
 import mongoose from "mongoose";
-import https from 'https'
+/* import https from 'https' */
 
 //===> API routes
 import autocompRoute from "./autocompRoute.js";
@@ -103,20 +103,20 @@ app.use((err, req, res, next) => {
  //===> https 
 
 
-  const httpsOptions = {
+ /*  const httpsOptions = {
   cert: '/etc/secret/SSL_CERT.cer' || './secret-files/flightconnect.dev_ssl_certificate.cer' ,
   key: '/etc/secret/SSL_KEY.key' || './secret-files/_.flightconnect.dev_private_key.key'
- } 
+ }  */
 // ===> listening to the server 
 
-/* app.listen(PORT, () => {
+ app.listen(PORT, () => {
   console.log("Server is running on port:", PORT);
-}); */
+}); 
  
 
 
 
-const server = https.createServer(httpsOptions, app);
+/* const server = https.createServer(httpsOptions, app); */
 
 server.listen(PORT, () => {
   console.log("server starting on port : " + PORT)
