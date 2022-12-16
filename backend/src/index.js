@@ -118,9 +118,9 @@ app.use((err, req, res, next) => {
 
 /* const server = https.createServer(httpsOptions, app); */
 
-server.listen(PORT, () => {
+/* server.listen(PORT, () => {
   console.log("server starting on port : " + PORT)
-});
+}); */
 
  //===> https server listen
 /* app.listen = function(){
