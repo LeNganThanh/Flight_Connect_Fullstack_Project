@@ -4,6 +4,7 @@ import morgan from "morgan";
 import cors from "cors";
 import multer from "multer";
 import mongoose from "mongoose";
+/* import https from 'https' */
 
 //===> API routes
 import autocompRoute from "./autocompRoute.js";
@@ -51,7 +52,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 //===> Mongoose connection
-//mongoose.set('strictQuery', true)
+/* mongoose.set('strictQuery', true) */
 mongoose.connect(MONGOOSE_URL);
 /* mongoose.connect(
   process.env.URL,
@@ -99,9 +100,26 @@ app.get("/", (req, res) => {
 app.use((err, req, res, next) => {
   res.status(err.status || 500).json({ success: false, message: err.message });
 });
+//===> https
 
+/*  const httpsOptions = {
+  cert: '/etc/secret/SSL_CERT.cer' || './secret-files/flightconnect.dev_ssl_certificate.cer' ,
+  key: '/etc/secret/SSL_KEY.key' || './secret-files/_.flightconnect.dev_private_key.key'
+ }  */
 // ===> listening to the server
 
 app.listen(PORT, () => {
   console.log("Server is running on port:", PORT);
 });
+
+/* const server = https.createServer(httpsOptions, app); */
+
+/* server.listen(PORT, () => {
+  console.log("server starting on port : " + PORT)
+}); */
+
+//===> https server listen
+/* app.listen = function(){
+  const server = https.createServer(httpsOptions, this);
+  return server.listen.apply(server);
+}  */
