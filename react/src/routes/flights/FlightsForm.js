@@ -134,6 +134,11 @@ const FlightsForm = props => {
     });
 
     dispatch({
+      type: 'setCities',
+      cities: [inputFrom.value, inputTo.value]
+    })
+
+    dispatch({
       type: 'setBookmarks',
       bookmark: [],
     });
